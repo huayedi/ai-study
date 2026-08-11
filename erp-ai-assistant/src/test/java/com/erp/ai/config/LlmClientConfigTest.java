@@ -26,15 +26,17 @@ class LlmClientConfigTest {
 
     @SpringBootTest
     @TestPropertySource(properties = {
-            "ai.provider=openai",
-            "ai.api-key=test-key"
+            "ai.provider=deepseek",
+            "ai.api-key=test-key",
+            "ai.base-url=https://api.deepseek.com",
+            "ai.model=deepseek-chat"
     })
-    static class OpenAiAliasProvider {
+    static class DeepSeekAliasProvider {
         @Autowired
         LlmClient llmClient;
 
         @Test
-        void acceptsOpenAiAlias() {
+        void acceptsDeepSeekAlias() {
             assertInstanceOf(OpenAiCompatibleLlmClient.class, llmClient);
         }
     }

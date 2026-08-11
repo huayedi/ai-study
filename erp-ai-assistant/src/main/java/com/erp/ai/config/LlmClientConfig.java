@@ -22,7 +22,14 @@ public class LlmClientConfig {
             "openai",
             "openai-compatible",
             "openai_compatible",
-            "compatible"
+            "compatible",
+            // 这些都是“厂商名”，实际协议仍是 OpenAI Compatible
+            "deepseek",
+            "qwen",
+            "dashscope",
+            "moonshot",
+            "zhipu",
+            "glm"
     );
 
     @Bean
@@ -44,8 +51,9 @@ public class LlmClientConfig {
         }
 
         throw new IllegalStateException(
-                "不支持的 ai.provider='" + raw + "'。请使用 mock 或 openai-compatible"
-                        + "（也可用别名 openai）。请检查 IDEA 环境变量 AI_PROVIDER / application.yml。"
+                "不支持的 ai.provider='" + raw + "'。请使用 mock 或 openai-compatible。"
+                        + " DeepSeek/通义等厂商请把 provider 设为 openai-compatible（或别名 deepseek），"
+                        + "真正区分厂商的是 base-url 与 model，不是另写一套 provider。"
         );
     }
 
