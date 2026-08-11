@@ -10,8 +10,14 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+/**
+ * 验证 {@link LlmClientConfig} 能按 provider 选出正确实现。
+ * <p>
+ * 使用静态内部类 + 独立 {@code @SpringBootTest}，以便为每个场景注入不同配置。
+ */
 class LlmClientConfigTest {
 
+    /** provider=mock → MockLlmClient */
     @SpringBootTest
     @TestPropertySource(properties = "ai.provider=mock")
     static class MockProvider {
@@ -24,6 +30,7 @@ class LlmClientConfigTest {
         }
     }
 
+    /** provider=deepseek（厂商别名）→ OpenAiCompatibleLlmClient */
     @SpringBootTest
     @TestPropertySource(properties = {
             "ai.provider=deepseek",

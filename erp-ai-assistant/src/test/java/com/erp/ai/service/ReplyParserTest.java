@@ -7,10 +7,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * {@link ReplyParser} 单元测试：覆盖严格 JSON 与 Markdown 代码块两种常见输出。
+ */
 class ReplyParserTest {
 
     private final ReplyParser parser = new ReplyParser(new ObjectMapper());
 
+    /** 模型直接返回纯 JSON 对象 */
     @Test
     void parsesStrictJson() {
         String raw = """
@@ -23,6 +27,7 @@ class ReplyParserTest {
         assertEquals(2, reply.getRequiredFields().size());
     }
 
+    /** 模型把 JSON 包在 ```json 代码块里时也应能解析 */
     @Test
     void parsesFencedJson() {
         String raw = """

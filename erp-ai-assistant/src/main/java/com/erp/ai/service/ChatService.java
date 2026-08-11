@@ -15,6 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 聊天业务编排核心。
+ * <p>
+ * 一次成功调用的步骤：
+ * <ol>
+ *   <li>生成 traceId / 解析 sessionId</li>
+ *   <li>组装 messages：system + 历史 + 当前 user</li>
+ *   <li>调用 {@link LlmClient}</li>
+ *   <li>{@link ReplyParser} 校验并解析 JSON</li>
+ *   <li>写入会话历史，记录可观测日志，返回 {@link ChatResponse}</li>
+ * </ol>
+ * 若解析失败或调用失败，会在有限次数内重试，并追加“请按 Schema 重输出”的纠错提示。
+ */
 @Service
 public class ChatService {
 
@@ -39,12 +52,20 @@ public class ChatService {
         this.aiCallLog = aiCallLog;
     }
 
+    /**
+     * 处理一轮用户对话。
+     *
+     * @param request 含可选 sessionId 与必填 message
+     * @return 结构化回复 + 观测字段
+     */
     public ChatResponse chat(ChatRequest request) {
+        // traceId：一次请求一条，贯穿日志
         String traceId = UUID.randomUUID().toString().replace("-", "");
         String sessionId = sessionStore.resolveSessionId(request.getSessionId());
         long started = System.currentTimeMillis();
 
         List<ChatMessage> messages = buildMessages(sessionId, request.getMessage());
+        // maxRetries=2 → 最多尝试 3 次
         int maxAttempts = Math.max(1, properties.getMaxRetries() + 1);
         int attempts = 0;
         RuntimeException lastError = null;
@@ -52,9 +73,12 @@ public class ChatService {
         while (attempts < maxAttempts) {
             attempts++;
             try {
+                // 1) 调模型
                 LlmResult result = llmClient.chat(messages);
+                // 2) 解析/校验 JSON（失败会抛异常进入 catch 重试）
                 AssistantReply reply = replyParser.parse(result.getContent());
 
+                // 3) 仅在成功解析后写入历史，避免把脏输出污染后续轮次
                 sessionStore.append(
                         sessionId,
                         new ChatMessage("user", request.getMessage()),
@@ -93,7 +117,7 @@ public class ChatService {
                 return response;
             } catch (RuntimeException ex) {
                 lastError = ex;
-                // 仅对“解析失败”做纠错重试；网络类错误也允许有限重试
+                // 把失败原因喂回模型，要求按 Schema 重试（对 401 这类鉴权错误效果有限，但逻辑统一）
                 messages = withRepairHint(messages, ex.getMessage());
             }
         }
@@ -104,6 +128,10 @@ public class ChatService {
         throw new IllegalStateException("AI 调用失败(traceId=" + traceId + "): " + reason, lastError);
     }
 
+    /**
+     * 组装发给模型的完整 messages。
+     * 顺序固定：system → 历史对话 → 当前 user。
+     */
     private List<ChatMessage> buildMessages(String sessionId, String userMessage) {
         List<ChatMessage> messages = new ArrayList<>();
         messages.add(new ChatMessage("system", systemPromptLoader.getSystemPrompt()));
@@ -112,6 +140,9 @@ public class ChatService {
         return messages;
     }
 
+    /**
+     * 追加一条“纠错提示”用户消息，引导模型只输出合法 JSON。
+     */
     private List<ChatMessage> withRepairHint(List<ChatMessage> messages, String error) {
         List<ChatMessage> repaired = new ArrayList<>(messages);
         repaired.add(new ChatMessage(
@@ -121,6 +152,9 @@ public class ChatService {
         return repaired;
     }
 
+    /**
+     * 按配置单价粗算成本（美元）。仅供学习观察，非官方账单。
+     */
     private double estimateCost(int promptTokens, int completionTokens) {
         double input = (promptTokens / 1000.0) * properties.getPriceInputPer1k();
         double output = (completionTokens / 1000.0) * properties.getPriceOutputPer1k();
