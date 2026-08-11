@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: erp-ai-assistant
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# AI 配置：默认 mock，无需 API Key 即可本地跑通
+# 切换真实模型：AI_PROVIDER=openai-compatible 并设置 AI_API_KEY
+ai:
+  provider: ${AI_PROVIDER:mock} # mock | openai-compatible
+  base-url: ${AI_BASE_URL:https://api.openai.com/v1}
+  api-key: ${AI_API_KEY:}
+  model: ${AI_MODEL:gpt-4o-mini}
+  temperature: 0.2
+  timeout-ms: 30000
+  max-retries: 2
+  # 粗略成本估算（美元 / 1K tokens），可按实际模型调整
+  price-input-per-1k: 0.00015
+  price-output-per-1k: 0.0006
+  session:
+    max-messages: 20
+
+logging:
+  level:
+    com.erp.ai: INFO
