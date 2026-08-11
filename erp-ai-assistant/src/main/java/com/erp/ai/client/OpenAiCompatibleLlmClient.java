@@ -6,20 +6,19 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Component
-@ConditionalOnProperty(name = "ai.provider", havingValue = "openai-compatible")
+/**
+ * 由 {@link com.erp.ai.config.LlmClientConfig} 按 ai.provider 创建，不要再加 @Component。
+ */
 public class OpenAiCompatibleLlmClient implements LlmClient {
 
     private final AiProperties properties;

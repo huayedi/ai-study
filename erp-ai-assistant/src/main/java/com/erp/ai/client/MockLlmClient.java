@@ -4,14 +4,14 @@ import com.erp.ai.model.ChatMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Locale;
 
-@Component
-@ConditionalOnProperty(name = "ai.provider", havingValue = "mock", matchIfMissing = true)
+/**
+ * 由 {@link com.erp.ai.config.LlmClientConfig} 按 ai.provider 创建，不要再加 @Component，
+ * 否则会和配置工厂重复注册。
+ */
 public class MockLlmClient implements LlmClient {
 
     private final ObjectMapper objectMapper;
