@@ -14,16 +14,32 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Locale;
 import java.util.Set;
 
+/**
+ * LLM 客户端工厂。
+ * <p>
+ * 设计要点：
+ * <ol>
+ *   <li>整个应用只注册一个 {@link LlmClient} Bean，供 {@code ChatService} 注入</li>
+ *   <li>{@code ai.provider} 决定用 mock 还是真实 OpenAI 兼容客户端</li>
+ *   <li>厂商名（deepseek/qwen…）只是别名，协议仍是 openai-compatible</li>
+ * </ol>
+ * 学习提示：如果你把 provider 写成厂商展示名且不在别名列表里，启动会失败并给出明确错误。
+ */
 @Configuration
 public class LlmClientConfig {
 
     private static final Logger log = LoggerFactory.getLogger(LlmClientConfig.class);
+
+    /**
+     * 一律映射到 {@link OpenAiCompatibleLlmClient}。
+     * 真正区分厂商的是 base-url 与 model，不是再写一套 Client。
+     */
     private static final Set<String> OPENAI_ALIASES = Set.of(
             "openai",
             "openai-compatible",
             "openai_compatible",
             "compatible",
-            // 这些都是“厂商名”，实际协议仍是 OpenAI Compatible
+            // 以下是常见厂商名别名（大小写不敏感，见 normalize）
             "deepseek",
             "qwen",
             "dashscope",
@@ -32,6 +48,13 @@ public class LlmClientConfig {
             "glm"
     );
 
+    /**
+     * 根据配置创建唯一的 {@link LlmClient}。
+     *
+     * @param properties   ai.* 配置
+     * @param objectMapper JSON 工具（mock 组装返回值时使用）
+     * @param restTemplate 真实 HTTP 调用客户端
+     */
     @Bean
     public LlmClient llmClient(AiProperties properties,
                                ObjectMapper objectMapper,
@@ -39,11 +62,13 @@ public class LlmClientConfig {
         String raw = properties.getProvider();
         String provider = normalize(raw);
 
+        // 未配置或显式 mock：本地可跑通，无需 Key
         if (!StringUtils.hasText(provider) || "mock".equals(provider)) {
             log.info("AI provider=mock (raw='{}')", raw);
             return new MockLlmClient(objectMapper);
         }
 
+        // DeepSeek / OpenAI / 通义等：同一套兼容协议
         if (OPENAI_ALIASES.contains(provider)) {
             log.info("AI provider=openai-compatible (raw='{}', baseUrl={}, model={})",
                     raw, properties.getBaseUrl(), properties.getModel());
@@ -57,6 +82,10 @@ public class LlmClientConfig {
         );
     }
 
+    /**
+     * 规范化 provider 字符串：去空格、小写、下划线转横杠。
+     * 这样 {@code DeepSeek}、{@code deep_seek}、{@code deepseek} 都能识别。
+     */
     private static String normalize(String raw) {
         if (raw == null) {
             return "";

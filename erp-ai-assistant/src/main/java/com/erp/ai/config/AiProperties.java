@@ -2,18 +2,55 @@ package com.erp.ai.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * AI 相关配置，对应 {@code application.yml} 中的 {@code ai} 节点。
+ * <p>
+ * 命名规则：YAML 用 kebab-case（如 {@code base-url}），Java 用 camelCase（如 {@code baseUrl}），
+ * Spring Boot 会自动做宽松绑定；也可用环境变量 {@code AI_BASE_URL} 覆盖。
+ * <p>
+ * 重要概念：
+ * <ul>
+ *   <li>{@code provider} = 接入协议（mock / openai-compatible），不是厂商名</li>
+ *   <li>DeepSeek、通义等差异主要体现在 {@code baseUrl} + {@code model}</li>
+ * </ul>
+ */
 @ConfigurationProperties(prefix = "ai")
 public class AiProperties {
 
+    /** 接入实现：mock | openai-compatible | deepseek（别名）等 */
     private String provider = "mock";
+
+    /** 模型服务根地址，最终请求一般为 {baseUrl}/chat/completions */
     private String baseUrl = "https://api.openai.com/v1";
+
+    /** API Key；真实调用时通过 Authorization: Bearer 发送，切勿提交到 Git */
     private String apiKey = "";
+
+    /** 模型名称，如 deepseek-chat、gpt-4o-mini */
     private String model = "gpt-4o-mini";
+
+    /**
+     * 采样温度。越低越稳定、越适合 ERP 结构化输出；
+     * 越高越发散。本项目默认 0.2。
+     */
     private double temperature = 0.2;
+
+    /** HTTP 连接/读取超时（毫秒） */
     private long timeoutMs = 30000;
+
+    /**
+     * 业务层额外重试次数（不含首次）。
+     * 例如 2 表示最多尝试 1+2=3 次（常用于 JSON 解析失败后纠错）。
+     */
     private int maxRetries = 2;
+
+    /** 输入 Token 单价估算（美元 / 1K tokens），仅用于学习期成本观察 */
     private double priceInputPer1k = 0.00015;
+
+    /** 输出 Token 单价估算（美元 / 1K tokens） */
     private double priceOutputPer1k = 0.0006;
+
+    /** 会话相关子配置 */
     private Session session = new Session();
 
     public String getProvider() {
@@ -96,7 +133,16 @@ public class AiProperties {
         this.session = session;
     }
 
+    /**
+     * 多轮会话配置。
+     * 对应 YAML：{@code ai.session.max-messages}
+     */
     public static class Session {
+
+        /**
+         * 单个 session 最多保留的历史消息条数（含 user/assistant）。
+         * 过大浪费 Token，过小会丢失上下文。
+         */
         private int maxMessages = 20;
 
         public int getMaxMessages() {

@@ -2,17 +2,36 @@ package com.erp.ai.model.dto;
 
 import com.erp.ai.model.AssistantReply;
 
-import java.util.List;
-
+/**
+ * 聊天接口出参 DTO。
+ * <p>
+ * 除业务回复 {@link #reply} 外，额外返回可观测字段（trace、用量、耗时），
+ * 方便学习阶段排查问题和观察成本。
+ */
 public class ChatResponse {
 
+    /** 本次请求追踪 ID，日志里可按它检索 */
     private String traceId;
+
+    /** 会话 ID，多轮对话请原样回传 */
     private String sessionId;
+
+    /** 实际使用的客户端标识：mock / openai-compatible */
     private String provider;
+
+    /** 实际模型名 */
     private String model;
+
+    /** 结构化业务回复 */
     private AssistantReply reply;
+
+    /** Token 与成本估算 */
     private Usage usage;
+
+    /** 端到端耗时（毫秒），含可能的重试 */
     private long latencyMs;
+
+    /** 实际尝试次数（首次 + 重试） */
     private int attempts;
 
     public String getTraceId() {
@@ -79,10 +98,22 @@ public class ChatResponse {
         this.attempts = attempts;
     }
 
+    /**
+     * Token 使用量与粗略成本。
+     * 真实账单以云厂商控制台为准，这里只是学习用估算。
+     */
     public static class Usage {
+
+        /** 输入 Token */
         private int promptTokens;
+
+        /** 输出 Token */
         private int completionTokens;
+
+        /** 合计 Token */
         private int totalTokens;
+
+        /** 估算费用（美元） */
         private double estimatedCostUsd;
 
         public int getPromptTokens() {

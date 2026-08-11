@@ -12,6 +12,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Chat API 集成测试（默认 mock provider，无需外网与真实 Key）。
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class ChatApiIntegrationTest {
@@ -19,6 +22,9 @@ class ChatApiIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * 验证采购类问题能返回结构化字段：answer / needHuman / suggestedDocType / requiredFields。
+     */
     @Test
     void chatReturnsStructuredReplyInMockMode() throws Exception {
         mockMvc.perform(post("/api/ai/chat")
