@@ -12,14 +12,12 @@ management:
         include: health,info
 
 # AI 配置：默认 mock，无需 API Key 即可本地跑通
-# 切换真实模型（IDEA Run Configuration → Environment variables）：
-#   AI_PROVIDER=openai-compatible;AI_API_KEY=sk-xxx;AI_BASE_URL=https://api.openai.com/v1;AI_MODEL=gpt-4o-mini
-# 也支持别名：AI_PROVIDER=openai
+# 切换真实模型：AI_PROVIDER=openai-compatible 并设置 AI_API_KEY
 ai:
-  provider: ${AI_PROVIDER:mock} # mock | openai-compatible | openai
-  base-url: ${AI_BASE_URL:https://api.openai.com/v1}
-  api-key: ${AI_API_KEY:}
-  model: ${AI_MODEL:gpt-4o-mini}
+  provider: ${AI_PROVIDER:openai-compatible} # mock | openai-compatible
+  base-url: ${AI_BASE_URL:https://api.deepseek.com}
+  api-key: ${AI_API_KEY}
+  model: ${AI_MODEL:deepseek-v4-pro}
   temperature: 0.2
   timeout-ms: 30000
   max-retries: 2
