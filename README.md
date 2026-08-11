@@ -9,6 +9,23 @@ Java 5 年 ERP 工程师转 AI 应用（自学提升）仓库。
 | [docs/LEARNING_PLAN.md](docs/LEARNING_PLAN.md) | 20 周详细学习计划（每天 2–3 小时） |
 | [erp-ai-assistant/](erp-ai-assistant/) | 可运行 Spring Boot 项目（第 1–2 周起点） |
 
+## IDEA 导入（Maven 没弹出来时）
+
+**原因：** 可运行模块在子目录 `erp-ai-assistant/`。若只打开了空仓库、或未加载根 `pom.xml`，IDEA 不会自动弹出 Maven。
+
+**推荐做法（任选其一）：**
+
+1. **打开仓库根目录 `ai-study`**（根目录已有聚合 `pom.xml`）  
+   - 若仍无 Maven 窗口：右键根目录 `pom.xml` → **Add as Maven Project**  
+   - 或：`View` → `Tool Windows` → `Maven`
+2. **直接打开子模块**：`File` → `Open` → 选择 `erp-ai-assistant` 目录（或该目录下的 `pom.xml`）
+3. 确认已启用 Maven 插件：`Settings` → `Plugins` → 搜索 `Maven` → 勾选启用并重启
+4. JDK：`Settings` → `Build, Execution, Deployment` → `Build Tools` → `Maven` → `Runner`  
+   - JRE 选 **JDK 21**（或 Project SDK 21）
+5. 仍不识别时：右键 `pom.xml` → `Maven` → `Reload project`
+
+导入成功后，右侧应出现 **Maven** 工具窗口，能看到 `ai-study` / `erp-ai-assistant`。
+
 ## 立刻开始
 
 ```bash

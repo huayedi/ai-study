@@ -28,6 +28,12 @@ erp-ai-assistant/
 
 后续阶段预留扩展：`rag/`、`document-assist/`、`tool/`、`eval/`。
 
+## IDEA 导入
+
+- 可打开上级仓库根目录（根 `pom.xml` 会聚合本模块），或直接打开本目录
+- 若没有 Maven 窗口：右键本目录 `pom.xml` → **Add as Maven Project**
+- 详细排查见仓库根 [`README.md`](../README.md) 的「IDEA 导入」一节
+
 ## 快速开始
 
 ### 1. 环境
