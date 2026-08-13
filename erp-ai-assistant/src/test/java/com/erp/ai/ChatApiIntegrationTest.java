@@ -15,7 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Chat API 集成测试（默认 mock provider，无需外网与真实 Key）。
  */
-@SpringBootTest
+@SpringBootTest(properties = {
+        "ai.provider=mock",
+        "ai.api-key="
+})
 @AutoConfigureMockMvc
 class ChatApiIntegrationTest {
 
