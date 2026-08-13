@@ -16,18 +16,18 @@
 
 | 天 | 主题 | 状态 | 日期 |
 |---|---|---|---|
-| Day1 | 概念 + 接通真实 API | [x] 完成 | |
-| Day2 | 消息组装链路 + 会话/解析/重试 | [x] 完成（含 4 个实验） | |
-| Day3 | Temperature / Token / 成本 / 坏 case | [x] 完成（坏 case 暂缓，见日志） | |
-| Day4 | 系统提示词工程（ERP 术语） | [x] 完成 | |
-| Day5 | 多轮与裁剪、问题清单补齐 | [x] 完成 | |
-| Day6+ | 按 LEARNING_PLAN 第 3 周起（Prompt 深化） | [ ] | |
+| Day1 | 概念 + 接通真实 API | ✅ 完成 | |
+| Day2 | 消息组装链路 + 会话/解析/重试 | ✅ 完成（含 4 个实验） | |
+| Day3 | Temperature / Token / 成本 / 坏 case | ✅ 完成（坏 case 暂缓，见日志） | |
+| Day4 | 系统提示词工程（ERP 术语） | ✅ 完成 | |
+| Day5 | 多轮与裁剪、问题清单补齐 | ✅ 完成 | |
+| Day6+ | 按 LEARNING_PLAN 第 3 周起（Prompt 深化） | ⬜ 未开始 | |
 
 **Day2 实验：**
-- [x] 多轮：第一次不带 `sessionId`，第二次带上追问
-- [x] 改一次 `erp-system-prompt.txt` 并对比同一问题
-- [x] 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
-- [x] `samples/week1-questions.md` 累计 ≥ 10 条
+- ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
+- ✅ 改一次 `erp-system-prompt.txt` 并对比同一问题
+- ✅ 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
+- ✅ `samples/week1-questions.md` 累计 ≥ 10 条
 
 ---
 
