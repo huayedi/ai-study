@@ -21,7 +21,8 @@
 | Day3 | Temperature / Token / 成本 / 坏 case | ✅ 完成（坏 case 暂缓，见日志） | |
 | Day4 | 系统提示词工程（ERP 术语） | ✅ 完成 | |
 | Day5 | 多轮与裁剪、问题清单补齐 | ✅ 完成 | |
-| Day6+ | 按 LEARNING_PLAN 第 3 周起（Prompt 深化） | ⬜ 未开始 | |
+| Day6 | Prompt 深化：few-shot + 规则解释 | ⬜ 进行中 | |
+| Day7+ | 第 3 周续：扫题打磨 / 字段校验解释 | ⬜ 未开始 | |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -378,6 +379,12 @@ attempts         本轮尝试次数（含重试）
   - 问题清单：`samples/week1-questions.md` 已补齐 20 条（本系统术语）  
   - 自检：完成  
 - 收口：第 1～2 周最小 LLM 闭环学习完成，下一段进入第 3 周 Prompt 深化
+
+### Day6
+- 今日目标：few-shot + 规则解释风格  
+- 实验表：`docs/day6-experiments.md`  
+- 相关文件：`prompts/erp-few-shot.txt`、`SystemPromptLoader`（会追加 few-shot）  
+- 实际完成：（学完后填写）
 
 ---
 

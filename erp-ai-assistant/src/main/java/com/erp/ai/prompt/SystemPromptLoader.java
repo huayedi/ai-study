@@ -11,33 +11,57 @@ import java.nio.charset.StandardCharsets;
 /**
  * 系统提示词加载器。
  * <p>
- * 启动时从 classpath {@code prompts/erp-system-prompt.txt} 读取一次并缓存。
- * 学习阶段改提示词后需要重启应用才会生效（后续可做成可热更新的 Prompt 版本管理）。
+ * 启动时组装：
+ * <ol>
+ *   <li>{@code prompts/erp-system-prompt.txt}（角色/规则/术语/输出格式）</li>
+ *   <li>{@code prompts/erp-few-shot.txt}（少样本示范，可选文件；存在则追加）</li>
+ * </ol>
+ * 学习阶段改提示词后需要重启应用才会生效。
  */
 @Component
 public class SystemPromptLoader {
 
-    /** 缓存的系统提示词全文 */
+    private static final String SYSTEM_PROMPT_PATH = "prompts/erp-system-prompt.txt";
+    private static final String FEW_SHOT_PATH = "prompts/erp-few-shot.txt";
+
     private final String systemPrompt;
 
     public SystemPromptLoader() {
         this.systemPrompt = load();
     }
 
-    /** @return 作为 role=system 发送给模型的提示词 */
+    /** @return 作为 role=system 发送给模型的完整提示词 */
     public String getSystemPrompt() {
         return systemPrompt;
     }
 
-    /**
-     * 从资源文件加载提示词；文件缺失时直接让应用启动失败，避免带着空约束上线。
-     */
     private static String load() {
-        ClassPathResource resource = new ClassPathResource("prompts/erp-system-prompt.txt");
+        String base = readRequired(SYSTEM_PROMPT_PATH);
+        String fewShot = readOptional(FEW_SHOT_PATH);
+        if (fewShot == null || fewShot.isBlank()) {
+            return base;
+        }
+        return base + "\n\n" + fewShot.trim();
+    }
+
+    private static String readRequired(String classpathLocation) {
+        ClassPathResource resource = new ClassPathResource(classpathLocation);
         try (InputStream inputStream = resource.getInputStream()) {
             return StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8).trim();
         } catch (IOException ex) {
-            throw new IllegalStateException("无法加载系统提示词 prompts/erp-system-prompt.txt", ex);
+            throw new IllegalStateException("无法加载提示词 " + classpathLocation, ex);
+        }
+    }
+
+    private static String readOptional(String classpathLocation) {
+        ClassPathResource resource = new ClassPathResource(classpathLocation);
+        if (!resource.exists()) {
+            return null;
+        }
+        try (InputStream inputStream = resource.getInputStream()) {
+            return StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8).trim();
+        } catch (IOException ex) {
+            throw new IllegalStateException("无法加载提示词 " + classpathLocation, ex);
         }
     }
 }
