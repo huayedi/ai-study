@@ -19,9 +19,9 @@
 | Day1 | 概念 + 接通真实 API | [x] 完成 | |
 | Day2 | 消息组装链路 + 会话/解析/重试 | [x] 完成（含 4 个实验） | |
 | Day3 | Temperature / Token / 成本 / 坏 case | [x] 完成（坏 case 暂缓，见日志） | |
-| Day4 | 系统提示词工程（ERP 术语） | [x] 术语已入库；对比验证可并入 Day5 前 15 分钟 | |
-| Day5 | 多轮与裁剪、问题清单补齐 | [ ] 进行中 | |
-| Day6+ | 按 LEARNING_PLAN 第 3 周起 | [ ] | |
+| Day4 | 系统提示词工程（ERP 术语） | [x] 完成 | |
+| Day5 | 多轮与裁剪、问题清单补齐 | [x] 完成 | |
+| Day6+ | 按 LEARNING_PLAN 第 3 周起（Prompt 深化） | [ ] | |
 
 **Day2 实验：**
 - [x] 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -372,7 +372,12 @@ attempts         本轮尝试次数（含重试）
 ### Day5
 - 今日目标：多轮连贯、历史裁剪、问题清单补到 20、第 1 周收口  
 - 实验表：`docs/day5-experiments.md`  
-- 实际完成：（学完后填写）
+- 实际完成：
+  - 多轮：能跟上文、术语正确、`totalTokens` 持续升高  
+  - 裁剪：`max-messages=4` 会遗忘更早对答；理解队头删除、控 token  
+  - 问题清单：`samples/week1-questions.md` 已补齐 20 条（本系统术语）  
+  - 自检：完成  
+- 收口：第 1～2 周最小 LLM 闭环学习完成，下一段进入第 3 周 Prompt 深化
 
 ---
 
