@@ -18,7 +18,7 @@
 |---|---|---|---|
 | Day1 | 概念 + 接通真实 API | [x] 完成 | |
 | Day2 | 消息组装链路 + 会话/解析/重试 | [x] 完成（含 4 个实验） | |
-| Day3 | Temperature / Token / 成本 / 坏 case | [ ] 进行中 | |
+| Day3 | Temperature / Token / 成本 / 坏 case | [x] 完成（坏 case 暂缓，见日志） | |
 | Day4 | 系统提示词工程（ERP 术语） | [ ] | |
 | Day5 | 多轮与裁剪、问题清单补齐 | [ ] | |
 | Day6+ | 按 LEARNING_PLAN 第 3 周起 | [ ] | |
@@ -346,8 +346,17 @@ attempts         本轮尝试次数（含重试）
 
 ### Day3
 - 今日目标：Temperature / Token / 成本 / 超时与坏 case  
-- 实际完成：（学完后填写）  
-- 实验记录见：`docs/day3-experiments.md`（若已创建）
+- 实际完成：见下；探测题未打出明显乱编/越权，坏 case 本暂缓  
+- 固定观察题：`创建采购订单应该如何去设计`
+- Temperature：
+  - `0.0`：更保守，偏常规步骤 + 人工核查
+  - `0.3`：更贴 ERP，会连带收货/发票等后续方案（当前更推荐）
+  - `1.0`：更复杂，易掺数据权限/字段权限等发散内容
+  - 小结：本题差异存在但不大；ERP 助手默认可继续用低温度（0.2～0.3）
+- Token/成本：短问少、长答多、带 `sessionId` 因重发历史会持续升高 —— 理解正确
+- 超时/重试：`timeout-ms=30000` 管 HTTP 连接+读取；总次数=`max-retries+1`；**401 重试无意义** —— 正确
+- 坏 case：DeepSeek 成熟题上表现稳；探测题库保留在 `day3-experiments.md`，第 4–5 周改提示词/上 RAG 前再回归测一轮
+- 对照代码：`application.yml`（temperature/timeout/retries）、`AppConfig`/`OpenAiCompatibleLlmClient`、`ChatService`、`SessionStore`
 
 ---
 
