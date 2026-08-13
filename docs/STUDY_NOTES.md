@@ -16,18 +16,18 @@
 
 | 天 | 主题 | 状态 | 日期 |
 |---|---|---|---|
-| Day1 | 概念 + 接通真实 API | [x] 基本完成 | |
-| Day2 | 消息组装链路 + 会话/解析/重试 | [x] 链路已读通；实验项见下方待补 | |
-| Day3 | Temperature / Token / 成本 / 坏 case | [ ] | |
-| Day4 | 系统提示词工程（ERP 术语） | [ ] | |
+| Day1 | 概念 + 接通真实 API | [x] 完成 | |
+| Day2 | 消息组装链路 + 会话/解析/重试 | [x] 完成（含 4 个实验） | |
+| Day3 | Temperature / Token / 成本 / 坏 case | [x] 完成（坏 case 暂缓，见日志） | |
+| Day4 | 系统提示词工程（ERP 术语） | [ ] 术语表+提示词已就绪，待你做前后对比 | |
 | Day5 | 多轮与裁剪、问题清单补齐 | [ ] | |
 | Day6+ | 按 LEARNING_PLAN 第 3 周起 | [ ] | |
 
-**Day2 待补实验（建议补完再进 Day3）：**
-- [ ] 多轮：第一次不带 `sessionId`，第二次带上追问
-- [ ] 改一次 `erp-system-prompt.txt` 并对比同一问题
-- [ ] 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
-- [ ] `samples/week1-questions.md` 累计 ≥ 10 条
+**Day2 实验：**
+- [x] 多轮：第一次不带 `sessionId`，第二次带上追问
+- [x] 改一次 `erp-system-prompt.txt` 并对比同一问题
+- [x] 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
+- [x] `samples/week1-questions.md` 累计 ≥ 10 条
 
 ---
 
@@ -340,13 +340,34 @@ attempts         本轮尝试次数（含重试）
 - 备注：baseUrl=`https://api.deepseek.com`，provider=`openai-compatible`
 
 ### Day2
-- 今日目标：读通消息组装链路  
-- 实际完成：Controller→Service→Client→Parser→Session 已梳通；发现重试费 token 问题  
-- 待补：多轮 session 实验、改提示词对比、高风险 needHuman、问题清单  
+- 今日目标：读通消息组装链路 + 4 实验  
+- 实际完成：链路梳通；多轮 session、改提示词、高风险 needHuman、问题清单均已完成；发现重试费 token 问题  
 - 对照代码：`ChatService`、`SessionStore`、`ReplyParser`、`OpenAiCompatibleLlmClient`
 
 ### Day3
-- （待写）
+- 今日目标：Temperature / Token / 成本 / 超时与坏 case  
+- 实际完成：见下；探测题未打出明显乱编/越权，坏 case 本暂缓  
+- 固定观察题：`创建采购订单应该如何去设计`
+- Temperature：
+  - `0.0`：更保守，偏常规步骤 + 人工核查
+  - `0.3`：更贴 ERP，会连带收货/发票等后续方案（当前更推荐）
+  - `1.0`：更复杂，易掺数据权限/字段权限等发散内容
+  - 小结：本题差异存在但不大；ERP 助手默认可继续用低温度（0.2～0.3）
+- Token/成本：短问少、长答多、带 `sessionId` 因重发历史会持续升高 —— 理解正确
+- 超时/重试：`timeout-ms=30000` 管 HTTP 连接+读取；总次数=`max-retries+1`；**401 重试无意义** —— 正确
+- 坏 case：DeepSeek 成熟题上表现稳；探测题库保留在 `day3-experiments.md`，第 4–5 周改提示词/上 RAG 前再回归测一轮
+- 对照代码：`application.yml`（temperature/timeout/retries）、`AppConfig`/`OpenAiCompatibleLlmClient`、`ChatService`、`SessionStore`
+
+### Day4
+- 今日目标：术语表 + 系统提示词工程  
+- 已为你生成：
+  - `erp-ai-assistant/src/main/resources/prompts/erp-glossary.md`（完整最小术语表，可填「本系统别名」）
+  - `erp-ai-assistant/src/main/resources/prompts/erp-system-prompt.txt`（已嵌入术语摘要 + 回答结构）
+- 你需要做：重启应用，用下面 3 题做改后效果验证（并可选与印象中的改前对比）
+  1. 创建采购订单应该如何去设计
+  2. 采购订单和采购入库单有什么区别
+  3. week1 清单里一道真实题
+- 实际完成：（你测完后补）
 
 ---
 
