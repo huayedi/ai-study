@@ -1,0 +1,357 @@
+# ERP AI 学习笔记（订正版 · 结合代码）
+
+> 用途：复习 + 打卡跟踪。以当前仓库代码为准。  
+> 总计划：[LEARNING_PLAN.md](./LEARNING_PLAN.md)  
+> 工程目录：`erp-ai-assistant/`
+
+**你的当前配置（可自行改）：**
+- Provider：`openai-compatible`
+- Base URL：`https://api.deepseek.com`
+- Model：按你本地实际填写（如 `deepseek-v4-pro` / `deepseek-chat`）
+- 配置入口：环境变量优先，其次 `application.yml`
+
+---
+
+## 进度总览
+
+| 天 | 主题 | 状态 | 日期 |
+|---|---|---|---|
+| Day1 | 概念 + 接通真实 API | [x] 基本完成 | |
+| Day2 | 消息组装链路 + 会话/解析/重试 | [x] 链路已读通；实验项见下方待补 | |
+| Day3 | Temperature / Token / 成本 / 坏 case | [ ] | |
+| Day4 | 系统提示词工程（ERP 术语） | [ ] | |
+| Day5 | 多轮与裁剪、问题清单补齐 | [ ] | |
+| Day6+ | 按 LEARNING_PLAN 第 3 周起 | [ ] | |
+
+**Day2 待补实验（建议补完再进 Day3）：**
+- [ ] 多轮：第一次不带 `sessionId`，第二次带上追问
+- [ ] 改一次 `erp-system-prompt.txt` 并对比同一问题
+- [ ] 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
+- [ ] `samples/week1-questions.md` 累计 ≥ 10 条
+
+---
+
+## Day1｜核心概念（订正）
+
+### 1. `system` / `user` / `assistant`
+
+| role | 作用 | 本项目谁写入 |
+|---|---|---|
+| `system` | 设定角色、硬性规则、输出格式 | 每次请求由 `ChatService#buildMessages` 从提示词文件加载后放入首位 |
+| `user` | 用户输入；重试时的纠错提示也用 user | 本轮来自请求；历史来自 `SessionStore` |
+| `assistant` | 模型上一轮回复 | 成功后写入 `SessionStore`，供下一轮作为历史 |
+
+要点：Chat Completions 模式下，**服务端不默认长期记住会话**；多轮靠客户端每次把历史再发回去。
+
+对应代码：
+
+```135:140:erp-ai-assistant/src/main/java/com/erp/ai/service/ChatService.java
+    private List<ChatMessage> buildMessages(String sessionId, String userMessage) {
+        List<ChatMessage> messages = new ArrayList<>();
+        messages.add(new ChatMessage("system", systemPromptLoader.getSystemPrompt()));
+        messages.addAll(sessionStore.getHistory(sessionId));
+        messages.add(new ChatMessage("user", userMessage));
+        return messages;
+    }
+```
+
+系统提示词文件：`erp-ai-assistant/src/main/resources/prompts/erp-system-prompt.txt`
+
+---
+
+### 2. Token、费用、上下文
+
+**Token**  
+模型计费/长度单位。粗算（仅直觉，以官方 tokenizer 为准）：
+- 中文：约 **1 个汉字 ≈ 1～2 个 token**
+- 英文：常见词多约 **1 词 ≈ 1 token**
+
+**费用**  
+大致 = 输入 token × 输入单价 + 输出 token × 输出单价  
+- 输入：system + 历史 + 本轮 user（含重试纠错提示）  
+- 输出：本次模型生成内容  
+
+**上下文（Context）**  
+当前要发给模型的全部 `messages`。会话越长，输入 token 越多，费用与延迟通常越高。  
+模型推理依赖你这次请求带上的上下文，**不是**在云端自动存着你们公司的聊天记录（除非另做记忆系统）。
+
+本项目成本仅为学习估算，见 `ChatService#estimateCost`，单价来自配置：
+
+```40:42:erp-ai-assistant/src/main/resources/application.yml
+  # 粗略成本估算（美元 / 1K tokens），可按实际模型调整
+  price-input-per-1k: 0.00015
+  price-output-per-1k: 0.0006
+```
+
+---
+
+### 3. 配置在哪？`provider` 是什么？
+
+配置项（`ai.*`）：
+
+```32:44:erp-ai-assistant/src/main/resources/application.yml
+ai:
+  provider: ${AI_PROVIDER:mock} # mock | openai-compatible | deepseek | openai
+  base-url: ${AI_BASE_URL:https://api.openai.com/v1}
+  api-key: ${AI_API_KEY:}
+  model: ${AI_MODEL:gpt-4o-mini}
+  temperature: 0.2
+  timeout-ms: 30000
+  max-retries: 2
+  # ...
+  session:
+    max-messages: 20
+```
+
+| 项 | 含义 |
+|---|---|
+| `provider` | **接入协议/实现选择**，不是厂商品牌名。真实调用应为 `openai-compatible`（DeepSeek 也走兼容协议） |
+| `base-url` | 网关根地址；代码会拼 `/chat/completions` |
+| `api-key` | Bearer Token；**不要提交到 Git**，用环境变量 |
+| `model` | 模型名，以服务商控制台为准 |
+| `max-retries` | 失败后额外重试次数；总尝试 = `maxRetries + 1` |
+| `session.max-messages` | 历史消息条数上限，超出从队头删 |
+
+最终请求 URL：
+
+```text
+{baseUrl}/chat/completions
+例：https://api.deepseek.com/chat/completions
+```
+
+对应拼接：
+
+```83:83:erp-ai-assistant/src/main/java/com/erp/ai/client/OpenAiCompatibleLlmClient.java
+        String url = trimTrailingSlash(properties.getBaseUrl()) + "/chat/completions";
+```
+
+**复习口令：**  
+`provider=openai-compatible` 表示“按 OpenAI 风格 HTTP 协议调模型”，DeepSeek/OpenAI/部分国产兼容模式都可能用同一套客户端。
+
+---
+
+## Day2｜消息组装与调用链路（订正 · 对照代码）
+
+### 总览图
+
+```text
+POST /api/ai/chat
+  Body: { "sessionId"?: "...", "message": "..." }
+        │
+        ▼
+ChatController
+        │
+        ▼
+ChatService.chat
+  1. traceId = UUID
+  2. sessionId = 传入或新建
+  3. messages = [system] + history + [user]
+  4. loop 最多 maxRetries+1 次:
+       LlmClient.chat(messages)  ──HTTP──►  {baseUrl}/chat/completions
+       ReplyParser.parse(content)
+       成功 → SessionStore.append → 记日志 → 返回 ChatResponse
+       失败 → messages 追加纠错 user → 重试
+  5. 仍失败 → 记失败日志 → 抛异常
+```
+
+### 分步说明
+
+#### Step A｜入口
+
+- 类：`com.erp.ai.controller.ChatController`
+- 路径：`POST /api/ai/chat`
+- 请求 DTO：`ChatRequest{ sessionId, message }`  
+  - `message` 必填  
+  - `sessionId` 可选；不传则服务端新建并在响应里返回
+
+#### Step B｜编排（ChatService）
+
+关键点（订正你笔记里的字段名）：
+
+| 你原来的写法 | 正确写法 |
+|---|---|
+| `{role, message}` | `{ "role", "content" }` |
+| `ai.max_retries` | YAML：`ai.max-retries` → Java：`maxRetries` |
+| 直接把 HTTP 响应当返回 | 分三层：HTTP 原始 JSON → `LlmResult` → `ChatResponse` |
+
+成功才写历史（避免脏输出污染下一轮）：
+
+```81:86:erp-ai-assistant/src/main/java/com/erp/ai/service/ChatService.java
+                sessionStore.append(
+                        sessionId,
+                        new ChatMessage("user", request.getMessage()),
+                        new ChatMessage("assistant", result.getContent())
+                );
+```
+
+#### Step C｜HTTP 调用（OpenAiCompatibleLlmClient）
+
+请求体要点：
+
+```json
+{
+  "model": "...",
+  "temperature": 0.2,
+  "response_format": { "type": "json_object" },
+  "messages": [
+    { "role": "system", "content": "..." },
+    { "role": "user", "content": "..." }
+  ]
+}
+```
+
+请求头：
+- `Content-Type: application/json`
+- `Authorization: Bearer <apiKey>`
+
+从响应取值：
+- 文本：`choices[0].message.content`
+- 用量：`usage.prompt_tokens` / `usage.completion_tokens`
+
+封装为项目内 `LlmResult(content, model, promptTokens, completionTokens)`。
+
+#### Step D｜JSON 解析（ReplyParser）
+
+必填：`answer`、`need_human`（兼容 `needHuman`）  
+可选：`suggested_doc_type`、`required_fields`、`confidence`  
+兼容：Markdown 代码块包裹、snake_case / camelCase
+
+解析结果 → `AssistantReply`，再放进对外的 `ChatResponse.reply`。
+
+#### Step E｜会话（SessionStore）
+
+- 第 1–2 周：内存 `ConcurrentHashMap`（重启丢失）
+- 历史按 `session.max-messages` 从队头裁剪，控制后续输入 token
+
+#### Step F｜对外响应（ChatResponse）
+
+```text
+traceId          一次请求追踪 ID
+sessionId        多轮续聊用这个
+provider         如 openai-compatible
+model            实际命中模型名
+reply            AssistantReply（业务结构化结果）
+usage            prompt/completion/totalTokens + estimatedCostUsd
+latencyMs        耗时
+attempts         本轮尝试次数（含重试）
+```
+
+注意：对外 JSON 里布尔字段常是 Java Bean 风格 `needHuman`；模型侧 Schema 要求的是 `need_human`。解析器两者都认。
+
+---
+
+## 你发现的重点：重试与 Token
+
+### 现象（正确）
+
+解析/调用失败时，会在**本次请求的内存 messages** 末尾追加纠错 user，然后整包重发：
+
+```146:152:erp-ai-assistant/src/main/java/com/erp/ai/service/ChatService.java
+    private List<ChatMessage> withRepairHint(List<ChatMessage> messages, String error) {
+        List<ChatMessage> repaired = new ArrayList<>(messages);
+        repaired.add(new ChatMessage(
+                "user",
+                "上一次输出不符合要求（" + error + "）。请重新只输出合法 JSON，字段必须包含 answer 与 need_human。"
+        ));
+        return repaired;
+    }
+```
+
+因此：
+- 每次重试 ≈ 再付一次「当前（已变长的）上下文」输入成本 + 新的输出成本  
+- 若错误原因不变（如 401 Key 错），重试往往无效，属于空耗  
+
+### 容易漏的一点（补充）
+
+- 纠错消息只存在于**这一次 HTTP 请求的重试循环**  
+- **失败内容默认不会写入 `SessionStore`**；只有解析成功才 `append`  
+- 所以：会费钱，但不一定污染长期会话历史  
+
+### 后续改进方向（先记结论，本周不必改代码）
+
+1. 鉴权/配置类错误快速失败，不走“请重输出 JSON”逻辑  
+2. 相同错误短路，避免无效追加  
+3. 重试时考虑只保留 system + 最近轮次 + schema 提示  
+4. 最终失败返回降级结构，而不是烧满重试  
+
+---
+
+## 关键文件索引（复习导航）
+
+| 文件 | 复习看什么 |
+|---|---|
+| `controller/ChatController.java` | API 入口 |
+| `service/ChatService.java` | 编排、重试、计费、组装 messages |
+| `service/SessionStore.java` | 多轮与裁剪 |
+| `service/ReplyParser.java` | JSON 提取与必填校验 |
+| `client/OpenAiCompatibleLlmClient.java` | 真实 HTTP 协议 |
+| `client/MockLlmClient.java` | 无 Key 时的本地假模型 |
+| `resources/application.yml` | provider/baseUrl/model/重试/单价 |
+| `resources/prompts/erp-system-prompt.txt` | 角色与 JSON Schema |
+| `samples/week1-questions.md` | 真实问题收集 |
+
+---
+
+## 自测题（复习用，不看笔记答）
+
+1. 为什么多轮要传 `sessionId`？不传会怎样？  
+2. 一次请求的 messages 固定顺序是什么？  
+3. `provider` 和 `model` 区别？  
+4. 解析失败时，历史会话会被写入失败草稿吗？  
+5. `max-retries: 2` 最多请求模型几次？  
+6. DeepSeek 最终 URL 如何由 `base-url` 拼出？  
+7. 为什么长会话更贵？裁剪历史在哪个类？  
+
+（建议答案见文末折叠区）
+
+<details>
+<summary>自测参考答案</summary>
+
+1. 用来定位同一条会话历史；不传会新建 session，模型看不到前文。  
+2. system → 历史（user/assistant…）→ 当前 user。  
+3. provider 选客户端/协议实现；model 是具体模型名。  
+4. 不会；成功解析后才 `SessionStore.append`。  
+5. 3 次（2+1）。  
+6. `trim(baseUrl) + "/chat/completions"`。  
+7. 每次重发全部上下文，输入 token 变多；裁剪在 `SessionStore#trim`。  
+
+</details>
+
+---
+
+## 每日打卡模板（复制到下方「学习日志」）
+
+```text
+### DayX（日期）
+- 今日目标：
+- 实际完成：
+- 对照代码看过的类：
+- 实验现象（请求/关键返回字段）：
+- 疑问 / 明天要弄清：
+- 用时：
+```
+
+## 学习日志
+
+### Day1
+- 今日目标：概念 + 接通 API  
+- 实际完成：DeepSeek 真实调用跑通；理清 role / token / context / provider  
+- 对照代码：`application.yml`、`OpenAiCompatibleLlmClient`  
+- 备注：baseUrl=`https://api.deepseek.com`，provider=`openai-compatible`
+
+### Day2
+- 今日目标：读通消息组装链路  
+- 实际完成：Controller→Service→Client→Parser→Session 已梳通；发现重试费 token 问题  
+- 待补：多轮 session 实验、改提示词对比、高风险 needHuman、问题清单  
+- 对照代码：`ChatService`、`SessionStore`、`ReplyParser`、`OpenAiCompatibleLlmClient`
+
+### Day3
+- （待写）
+
+---
+
+## 修订记录
+
+| 日期 | 说明 |
+|---|---|
+| 2026-08-13 | 根据 Day1/Day2 个人笔记订正，并绑定当前仓库代码路径 |

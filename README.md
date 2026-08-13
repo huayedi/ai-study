@@ -7,6 +7,7 @@ Java 5 年 ERP 工程师转 AI 应用（自学提升）仓库。
 | 路径 | 说明 |
 |---|---|
 | [docs/LEARNING_PLAN.md](docs/LEARNING_PLAN.md) | 20 周详细学习计划（每天 2–3 小时） |
+| [docs/STUDY_NOTES.md](docs/STUDY_NOTES.md) | 每日订正笔记 + 代码对照 + 打卡跟踪 |
 | [erp-ai-assistant/](erp-ai-assistant/) | 可运行 Spring Boot 项目（第 1–2 周起点） |
 
 ## IDEA 导入（Maven 没弹出来时）
