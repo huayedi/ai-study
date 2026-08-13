@@ -21,7 +21,7 @@
 | Day3 | Temperature / Token / 成本 / 坏 case | ✅ 完成（坏 case 暂缓，见日志） | |
 | Day4 | 系统提示词工程（ERP 术语） | ✅ 完成 | |
 | Day5 | 多轮与裁剪、问题清单补齐 | ✅ 完成 | |
-| Day6 | Prompt 深化：few-shot + 规则解释 | ⬜ 进行中 | |
+| Day6 | Prompt 深化：few-shot + 规则解释 | ✅ 完成 | |
 | Day7+ | 第 3 周续：扫题打磨 / 字段校验解释 | ⬜ 未开始 | |
 
 **Day2 实验：**
@@ -384,7 +384,11 @@ attempts         本轮尝试次数（含重试）
 - 今日目标：few-shot + 规则解释风格  
 - 实验表：`docs/day6-experiments.md`  
 - 相关文件：`prompts/erp-few-shot.txt`、`SystemPromptLoader`（会追加 few-shot）  
-- 实际完成：（学完后填写）
+- 实际完成：
+  - few-shot 已生效  
+  - 5 道规则题打分完成  
+  - 改过 1 条 few-shot，效果变好  
+  - 拒答抽测有效（不编造实时库存）
 
 ---
 
