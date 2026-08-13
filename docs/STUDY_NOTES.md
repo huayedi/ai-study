@@ -16,18 +16,18 @@
 
 | 天 | 主题 | 状态 | 日期 |
 |---|---|---|---|
-| Day1 | 概念 + 接通真实 API | [x] 基本完成 | |
-| Day2 | 消息组装链路 + 会话/解析/重试 | [x] 链路已读通；实验项见下方待补 | |
-| Day3 | Temperature / Token / 成本 / 坏 case | [ ] | |
+| Day1 | 概念 + 接通真实 API | [x] 完成 | |
+| Day2 | 消息组装链路 + 会话/解析/重试 | [x] 完成（含 4 个实验） | |
+| Day3 | Temperature / Token / 成本 / 坏 case | [ ] 进行中 | |
 | Day4 | 系统提示词工程（ERP 术语） | [ ] | |
 | Day5 | 多轮与裁剪、问题清单补齐 | [ ] | |
 | Day6+ | 按 LEARNING_PLAN 第 3 周起 | [ ] | |
 
-**Day2 待补实验（建议补完再进 Day3）：**
-- [ ] 多轮：第一次不带 `sessionId`，第二次带上追问
-- [ ] 改一次 `erp-system-prompt.txt` 并对比同一问题
-- [ ] 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
-- [ ] `samples/week1-questions.md` 累计 ≥ 10 条
+**Day2 实验：**
+- [x] 多轮：第一次不带 `sessionId`，第二次带上追问
+- [x] 改一次 `erp-system-prompt.txt` 并对比同一问题
+- [x] 高风险问题观察 `needHuman=true`（如“帮我直接过账”）
+- [x] `samples/week1-questions.md` 累计 ≥ 10 条
 
 ---
 
@@ -340,13 +340,14 @@ attempts         本轮尝试次数（含重试）
 - 备注：baseUrl=`https://api.deepseek.com`，provider=`openai-compatible`
 
 ### Day2
-- 今日目标：读通消息组装链路  
-- 实际完成：Controller→Service→Client→Parser→Session 已梳通；发现重试费 token 问题  
-- 待补：多轮 session 实验、改提示词对比、高风险 needHuman、问题清单  
+- 今日目标：读通消息组装链路 + 4 实验  
+- 实际完成：链路梳通；多轮 session、改提示词、高风险 needHuman、问题清单均已完成；发现重试费 token 问题  
 - 对照代码：`ChatService`、`SessionStore`、`ReplyParser`、`OpenAiCompatibleLlmClient`
 
 ### Day3
-- （待写）
+- 今日目标：Temperature / Token / 成本 / 超时与坏 case  
+- 实际完成：（学完后填写）  
+- 实验记录见：`docs/day3-experiments.md`（若已创建）
 
 ---
 
