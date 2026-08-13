@@ -358,6 +358,17 @@ attempts         本轮尝试次数（含重试）
 - 坏 case：DeepSeek 成熟题上表现稳；探测题库保留在 `day3-experiments.md`，第 4–5 周改提示词/上 RAG 前再回归测一轮
 - 对照代码：`application.yml`（temperature/timeout/retries）、`AppConfig`/`OpenAiCompatibleLlmClient`、`ChatService`、`SessionStore`
 
+### Day4
+- 今日目标：术语表 + 系统提示词工程  
+- 已为你生成：
+  - `erp-ai-assistant/src/main/resources/prompts/erp-glossary.md`（完整最小术语表，可填「本系统别名」）
+  - `erp-ai-assistant/src/main/resources/prompts/erp-system-prompt.txt`（已嵌入术语摘要 + 回答结构）
+- 你需要做：重启应用，用下面 3 题做改后效果验证（并可选与印象中的改前对比）
+  1. 创建采购订单应该如何去设计
+  2. 采购订单和采购入库单有什么区别
+  3. week1 清单里一道真实题
+- 实际完成：（你测完后补）
+
 ---
 
 ## 修订记录

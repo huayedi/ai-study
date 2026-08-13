@@ -107,6 +107,13 @@ mvn spring-boot:run
 mvn test
 ```
 
+## 提示词与术语表
+
+| 文件 | 说明 |
+|---|---|
+| `src/main/resources/prompts/erp-system-prompt.txt` | 实际发给模型的 system 提示（改完需重启） |
+| `src/main/resources/prompts/erp-glossary.md` | 完整术语表（给人看/维护；精简版已写入 system 提示） |
+
 ## 第 1 周建议练习
 
 1. 用 mock 跑通并读懂 `ChatService` 重试逻辑
