@@ -5,7 +5,8 @@
 > 每日订正笔记与打卡：[STUDY_NOTES.md](./STUDY_NOTES.md)  
 > **交付偏好：教材式讲义（`docs/lessons/`）为主。**  
 > **边界：不依赖公司手册；示例文档用通用 ERP 教材；本次不应用到公司项目。**  
-> **30 天逐日计划：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)
+> **30 天逐日计划：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)  
+> **第 2 月整月讲义+代码：** [lessons/MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md)
 
 ---
 

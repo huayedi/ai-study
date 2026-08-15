@@ -31,7 +31,8 @@
 | Day10 | 切分策略深入（仅讲义） | ✅ 完成（自行改码按已完成计） | |
 | Day11 | Embedding 与向量检索原理（仅讲义） | ✅ 完成 | |
 | Day12 | 向量检索实现（讲义·自行编码） | ✅ 按进度继续 | |
-| Day13～30 | 合并讲义 | ⬜ 阅读中 | → [day13-30-combined.md](./lessons/day13-30-combined.md) |
+| Day13～30 | 合并讲义 | ✅ 已交付 | → [day13-30-combined.md](./lessons/day13-30-combined.md) |
+| 第 2 月 Day1～30 | 合并讲义+对照代码 | ⬜ 阅读/自学实现 | → [MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md) |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -433,7 +434,12 @@ attempts         本轮尝试次数（含重试）
 
 ### Day13～30
 - **合并讲义：** `docs/lessons/day13-30-combined.md`  
-- 含：Hybrid/未命中、RAG 复盘、Tool、工作流、草稿、观测、安全、路由、评测、架构、模式库、可维护、复习、收官  
+- 状态：✅ 已交付正文
+
+### 第 2 个月
+- **整月合并讲义（含对照代码）：** `docs/lessons/MONTH2_DAY1-30_COMBINED.md`  
+- 入口：`docs/MONTH2.md`  
+- 主题：Hybrid/向量持久化/Rerank、工作流 HITL、评测自动化、调试台与收官  
 
 ---
 
