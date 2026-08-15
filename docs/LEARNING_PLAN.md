@@ -11,12 +11,8 @@
 > **第 3 月整月讲义+代码：** [lessons/MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) · [MONTH3.md](./MONTH3.md)  
 > **第 4 月整月讲义+代码：** [lessons/MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md) · [MONTH4.md](./MONTH4.md)  
 > **第 5 月整月讲义+代码：** [lessons/MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md) · [MONTH5.md](./MONTH5.md)  
-<<<<<<< HEAD
 > **第 6 月整月讲义+代码：** [lessons/MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md) · [MONTH6.md](./MONTH6.md)  
-> **Web 前端轨道（独立 30 天详版）：** [lessons/WEB_DAY1-30_COMBINED.md](./lessons/WEB_DAY1-30_COMBINED.md) · [WEB.md](./WEB.md)
-=======
 > **Web 前端轨道（完整教材，非 30 天）：** [lessons/WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md)
->>>>>>> 8caea43 (Retarget indexes to WEB_VUE_COMPLETE textbook)
 
 ---
 
