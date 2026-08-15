@@ -12,6 +12,7 @@
 > **第 4 月整月讲义+代码：** [lessons/MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md) · [MONTH4.md](./MONTH4.md)  
 > **第 5 月整月讲义+代码：** [lessons/MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md) · [MONTH5.md](./MONTH5.md)  
 > **第 6 月整月讲义+代码：** [lessons/MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md) · [MONTH6.md](./MONTH6.md)  
+> **第 7 月整月讲义+代码：** [lessons/MONTH7_DAY1-30_COMBINED.md](./lessons/MONTH7_DAY1-30_COMBINED.md) · [MONTH7.md](./MONTH7.md)  
 > **Web 前端轨道（完整教材，非 30 天）：** [lessons/WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md)
 
 ---

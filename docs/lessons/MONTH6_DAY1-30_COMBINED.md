@@ -2451,7 +2451,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ```
 ---
 
-## M6-D30 收官；第7月方向（观测大盘/规则引擎/灰度/工作流可视化）
+## M6-D30 收官；第7月方向（已开课：规则引擎）
 
 ### 为什么
 
@@ -2459,20 +2459,19 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ### 概念加深
 
-| 第7月方向 | 内容 |
-|---|---|
-| 观测大盘 | metrics/trace |
-| 规则引擎 | 写入前规则 |
-| 灰度演练 | 影子 Adapter |
-| 工作流可视化 | Flow UI |
+第7月方向（已开课：**规则引擎**）：
 
-**只选一条**；baseline + contract + write-safety 全绿。
+整月教材：[`MONTH7_DAY1-30_COMBINED.md`](./MONTH7_DAY1-30_COMBINED.md) · 入口 [`docs/MONTH7.md`](../MONTH7.md)
+
+主题：确定性业务规则用 RuleEngine；LLM 只做理解/草稿/解释；规则先于模型；可版本化、可评测、可审计；**仍不接公司生产规则平台**。
+
+其它可留第8月（只选一条）：观测大盘 / 灰度演练 / 工作流可视化 / 提示词运营。
 
 ### 怎么做
 
 1. 收官清单。
 2. baseline 全跑。
-3. 选第7月一条。
+3. 进入第7月讲义（规则引擎）。
 4. 8 分钟 pitch。
 
 ### 代码骨架
