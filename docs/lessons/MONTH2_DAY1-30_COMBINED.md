@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat / Prompt / RAG（切分·关键词·向量）/ Tool·草稿概念。  
 > **入口：** `docs/MONTH2.md`  
 > **技术节点：** 本月对齐 **T4～T6** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH2 优先：吴恩达/RAG Hybrid、Camunda 仅概念；勿上 BPM 依赖 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **约定：** 骨架在讲义中；由你自行落到 `erp-ai-assistant`；助教不擅自改你本地未提交实现。
 
 ---
@@ -46,6 +47,7 @@
 ## M2-D1 回顾、差距清单与本周定义（详）
 
 > **技术前置：** 此时应当学会 **第1月 Chat/Prompt/RAG 最小闭环（T0～T3：自封装 LLM + Embedding + sources）** 后再进行阅读。 节点：**T0～T3→T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG 回顾](https://www.bilibili.com/video/BV1rGCvBVEtR/) · 确认 chunk/retrieve/generate 术语对齐 · 备用搜：`RAG 流水线` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -143,6 +145,7 @@ RagService  → 负责编排 + sources 映射 + 调 LLM
 ## M2-D2 持久化向量与 PGVector（原理详解）
 
 > **技术前置：** 此时应当学会 **内存向量检索与 TextChunk 模型（T3）；本日开始学 PostgreSQL + pgvector 原理（T4）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `pgvector PostgreSQL 教程` · pgvector / 向量持久化原理 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -293,6 +296,7 @@ void warmVectorIndex() {
 ## M2-D3 HybridRetriever（RRF 融合）详解 + 完整骨架
 
 > **技术前置：** 此时应当学会 **VectorStore 抽象与持久化向量概念（T4）；本日开始学 Hybrid / RRF** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG·混合检索](https://www.bilibili.com/video/BV1RbR6YmE1G/) · Hybrid/RRF 直觉；代码跟讲义 RRF · 备用搜：`Hybrid Search RRF` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -440,6 +444,7 @@ curl -s localhost:8080/api/ai/rag/ask -H 'Content-Type: application/json' \
 ## M2-D4 RetrievalGate（空/弱/强命中）详解
 
 > **技术前置：** 此时应当学会 **HybridRetriever（RRF）（T4）；本日开始学 RetrievalGate** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG 未命中 拒答 Gate` · Retrieval Gate / 拒答策略 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -563,6 +568,7 @@ EMPTY 可短路不调 LLM，或调 LLM 但 system 强制不得编造。
 ## M2-D5 简易 Rerank 详解
 
 > **技术前置：** 此时应当学会 **RetrievalGate 空/弱/强命中（T4）；本日开始学简易 Rerank** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG·重排相关](https://www.bilibili.com/video/BV1rGCvBVEtR/) · cross-encoder/rerank 概念；先规则 rerank · 备用搜：`Rerank RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -685,6 +691,7 @@ Rerank  ：只对候选 N 条重打分 → topK 条
 ## M2-D6 配置、装配与对比实验（详）
 
 > **技术前置：** 此时应当学会 **Hybrid + Gate + Rerank 流水线（T4）；本日做配置装配与对比实验** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG topK 调参` · 检索参数对比实验方法论 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -790,6 +797,7 @@ Reranker reranker(AiProperties p) {
 ## M2-D7 第 1 周复盘课（详）
 
 > **技术前置：** 此时应当学会 **ChunkVectorStore、Hybrid、Gate、Rerank（T4 第1周）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG 原理复盘](https://www.bilibili.com/video/BV1QLj9zfEZ5/) · 第1周复盘用；≤30min · 备用搜：`RAG Hybrid Gate` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -867,6 +875,7 @@ Chunker → Embed/Index(Store) → Retriever(lanes) → Fusion(RRF)
 ## M2-D8 工作流思维（相对 Agent）（详）
 
 > **技术前置：** 此时应当学会 **T4 检索加深可演示；本日开始学工作流思维 vs Agent（T5）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Camunda·工作流介绍（对照）](https://www.bilibili.com/video/BV1qe4y1m7D7/) · 状态/人工节点概念；勿引入引擎依赖 · 备用搜：`工作流 状态机` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -952,6 +961,7 @@ RECEIVED → RETRIEVING → (QUERYING_TOOL?) → DRAFTING → WAIT_HUMAN
 ## M2-D9 领域对象与内存仓（详）
 
 > **技术前置：** 此时应当学会 **工作流 vs Agent 边界（T5）；本日学领域对象与内存仓** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `DDD 聚合 工作流` · 领域模型 / 聚合根（可选） · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1055,6 +1065,7 @@ void repoRoundTrip() {
 ## M2-D10 FlowEngine 主循环（完整骨架）
 
 > **技术前置：** 此时应当学会 **Flow 领域模型（T5）；本日开始学 FlowEngine 主循环** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `有限状态机 Java` · 状态机主循环 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1207,6 +1218,7 @@ start 后状态到 WAIT_HUMAN；decide 后到 DONE/FAILED。
 ## M2-D11 HITL 产品语义与提示词（详）
 
 > **技术前置：** 此时应当学会 **FlowEngine 状态迁移（T5）；本日学 HITL 产品语义（Camunda 只作概念对照）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Human in the loop 审批` · HITL / 人工审批语义 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1290,6 +1302,7 @@ start 后状态到 WAIT_HUMAN；decide 后到 DONE/FAILED。
 ## M2-D12 节点内挂 RAG / Tool（详）
 
 > **技术前置：** 此时应当学会 **HITL：WAIT_HUMAN / APPROVE≠写库（T5）；本日挂 RAG/Tool 节点** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG Agent 工作流 节点` · 编排里挂 RAG/Tool · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1373,6 +1386,7 @@ DRAFTING:    sources + toolTrace + question → LLM → draftAnswer
 ## M2-D13 工作流测试用例（详）
 
 > **技术前置：** 此时应当学会 **节点内 RAG/Tool 编排（T5）；本日写工作流测试** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `状态机 单元测试` · 工作流单测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1461,6 +1475,7 @@ void decideOnWrongStateFails() {
 ## M2-D14 第 2 周复盘（详）
 
 > **技术前置：** 此时应当学会 **FlowEngine + HITL 最小闭环（T5 第2周）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Camunda 再扫概念](https://www.bilibili.com/video/BV1qe4y1m7D7/) · 对照你的 FlowEngine；仍不接 BPM · 备用搜：`Camunda 入门 对照` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1528,6 +1543,7 @@ void decideOnWrongStateFails() {
 ## M2-D15 题集设计（详）
 
 > **技术前置：** 此时应当学会 **T5 HITL 可演示；本日开始学评测题集设计（T6）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM eval dataset jsonl` · 评测题集设计 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1607,6 +1623,7 @@ evals/suites/flow-cases.jsonl
 ## M2-D16 EvalRunner 更完整骨架（详）
 
 > **技术前置：** 此时应当学会 **JSONL 题集设计（T6）；本日开始学 EvalRunner** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG evaluation harness` · Eval Runner / harness · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1716,6 +1733,7 @@ POST /api/ai/eval/run  {"suite":"rag"}
 ## M2-D17 把评测当门禁（详）
 
 > **技术前置：** 此时应当学会 **EvalRunner（T6）；本日学把门禁当回归** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `AI eval regression` · 评测当 CI 门禁 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1789,6 +1807,7 @@ flow 核心路径: #1 #2 #4 必须过
 ## M2-D18 观测字段扩展（详）
 
 > **技术前置：** 此时应当学会 **评测门禁思维（T6）；本日扩展观测字段（可选 Micrometer 概念）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Micrometer Spring Boot 入门` · 结构化日志 / Micrometer · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1875,6 +1894,7 @@ String promptVersion = HexFormat.of().formatHex(dig).substring(0, 8);
 ## M2-D19 成本累计与 /stats（详）
 
 > **技术前置：** 此时应当学会 **观测字段（T6）；本日学成本累计与 /stats** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `OpenAI usage token 成本` · token 成本统计 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1967,6 +1987,7 @@ aggregator.record(promptTokens, completionTokens, usd);
 ## M2-D20 实验记录模板（详）
 
 > **技术前置：** 此时应当学会 **成本与 stats（T6）；本日固定实验记录模板** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `ML experiment tracking 入门` · 实验记录 / 消融 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2033,6 +2054,7 @@ aggregator.record(promptTokens, completionTokens, usd);
 ## M2-D21 第 3 周复盘（详）
 
 > **技术前置：** 此时应当学会 **Eval + 观测 + 成本（T6 第3周）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM observability` · 本周 Eval/观测复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2100,6 +2122,7 @@ aggregator.record(promptTokens, completionTokens, usd);
 ## M2-D22 debug 页（更完整示例）（详）
 
 > **技术前置：** 此时应当学会 **T4～T6 可回归；本日做 debug 页（前端深度见 WEB/T7）** 后再进行阅读。 节点：**T6→T7概念** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue 入门（debug 页可先静态）](https://www.bilibili.com/video/BV1aa1NYxECK/) · 有余力再看；完整前端见 WEB · 备用搜：`Vue3 Vite` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2196,6 +2219,7 @@ async function showStats(){ out(await (await fetch('/api/ai/stats')).json()); }
 ## M2-D23 场景 A：手册问答串测（详）
 
 > **技术前置：** 此时应当学会 **debug/观测可用；本日串测手册问答（T3+T4）** 后再进行阅读。 节点：**T4+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG 串测对照](https://www.bilibili.com/video/BV1RbR6YmE1G/) · 手册问答场景 · 备用搜：`企业知识库问答` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2264,6 +2288,7 @@ async function showStats(){ out(await (await fetch('/api/ai/stats')).json()); }
 ## M2-D24 场景 B：只读库存串测（详）
 
 > **技术前置：** 此时应当学会 **场景 A 串测；本日串测只读库存 Tool（T1 只读）** 后再进行阅读。 节点：**T1+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Function Calling 查询` · 只读库存 Tool 场景 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2323,6 +2348,7 @@ async function showStats(){ out(await (await fetch('/api/ai/stats')).json()); }
 ## M2-D25 场景 C：草稿 + HITL 串测（详）
 
 > **技术前置：** 此时应当学会 **场景 B；本日串测草稿 + HITL（T5）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `HITL 审批 AI` · 草稿+HITL 演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2385,6 +2411,7 @@ start → WAIT_HUMAN --APPROVE--> DONE (无写库)
 ## M2-D26 安全对照表（展开）（详）
 
 > **技术前置：** 此时应当学会 **三场景串测基础；本日安全对照表** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM 安全 权限` · AI 安全边界 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2440,6 +2467,7 @@ start → WAIT_HUMAN --APPROVE--> DONE (无写库)
 ## M2-D27 性能与体验（展开）（详）
 
 > **技术前置：** 此时应当学会 **安全边界；本日性能与体验** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG 性能 优化 入门` · 延迟与体验 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2517,6 +2545,7 @@ log.info("timing embed={} search={} llm={}", embedMs, searchMs, llmMs);
 ## M2-D28 架构终稿（文字版详图）（详）
 
 > **技术前置：** 此时应当学会 **性能意识；本日架构终稿（文字）** 后再进行阅读。 节点：**T0～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `AI 应用架构图` · 架构图表达 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2593,6 +2622,7 @@ Controller → Service → (Retriever|FlowEngine|EvalRunner)
 ## M2-D29 全月复习（扩）（详）
 
 > **技术前置：** 此时应当学会 **架构终稿；本日全月复习：确认闸门 A 组件（T0～T6）** 后再进行阅读。 节点：**闸门A** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG 总复习](https://www.bilibili.com/video/BV1FsfsBJEtj/) · 闸门 A 自检辅助 · 备用搜：`吴恩达 RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2679,6 +2709,7 @@ W4  Debug / 三场景 / 安全 / 架构
 ## M2-D30 收官与第 3 月（详）
 
 > **技术前置：** 此时应当学会 **第2月收官：T4～T6 扎实后再进 MONTH3；仍不要主学 Spring AI / Python** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [企业 RAG 痛点预告（收藏）](https://www.bilibili.com/video/BV1GYkKBVEcW/) · MONTH3 再深看；勿整仓迁 Spring AI · 备用搜：`企业级 RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

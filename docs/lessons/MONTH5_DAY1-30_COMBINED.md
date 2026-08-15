@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH5.md`  
 > **技术节点：** 本月对齐 **T9（受控写入）；完成后可开 T13 Spring AI 对照** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH5：Tool 视频当反例；收官可开 Spring AI 对照（T13） · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **受控写入与模拟过账（假账本 + 强制 HITL + 审计）**  
 > **核心产品句（全文反复强调）：**  
 > **模型永不直接持有「无审批写库存/过账」工具。写入只发生在 APPROVE 之后，且走受控 WriteGateway + 权限 + 幂等 + 审计。学习仓用内存假账本，不接公司库。**
@@ -129,6 +130,7 @@ X-Admin-Token:     <期间开关等管理接口>
 ## M5-D1 为何现在才开写；风险不对称；本月边界清单
 
 > **技术前置：** 此时应当学会 **第4月 ACL/反馈/多租户/console（T8 + T6）；本日理解为何现在才开写（T9）** 后再进行阅读。 节点：**T8→T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [黑马·Tools 段当反例](https://www.bilibili.com/video/BV1MtZnYtEB3/) · 看 FunctionCalling 后记住：无审批禁止写库存 · 备用搜：`Tool Calling 风险` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -217,6 +219,7 @@ posting/InMemoryPostingService.java
 ## M5-D2 写操作分级（读/建议/受控写/禁止）
 
 > **技术前置：** 此时应当学会 **写入风险不对称；本日学写操作分级** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `命令查询职责 CQRS 入门` · 写操作分级 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -317,6 +320,7 @@ public enum WriteRiskLevel {
 ## M5-D3 WriteGateway / WriteCommand / WriteResult 接口设计
 
 > **技术前置：** 此时应当学会 **写分级；本日开始学 WriteGateway / WriteCommand / WriteResult（T9）** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `API Gateway 防腐层` · Gateway 模式 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -440,6 +444,7 @@ public interface WriteGateway {
 ## M5-D4 InMemoryInventoryLedger：改数量（假），带 before/after
 
 > **技术前置：** 此时应当学会 **WriteGateway 接口；本日开始学假账本 InMemoryInventoryLedger** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `库存 领域驱动 入门` · 账本/库存领域模型 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -550,6 +555,7 @@ public interface InventoryLedger {
 ## M5-D5 InMemoryPostingService：模拟过账状态机（DRAFT→POSTED）
 
 > **技术前置：** 此时应当学会 **假库存；本日开始学模拟过账状态机** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `单据过账 状态机` · 过账状态机 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -660,6 +666,7 @@ public class InMemoryPostingService {
 ## M5-D6 ACL×Write：无角色禁止 APPLY；与第4月 Principal 结合
 
 > **技术前置：** 此时应当学会 **假过账；本日学 ACL×Write** 后再进行阅读。 节点：**T9+T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RBAC 写权限` · 权限×写 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -756,6 +763,7 @@ Flow 审批人角色与 Gateway `requestedBy` 必须一致或可映射（避免�
 ## M5-D7 第 1 周复盘（写入基础 + 假账本）
 
 > **技术前置：** 此时应当学会 **WriteGateway + 假账本（T9 第1周）** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Human approval write` · 受控写复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -852,6 +860,7 @@ grep -r "adjust\|post(" --include="*.java" | grep -v write | grep -v test
 ## M5-D8 Flow 状态增加 APPLY_WRITE；合法迁移表更新
 
 > **技术前置：** 此时应当学会 **T9 基础可讲；本日 Flow 增加 APPLY_WRITE（T5+T9）** 后再进行阅读。 节点：**T5+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Camunda 人工节点对照](https://www.bilibili.com/video/BV1qe4y1m7D7/) · 对照 APPLY_WRITE；仍自研 · 备用搜：`工作流 人工任务` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -957,6 +966,7 @@ DRAFT → RISK_CHECK → WAIT_HUMAN → APPLY_WRITE → DONE
 ## M5-D9 decide(APPROVE) 才 enqueue WriteCommand；REJECT/EDIT 不写
 
 > **技术前置：** 此时应当学会 **APPLY_WRITE 节点；本日 decide(APPROVE) 才写** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `saga 审批 执行` · 审批后才执行 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1063,6 +1073,7 @@ Flow 启动时 payload 应含 `writeType`/`sku`/`delta` 等，但**不得**预�
 ## M5-D10 幂等：Idempotency-Key / commandId；重复 APPROVE 不双写
 
 > **技术前置：** 此时应当学会 **APPROVE 写窗口；本日开始学幂等键** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Idempotency-Key HTTP` · 幂等键 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1158,6 +1169,7 @@ REVERSE：reverse-{originalCommandId}
 ## M5-D11 超时与部分失败；失败进 FAILED + 审计；禁止静默成功
 
 > **技术前置：** 此时应当学会 **幂等；本日超时/部分失败→FAILED+审计** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `分布式事务 补偿` · 部分失败与补偿 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1253,6 +1265,7 @@ Gateway REJECTED
 ## M5-D12 禁止 Llm Tool 直接 write；工具白名单扫描 + Write* 黑名单
 
 > **技术前置：** 此时应当学会 **失败可见；本日禁止 LLM Tool 直写 + 黑名单扫描** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM tool security` · Tool 黑名单扫描 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1344,6 +1357,7 @@ void llmToolsMustNotExposeDirectWrite() {
 ## M5-D13 补偿/回滚学习版：reverse command（概念+最小实现）
 
 > **技术前置：** 此时应当学会 **禁直写；本日补偿/回滚学习版** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `补偿事务 compensating` · 补偿命令 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1419,6 +1433,7 @@ private WriteResult applyReverse(WriteCommand cmd) {
 ## M5-D14 第 2 周复盘（Flow 写窗口 + 幂等 + 禁直写）
 
 > **技术前置：** 此时应当学会 **Flow 写窗口 + 幂等 + 禁直写（T9 第2周）** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `幂等 审批` · 写窗口复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1492,6 +1507,7 @@ FlowEngine.decide → ApplyWriteHandler → WriteGateway → IdempotencyStore
 ## M5-D15 write-safety.jsonl 题集设计
 
 > **技术前置：** 此时应当学会 **T9 写路径可控；本日 write-safety 题集（T6）** 后再进行阅读。 节点：**T6+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `safety eval suite` · write-safety 题集 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1576,6 +1592,7 @@ FlowEngine.decide → ApplyWriteHandler → WriteGateway → IdempotencyStore
 ## M5-D16 Eval 断言：expectNoLedgerChange / expectLedgerDelta / expectPostingState
 
 > **技术前置：** 此时应当学会 **write-safety 题；本日 Eval 断言 ledger/posting** 后再进行阅读。 节点：**T6+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `property based testing 入门` · 账本断言 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1659,6 +1676,7 @@ public final class WriteSafetyAssertions {
 ## M5-D17 期间关闭、缺权限、缺幂等键负例
 
 > **技术前置：** 此时应当学会 **写断言；本日期间关闭/缺权/缺幂等负例** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `negative test cases` · 负例测试 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1732,6 +1750,7 @@ curl -s -X POST .../write/apply   -H 'X-Roles: INVENTORY_CLERK'   -d '{"type":"A
 ## M5-D18 审计流水：WRITE_REQUESTED / APPLIED / REJECTED / REVERSED
 
 > **技术前置：** 此时应当学会 **负例；本日写审计事件流水** 后再进行阅读。 节点：**T5+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `audit trail` · 审计 who/when/what · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1819,6 +1838,7 @@ public record WriteAuditEvent(
 ## M5-D19 baseline 纳入 write-safety；门禁演示
 
 > **技术前置：** 此时应当学会 **写审计；本日 baseline 纳入 write-safety** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `security regression` · baseline 纳入安全套件 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1895,6 +1915,7 @@ public record WriteAuditEvent(
 ## M5-D20 与反馈飞轮结合：错误写入相关踩 → 题集
 
 > **技术前置：** 此时应当学会 **baseline；本日反馈飞轮×错误写入** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `incident feedback loop` · 错误写入反馈 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1964,6 +1985,7 @@ if (feedback.kind() == UNSAFE && feedback.comment().contains("写入")) {
 ## M5-D21 第 3 周复盘（write-safety + 审计 + baseline）
 
 > **技术前置：** 此时应当学会 **write-safety + 审计 + baseline（T9 第3周）** 后再进行阅读。 节点：**T9+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `AI 写入 安全` · write-safety 复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2037,6 +2059,7 @@ jq -c 'select(.kind=="WRITE_APPLIED")' data/write-audit/*.jsonl | head
 ## M5-D22 console：展示 ledger 快照、approve→apply 动画/步骤
 
 > **技术前置：** 此时应当学会 **门禁可演示；本日 console 展示 ledger/approve 步骤（T7）** 后再进行阅读。 节点：**T7+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue 演示写链路](https://www.bilibili.com/video/BV1aa1NYxECK/) · console 步骤条 · 备用搜：`Vue 步骤条` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2133,6 +2156,7 @@ async function approveFlow(id) {
 ## M5-D23 串测 A：合法 APPROVE 改假库存
 
 > **技术前置：** 此时应当学会 **console；本日串测合法 APPROVE 改假库存** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `演示 脚本` · 合法过账演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2221,6 +2245,7 @@ curl -s -X POST /api/ai/flow/instances/{id}/decide \
 ## M5-D24 串测 B：未审批路径无法改账
 
 > **技术前置：** 此时应当学会 **场景 A；本日串测未审批无法改账** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `安全演示` · 未审批不可写演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2293,6 +2318,7 @@ curl -s -X POST /api/ai/flow/instances/{id}/decide \
 ## M5-D25 串测 C：越权/关期间拒绝
 
 > **技术前置：** 此时应当学会 **场景 B；本日串测越权/关期间拒绝** 后再进行阅读。 节点：**T8+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `期间关闭 过账` · 越权/关期间演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2361,6 +2387,7 @@ C3：跨 tenant（若实现）
 ## M5-D26 PORTFOLIO「受控写入」章节模板
 
 > **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 受控写入** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `简历 项目 安全设计` · PORTFOLIO 受控写入 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2430,6 +2457,7 @@ C3：跨 tenant（若实现）
 ## M5-D27 架构终图（叠加第1～5月）
 
 > **技术前置：** 此时应当学会 **作品集；本日架构终图 1～5月** 后再进行阅读。 节点：**T0～T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `架构演进` · 架构 1～5 月 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2515,6 +2543,7 @@ flowchart TB
 ## M5-D28 安全对照总表
 
 > **技术前置：** 此时应当学会 **架构；本日安全对照总表** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `威胁建模 STRIDE 入门` · 安全对照表 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2589,6 +2618,7 @@ flowchart TB
 ## M5-D29 口述自测（20 题）
 
 > **技术前置：** 此时应当学会 **安全总表；本日口述自测** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `幂等 面试题` · 口述自测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2672,6 +2702,7 @@ flowchart TB
 ## M5-D30 收官；第6月只选一条
 
 > **技术前置：** 此时应当学会 **第5月收官：T9 完成；建议窗口：可对照学 Spring AI（T13）；主交付仍自封装** 后再进行阅读。 节点：**T9→T13窗口** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Spring AI 对照窗口打开](https://www.bilibili.com/video/BV1fm4yzVEpa/) · 可开始 T13 对照学；保留自封装 profile · 备用搜：`Spring AI ChatClient` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

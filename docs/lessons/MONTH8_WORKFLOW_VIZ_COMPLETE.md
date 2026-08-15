@@ -17,6 +17,7 @@
 >
 > **入口：** [docs/MONTH8.md](../MONTH8.md)
 > **技术节点：** 本月对齐 **T12（工作流可视化）**；需 **T7 Vue** + **T5 Flow** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频（本月）：** MONTH8：Vue + SVG；Camunda 只对照，不接设计器 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 
 ---
 
@@ -74,6 +75,7 @@
 # 1. 定位与总目标：学习可视化 vs BPMN 生产平台
 
 > **技术前置：** 此时应当学会 **第1～7月能力 + Vue 3 / Vite 控制台基础（T7）+ Flow HITL（T5）** 后再进行阅读。 节点：**T5+T7→T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Camunda 介绍（对照 BPM vs 学习可视化）](https://www.bilibili.com/video/BV1qe4y1m7D7/) · 强调：本月手写 SVG，不接 BPM · 备用搜：`BPMN 可视化` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -289,6 +291,7 @@ watch(() => props.instanceId, () => reload(), { immediate: true })
 # 2. 领域模型 DTOs：FlowGraph / NodeDef / EdgeDef / FlowInstanceView / AuditEventView
 
 > **技术前置：** 此时应当学会 **可视化定位边界（T12）；本章开始学 FlowGraph DTO 契约** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `graph JSON visualization` · 图 DTO / 拓扑 JSON · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -614,6 +617,7 @@ void deserializeGraphJson() throws Exception {
 # 3. 后端三 API：graph / view / audit（Controller + Service 骨架）
 
 > **技术前置：** 此时应当学会 **DTO 契约；本章开始学 graph/view/audit 三读 API** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `REST 只读 资源` · 只读 API 设计 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -890,6 +894,7 @@ class FlowGraphControllerTest {
 # 4. 合法迁移表驱动可画边与禁用边（与 FlowTransitions 对齐）
 
 > **技术前置：** 此时应当学会 **三读 API；本章开始学 legalTransitions 驱动可画边（T5）** 后再进行阅读。 节点：**T5+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `状态图 合法迁移` · 合法边/状态图 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1104,6 +1109,7 @@ void eachLegalPairHasEdgeOrIsTeachOnly(String from, String to) {
 # 5. 渲染选型：手写 SVG 优先；Canvas / 轻量库利弊
 
 > **技术前置：** 此时应当学会 **合法边模型；本章开始学手写 SVG 渲染（勿先上重型图编辑器）** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `SVG 入门 教程` · 手写 SVG 入门 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1311,6 +1317,7 @@ export function useSvgPan(svgRef) {
 # 6. 布局：手工坐标 JSON + 分层布局可运行算法
 
 > **技术前置：** 此时应当学会 **SVG 渲染基础；本章学布局坐标 JSON / 分层算法** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `graph layout layered` · 分层布局算法 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1487,6 +1494,7 @@ test('layerLayout snapshot', () => {
 # 7. 高亮当前态、历史路径、FAILED 样式（CSS 变量完整）
 
 > **技术前置：** 此时应当学会 **布局；本章学当前态/历史路径/FAILED 样式** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `CSS variables 主题` · CSS 变量主题 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1644,6 +1652,7 @@ export function nodeVisualState(nodeId, view) {
 # 8. HITL：图上选中 → decide 面板；APPROVE≠写库文案
 
 > **技术前置：** 此时应当学会 **高亮样式；本章学图上 HITL decide（APPROVE≠写库）（T5+T9）** 后再进行阅读。 节点：**T5+T9+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue 交互面板](https://www.bilibili.com/video/BV1aa1NYxECK/) · 选中节点→侧栏 · 备用搜：`Vue 组件通信` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1834,6 +1843,7 @@ catch (e) {
 # 9. 审计回放播放器（完整 Vue 逻辑）
 
 > **技术前置：** 此时应当学会 **HITL 面板；本章开始学审计回放播放器（T5）** 后再进行阅读。 节点：**T5+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `timeline 组件` · 时间轴/回放 UI · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2045,6 +2055,7 @@ const displayEdges = computed(() =>
 # 10. 规则引擎标注：RISK_CHECK 与 RULE_DENIED 徽标
 
 > **技术前置：** 此时应当学会 **审计回放；本章学规则标注 RULE_DENIED（T11）** 后再进行阅读。 节点：**T11+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `badge UI` · 节点徽标标注 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2175,6 +2186,7 @@ if ("RULE_DENIED".equals(inst.lastAuditType())) {
 # 11. APPLY_WRITE 与假账本侧栏
 
 > **技术前置：** 此时应当学会 **规则标注；本章学 APPLY_WRITE / 假账本侧栏（T9）** 后再进行阅读。 节点：**T9+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `drawer 侧栏 Vue` · 侧栏详情 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2325,6 +2337,7 @@ dl { display: grid; grid-template-columns: 5rem 1fr; gap: 0.25rem 0.5rem; font-s
 # 12. 多实例列表绑定
 
 > **技术前置：** 此时应当学会 **写入侧栏；本章学多实例列表绑定** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `master detail Vue` · 列表+详情联动 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2481,6 +2494,7 @@ if (to.params.id && !(await instanceExists(to.params.id))) {
 # 13. 接入 erp-ai-console：路由、Pinia、文件树、proxy
 
 > **技术前置：** 此时应当学会 **多实例；本章接入 erp-ai-console 路由/Pinia/proxy（T7）** 后再进行阅读。 节点：**T7+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue Router + Pinia + Vite proxy](https://www.bilibili.com/video/BV1aa1NYxECK/) · 接入 console；另见 WEB 教材 · 备用搜：`Vite proxy Vue Router` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2619,6 +2633,7 @@ export default defineConfig({
 # 14. 节点耗时与 traceId 标注
 
 > **技术前置：** 此时应当学会 **控制台接入；本章学节点耗时与 traceId（T6）** 后再进行阅读。 节点：**T6+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `performance timing UI` · 耗时火焰/标注 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2728,6 +2743,7 @@ traceId tr-abc → （未来）/jaeger/trace/tr-abc
 # 15. a11y 与只读演示模式
 
 > **技术前置：** 此时应当学会 **观测标注；本章学 a11y 与只读 demo 模式** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Vue a11y aria` · 无障碍 a11y · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2846,6 +2862,7 @@ const readOnly = computed(() => route.query.demo === '1')
 # 16. 4 个端到端彩排剧本（逐步可打勾）
 
 > **技术前置：** 此时应当学会 **a11y/demo；本章跑 4 个端到端彩排剧本** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `产品演示 剧本` · 演示彩排 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2972,6 +2989,7 @@ cd erp-ai-console && npm run dev
 # 17. PORTFOLIO 完整可粘贴章节
 
 > **技术前置：** 此时应当学会 **彩排通过；本章写 PORTFOLIO** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `技术作品集 PORTFOLIO` · 作品集写作 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -3053,6 +3071,7 @@ audit replay, HITL panel (APPROVE ≠ ledger write). See `docs/lessons/MONTH8_WO
 # 18. 1～8 月架构终图
 
 > **技术前置：** 此时应当学会 **作品集；本章 1～8 月架构终图** 后再进行阅读。 节点：**T0～T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `架构演进图` · 架构终图 1～8 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -3181,6 +3200,7 @@ flowchart TB
 # 19. 口述 20 题 + 能力清单
 
 > **技术前置：** 此时应当学会 **架构终图；本章口述 20 题 + 能力清单** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `工作流 可视化 面试` · 口述自测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -3270,6 +3290,7 @@ flowchart TB
 # 20. 明确不做 + 第9月方向
 
 > **技术前置：** 此时应当学会 **口述通过；本章明确不做 + 第9月方向；闸门 A + T8～T12 后可深挖 T13/T14** 后再进行阅读。 节点：**T12→选修** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Spring AI / Python 选修窗口](https://www.bilibili.com/video/BV1h8G96vEck/) · T13/T14 可开；主仓仍 Java · 备用搜：`Spring AI LangChain4j` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

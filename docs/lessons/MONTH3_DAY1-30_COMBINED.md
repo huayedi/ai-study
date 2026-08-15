@@ -6,6 +6,7 @@
 > **每天结构（固定五段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH3.md`  
 > **技术节点：** 本月对齐 **T4 运维 + T5/T6 加深** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH3 优先：企业 RAG 痛点、pgvector 搜索、Camunda 对照 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **编码策略：** 主线 A/B/C/D 选一条深挖；其它主线读懂 + 口述即可。  
 > **约定：** 助手不擅自改你本地未提交的业务代码；你按骨架自行落地。
 
@@ -77,6 +78,7 @@
 ## M3-D1 差距诊断：从「能查」到「可运维」
 
 > **技术前置：** 此时应当学会 **第2月 Hybrid/Gate/Rerank + HITL + Eval 入门（T4～T6）** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [企业 RAG 痛点总览](https://www.bilibili.com/video/BV1GYkKBVEcW/) · 看「为何要自建/分片/隔离」思路 · 备用搜：`企业级 RAG 痛点` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -179,6 +181,7 @@ controller/RagAdminController.java   ← D6
 ## M3-D2 维度治理与元数据设计（详）
 
 > **技术前置：** 此时应当学会 **差距诊断完成；本日开始学维度/模型元数据治理（T4 运维）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Embedding 维度 模型版本` · embedding dims / model 元数据 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -312,6 +315,7 @@ public static String sha256(String content) {
 ## M3-D3 `ChunkVectorStore` 与 Pg 实现骨架（详）
 
 > **技术前置：** 此时应当学会 **dims/model 治理；本日开始学 ChunkVectorStore + Pg 实现（pgvector）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `pgvector Spring Boot` · pgvector 实操 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -556,6 +560,7 @@ ChunkVectorStore chunkVectorStore(AiProperties props, ObjectProvider<JdbcTemplat
 ## M3-D4 增量重建（hash 跳过）全流程
 
 > **技术前置：** 此时应当学会 **PgStore 骨架；本日开始学 content_hash 增量重建** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `向量库 增量更新` · 增量索引 / content hash · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -657,6 +662,7 @@ public record ReindexResult(int total, int skipped, int embedded, long tookMs) {
 ## M3-D5 检索质量日志（强制 schema）
 
 > **技术前置：** 此时应当学会 **增量 reindex；本日开始学检索质量日志 schema** 后再进行阅读。 节点：**T4+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG 可观测 命中率` · 检索质量日志 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -753,6 +759,7 @@ qualityLog.emit(Map.of(
 ## M3-D6 Reindex API 与安全注意
 
 > **技术前置：** 此时应当学会 **质量日志；本日开始学 Reindex API（注意鉴权学习级）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `向量库 重建索引` · reindex API 安全 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -845,6 +852,7 @@ public ReindexResult reindex() {
 ## M3-D7 第 1 周复盘（检索）
 
 > **技术前置：** 此时应当学会 **Store/reindex/质量日志（T4 运维第1周）；可选 Docker Compose 起 Postgres** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG 运维向复盘](https://www.bilibili.com/video/BV1GYkKBVEcW/) · 分片/版本隔离相关集 · 备用搜：`RAG reindex` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -948,6 +956,7 @@ classpath docs
 ## M3-D8 多节点流设计（详）
 
 > **技术前置：** 此时应当学会 **T4 运维可讲清；本日开始学多节点 Flow 设计（T5 加深）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Camunda·多节点（对照）](https://www.bilibili.com/video/BV1qe4y1m7D7/) · 多节点/网关概念；自研迁移表 · 备用搜：`BPMN 网关` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1044,6 +1053,7 @@ public class FlowInstance {
 ## M3-D9 审计表与回放（详）
 
 > **技术前置：** 此时应当学会 **多节点流；本日开始学审计表与回放** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `审计日志 事件溯源` · 审计日志 / 事件溯源入门 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1160,6 +1170,7 @@ private void transition(FlowInstance fi, FlowState to, String event, Object deta
 ## M3-D10 合法迁移表（防非法跳转）
 
 > **技术前置：** 此时应当学会 **审计回放；本日开始学合法迁移表（防非法跳转；Camunda 对照概念）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `状态机 合法迁移` · 合法状态迁移 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1226,6 +1237,7 @@ void terminalHasNoOutgoing() {
 ## M3-D11 节点超时与降级策略（详）
 
 > **技术前置：** 此时应当学会 **合法迁移；本日学节点超时与降级** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `超时 熔断 降级` · 超时降级 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1296,6 +1308,7 @@ private void doTool(FlowInstance fi) {
 ## M3-D12 人工决策：APPROVE / REJECT / EDIT
 
 > **技术前置：** 此时应当学会 **超时降级；本日学 APPROVE/REJECT/EDIT** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `工作流 驳回 修改` · 审批 EDIT/驳回 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1372,6 +1385,7 @@ public FlowInstance decide(String flowId, String decision, String editedAnswer, 
 ## M3-D13 待确认队列 API 与 FlowEngine 总装
 
 > **技术前置：** 此时应当学会 **人工三决策；本日待确认队列 API + Flow 总装** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `审批 待办 队列` · 待办队列 API · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1499,6 +1513,7 @@ public class FlowEngine {
 ## M3-D14 第 2 周复盘（工作流）
 
 > **技术前置：** 此时应当学会 **多节点 Flow + 审计回放（T5 第2周）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Flowable/Camunda 概念扫](https://www.bilibili.com/video/BV1a3411o7LK/) · 仅看演示；不接公司 BPM · 备用搜：`Camunda 实战 对照` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1615,6 +1630,7 @@ void auditReplayMatchesApprovePath() {
 ## M3-D15 题集与断言字典（扩）
 
 > **技术前置：** 此时应当学会 **T5 加深可演示；本日扩题集与断言字典（T6）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG eval 断言` · 断言字典 / eval suite · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1681,6 +1697,7 @@ evals/
 ## M3-D16 Run 持久化（文件版详实现）
 
 > **技术前置：** 此时应当学会 **断言字典；本日开始学 Run 持久化** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `experiment run 落盘` · 评测 run 持久化 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1818,6 +1835,7 @@ void assertCase(EvalCase c, EvalCaseResult r, String answer, List<String> docs) 
 ## M3-D17 报告与 HTTP 查询
 
 > **技术前置：** 此时应当学会 **Run 落盘；本日学报告与 HTTP 查询** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `eval report markdown` · 评测报告 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1894,6 +1912,7 @@ curl/浏览器能拿到最近一次 run；失败 reasons 人话可读。
 ## M3-D18 脚本与 CI 概念（详）
 
 > **技术前置：** 此时应当学会 **报告查询；本日学脚本与 CI 概念（勿上公司流水线）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `GitHub Actions 入门 概念` · 本地脚本当 CI · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1958,6 +1977,7 @@ jobs:
 ## M3-D19 Baseline 门禁（详）
 
 > **技术前置：** 此时应当学会 **CI 概念；本日开始学 baseline 门禁** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `baseline regression test` · baseline 门禁 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2027,6 +2047,7 @@ public class BaselineGuard {
 ## M3-D20 多套件与安全扫描
 
 > **技术前置：** 此时应当学会 **baseline；本日多套件与安全扫描题** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM red team 入门` · 安全扫描题集 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2149,6 +2170,7 @@ void assertSafety(EvalCase c, EvalCaseResult r, ChatResponse resp) {
 ## M3-D21 第 3 周复盘（评测）
 
 > **技术前置：** 此时应当学会 **Eval Run/baseline/门禁（T6 第3周）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `AI eval baseline` · 评测周复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2256,6 +2278,7 @@ static void assertBaseline() throws IOException {
 ## M3-D22 多模态边界课（先思后码）（详）
 
 > **技术前置：** 此时应当学会 **T6 门禁可演示；本日多模态边界（先思后码）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `文档 OCR 大模型` · 多模态边界 OCR · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2311,6 +2334,7 @@ multipart image
 ## M3-D23 FakeOcr 与接口
 
 > **技术前置：** 此时应当学会 **多模态边界；本日 FakeOcr（真 OCR/Tesseract 仅扩展）** 后再进行阅读。 节点：**选修OCR** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Tesseract OCR Java` · Fake OCR / Tesseract 概念 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2381,6 +2405,7 @@ void fakeOcrReadsFixture() {
 ## M3-D24 OCR → Draft API（详）
 
 > **技术前置：** 此时应当学会 **FakeOcr；本日 OCR→Draft API（强制人工）** 后再进行阅读。 节点：**选修OCR** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `发票 OCR 表单` · OCR→表单草稿 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2439,6 +2464,7 @@ Pattern QTY = Pattern.compile("数量[:：]\\s*(\\d+)");
 ## M3-D25 Debug 台增强任务清单
 
 > **技术前置：** 此时应当学会 **OCR 草稿链路（可选）；本日 Debug 台增强** 后再进行阅读。 节点：**T6→T7** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue 控制台增强](https://www.bilibili.com/video/BV1aa1NYxECK/) · debug 台；完整见 WEB · 备用搜：`Vue3 管理台` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2573,6 +2599,7 @@ function decideEdit(flowId) {
 ## M3-D26 作品集 README（完整模板）
 
 > **技术前置：** 此时应当学会 **Debug 增强清单；本日作品集 README** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `GitHub README 项目展示` · 作品集 README · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2709,6 +2736,7 @@ mvn spring-boot:run
 ## M3-D27 端到端彩排剧本（逐步打勾）
 
 > **技术前置：** 此时应当学会 **作品集骨架；本日端到端彩排** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `技术演示 彩排` · 演示彩排 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2813,6 +2841,7 @@ echo "smoke ok"
 ## M3-D28 架构终审（加厚总图）
 
 > **技术前置：** 此时应当学会 **彩排；本日架构终审** 后再进行阅读。 节点：**T0～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `系统架构 讲解` · 架构评审表达 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2938,6 +2967,7 @@ README「明确不做」与图中边界一致。
 ## M3-D29 口述自测（20 题）
 
 > **技术前置：** 此时应当学会 **架构终审；本日口述自测** 后再进行阅读。 节点：**闸门A** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG 面试题` · 口述面试题（自用） · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -3042,6 +3072,7 @@ Week4  OCR 边界 / FakeOcr / debug 台 / README / 彩排 / 架构终审
 ## M3-D30 收官与第 4 月
 
 > **技术前置：** 此时应当学会 **第3月收官：闸门 A（T0～T6）趋近；MONTH4 起 T8；Spring AI/Python 仍建议暂缓** 后再进行阅读。 节点：**闸门A** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Spring AI 仍建议收藏不跟练](https://www.bilibili.com/video/BV1QCkYBnEtc/) · 闸门 A 后再系统学 · 备用搜：`Spring AI` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

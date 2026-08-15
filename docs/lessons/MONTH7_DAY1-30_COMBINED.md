@@ -7,6 +7,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH7.md`
 > **技术节点：** 本月对齐 **T11（RuleEngine；Drools 仅对照）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH7：Drools 只对照概念；主路径自研 RuleEngine · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **规则引擎（RuleEngine / RuleSet / DecisionTable / 版本化 / 评测 / 审计）**
 > **核心产品句（全文反复强调）：**
 > **确定性业务规则用规则引擎；LLM 只做理解、草稿与解释。规则先于模型，冲突时规则优先。规则变更可版本化、可评测、可审计。本月不接公司生产规则平台。**
@@ -166,6 +167,7 @@ Accept:            application/vnd.erp-ai.v1+json
 ## M7-D1 为何需要规则引擎；「全靠 Prompt」的失败模式
 
 > **技术前置：** 此时应当学会 **第6月 Port/Adapter/契约（T10）+ 第5月受控写（T9）** 后再进行阅读。 节点：**T10→T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Drools·规则引擎概述（对照）](https://www.bilibili.com/video/BV1G44y1t7B1/) · P02～P07 概念；实现用自研 RuleEngine · 备用搜：`规则引擎 是什么` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -286,6 +288,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D2 什么该规则、什么该 LLM（对照表）
 
 > **技术前置：** 此时应当学会 **为何要规则引擎；本日对照「全靠 Prompt」失败模式（T11）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Drools·场景与优势（对照）](https://www.bilibili.com/video/BV1G44y1t7B1/) · 对照「什么该规则/什么该 LLM」 · 备用搜：`规则 vs 机器学习` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -394,6 +397,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D3 Rule / RuleContext / RuleResult（ALLOW/DENY/WARN/ROUTE）
 
 > **技术前置：** 此时应当学会 **规则 vs LLM 边界；本日学 Rule/Context/Result** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `决策表 决策结果` · 规则结果 ALLOW/DENY · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -513,6 +517,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D4 RuleEngine.evaluate(context) 顺序、优先级、短路
 
 > **技术前置：** 此时应当学会 **核心类型；本日学 RuleEngine.evaluate 优先级/短路** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则引擎 冲突 优先级` · 规则优先级短路 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -638,6 +643,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D5 决策表：期间关闭禁止过账；缺仓库 WARN
 
 > **技术前置：** 此时应当学会 **Engine 执行；本日开始学决策表（Drools 仅概念对照）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Drools·决策/入门案例（对照）](https://www.bilibili.com/video/BV1G44y1t7B1/) · 看决策表直觉；语法不必死记 · 备用搜：`决策表 Drools` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -757,6 +763,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D6 与 Flow 数据：把 intent/risk 从硬编码迁到规则
 
 > **技术前置：** 此时应当学会 **决策表；本日把 intent/risk 从硬编码迁到规则** 后再进行阅读。 节点：**T11+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则 路由 intent` · 意图路由规则化 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -852,6 +859,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D7 第 1 周复盘（规则边界 + 核心类型 + 决策表）
 
 > **技术前置：** 此时应当学会 **规则边界 + 核心类型 + 决策表（T11 第1周）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Drools 概念复盘](https://www.bilibili.com/video/BV1G44y1t7B1/) · 第1周；仍不引入依赖 · 备用搜：`Drools 入门` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -954,6 +962,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D8 规则注册表 RuleRegistry + 命名空间（classify/risk/write-precheck）
 
 > **技术前置：** 此时应当学会 **T11 基础；本日 RuleRegistry + 命名空间** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则包 命名空间` · 规则注册表/命名空间 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1060,6 +1069,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D9 YAML/JSON 规则装载（学习版）+ Java 实现类混用
 
 > **技术前置：** 此时应当学会 **Registry；本日 YAML/JSON 规则装载** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则配置化 YAML` · YAML 规则外置 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1163,6 +1173,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D10 CLASSIFY 节点改调 RuleEngine
 
 > **技术前置：** 此时应当学会 **装载；本日 CLASSIFY 节点改调 RuleEngine** 后再进行阅读。 节点：**T11+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `工作流 规则 节点` · 分类节点+规则 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1269,6 +1280,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D11 RISK_CHECK / 写前校验规则集
 
 > **技术前置：** 此时应当学会 **CLASSIFY 接入；本日 RISK_CHECK / 写前校验规则集** 后再进行阅读。 节点：**T11+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `风控 规则引擎` · 风控规则 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1364,6 +1376,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D12 规则版本 rulesVersion 写入 audit / eval config 快照
 
 > **技术前置：** 此时应当学会 **写前规则；本日 rulesVersion 写入 audit/eval** 后再进行阅读。 节点：**T11+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `feature flag 版本` · 规则版本化 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1459,6 +1472,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D13 规则单元测试模式（给定 context → 断言结果）
 
 > **技术前置：** 此时应当学会 **规则版本；本日规则单元测试模式** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则 单元测试` · 规则单测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1554,6 +1568,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D14 第 2 周复盘（接入点 + 版本 + 单测）
 
 > **技术前置：** 此时应当学会 **接入点 + 版本 + 单测（T11 第2周）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则引擎 接入` · 接入复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1658,6 +1673,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D15 evals/suites/rules-cases.jsonl 规则评测套件
 
 > **技术前置：** 此时应当学会 **接入可演示；本日 rules-cases.jsonl 评测套件（T6）** 后再进行阅读。 节点：**T11+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `decision table testing` · 规则评测套件 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1750,6 +1766,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D16 冲突实验：Prompt 说可以、规则 DENY → 以规则为准
 
 > **技术前置：** 此时应当学会 **规则评测；本日冲突实验：Prompt vs 规则→规则优先** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `guardrails LLM` · Prompt vs 规则冲突 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1845,6 +1862,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D17 审计事件 RULE_FIRED / RULE_DENIED
 
 > **技术前置：** 此时应当学会 **冲突实验；本日 RULE_FIRED / RULE_DENIED 审计** 后再进行阅读。 节点：**T11+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `policy decision 审计` · 规则审计事件 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1944,6 +1962,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D18 RuleContext 注入 tenant/roles/principal（第4月）
 
 > **技术前置：** 此时应当学会 **规则审计；本日 Context 注入 tenant/roles（T8）** 后再进行阅读。 节点：**T11+T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `ABAC 属性鉴权` · 规则上下文租户 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2039,6 +2058,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D19 规则调用只读 Port 查期间状态（第6月），禁止规则内直写
 
 > **技术前置：** 此时应当学会 **上下文注入；本日规则调只读 Port（禁直写）（T10）** 后再进行阅读。 节点：**T11+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则 查库 只读` · 规则调只读 Port · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2134,6 +2154,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D20 热加载概念（文件变更 reload）与安全（校验失败不加载）
 
 > **技术前置：** 此时应当学会 **规则+Port；本日热加载概念与校验失败不加载** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `配置热更新 校验` · 热加载与校验 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2235,6 +2256,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D21 第 3 周复盘（评测 + 审计 + Port + 热加载）
 
 > **技术前置：** 此时应当学会 **评测 + 审计 + Port + 热加载（T11 第3周）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则治理` · 规则治理复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2339,6 +2361,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D22 console：规则列表、试跑 Context 表单
 
 > **技术前置：** 此时应当学会 **治理可讲；本日 console 规则浏览器/试跑（T7）** 后再进行阅读。 节点：**T7+T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue 规则浏览器](https://www.bilibili.com/video/BV1aa1NYxECK/) · 试跑表单 UI · 备用搜：`Vue 表单` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2436,6 +2459,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D23 串测 A：关期间 DENY 过账
 
 > **技术前置：** 此时应当学会 **console；本日串测关期间 DENY** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `期间关闭` · 关期间 DENY 演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2531,6 +2555,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D24 串测 B：口语意图 ROUTE 到 RAG_TOOL
 
 > **技术前置：** 此时应当学会 **场景 A；本日串测口语意图 ROUTE** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `意图分类` · 意图 ROUTE 演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2626,6 +2651,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D25 串测 C：Prompt 诱导绕过 → 规则仍 DENY
 
 > **技术前置：** 此时应当学会 **场景 B；本日串测 Prompt 诱导仍 DENY** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `越狱 Prompt 防护` · 诱导绕过仍 DENY · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2718,6 +2744,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D26 PORTFOLIO「规则引擎」章节
 
 > **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 规则引擎** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则引擎 简历` · PORTFOLIO 规则引擎 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2813,6 +2840,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D27 架构终图（1～7月；RuleEngine 位置）
 
 > **技术前置：** 此时应当学会 **作品集；本日架构终图 RuleEngine 位置** 后再进行阅读。 节点：**T0～T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `策略模式 规则` · 架构 RuleEngine 位置 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2908,6 +2936,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D28 规则治理清单（谁改规则、如何回归）
 
 > **技术前置：** 此时应当学会 **架构；本日规则治理清单** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `变更管理` · 谁改规则如何回归 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -3003,6 +3032,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D29 口述自测（20 题）
 
 > **技术前置：** 此时应当学会 **治理清单；本日口述自测** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `规则引擎 面试` · 口述自测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -3099,6 +3129,7 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 ## M7-D30 收官；第8月方向（已开课：工作流可视化 · 完整教材）
 
 > **技术前置：** 此时应当学会 **第7月收官：T11 完成；下月 T12 可视化（需 T7 Vue）** 后再进行阅读。 节点：**T11→T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue + 流程可视化预告](https://www.bilibili.com/video/BV1aa1NYxECK/) · 下月 T12；可预习 Vue · 备用搜：`流程图 Vue` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH6.md`
 > **技术节点：** 本月对齐 **T10（Port/Adapter）；可选 WireMock/Testcontainers** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH6：多搜「六边形/Port Adapter/WireMock」；链接触发少 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **真适配器接口稳定化（Port/Adapter 契约 + Fake/Sandbox + 契约测试）**
 > **核心产品句（全文反复强调）：**
 > **业务代码只依赖稳定 Port/Adapter 接口；学习期用 Fake/Sandbox 实现；将来换真实 ERP 只换适配器，不改 Chat/RAG/Flow/WriteGateway 主编排。本月不接公司生产。**
@@ -174,6 +175,7 @@ WriteGateway → InventoryWritePort  → FakeInventoryWriteAdapter → (内部 I
 ## M6-D1 为何「接口不稳」比「模型不行」更毁项目；本月边界
 
 > **技术前置：** 此时应当学会 **第5月 WriteGateway/假账本/HITL 写（T9）** 后再进行阅读。 节点：**T9→T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `防腐层 ACL Anti-Corruption` · 接口不稳危害 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -267,6 +269,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D2 Hexagonal：Domain ← Port ← Adapter；反模式清单
 
 > **技术前置：** 此时应当学会 **接口不稳危害；本日开始学 Hexagonal Port/Adapter（T10）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `六边形架构 Hexagonal Port Adapter` · 六边形架构 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -359,6 +362,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D3 读端口：ItemQueryPort / InventoryQueryPort / PeriodQueryPort
 
 > **技术前置：** 此时应当学会 **六边形心智；本日学读端口 Item/Inventory/Period** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Repository 接口 分离` · 查询端口 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -451,6 +455,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D4 写端口：InventoryWritePort / PostingPort（对接第5月 Gateway）
 
 > **技术前置：** 此时应当学会 **读 Port；本日学写端口对接 Gateway** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Port Adapter 写模型` · 写端口 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -540,6 +545,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D5 统一 ErpAdapterException：TIMEOUT / CONFLICT / PERIOD_CLOSED 等
 
 > **技术前置：** 此时应当学会 **写 Port；本日学统一 ErpAdapterException** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `异常码 设计` · 统一异常模型 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -629,6 +635,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D6 ai.erp.adapter: fake|sandbox 装配；禁止业务 if(adapter==)
 
 > **技术前置：** 此时应当学会 **错误模型；本日 ai.erp.adapter 装配（禁业务 if）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Spring @Profile 多实现` · 策略/装配切换 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -717,6 +724,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D7 第 1 周复盘（Port 基础 + Fake 装配）
 
 > **技术前置：** 此时应当学会 **Port 基础 + Fake 装配（T10 第1周）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `依赖倒置` · Port 周复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -808,6 +816,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D8 契约测试：同一套测试跑 Fake 与 Stub，断言行为一致
 
 > **技术前置：** 此时应当学会 **Fake 可切换；本日开始学契约测试（可选 WireMock）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `契约测试 Pact WireMock` · 契约测试 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -896,6 +905,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D9 版本化：ErpApiVersion / Accept header；破坏性变更 checklist
 
 > **技术前置：** 此时应当学会 **契约测试；本日 API 版本/破坏性变更 checklist** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `API versioning` · API 版本 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -977,6 +987,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D10 超时与重试策略放适配器层；401/期间关闭不重试
 
 > **技术前置：** 此时应当学会 **版本意识；本日超时重试放适配器层** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Spring Retry 超时` · 超时重试 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1060,6 +1071,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D11 幂等键从 Flow 传到 Port（Idempotency-Key）
 
 > **技术前置：** 此时应当学会 **韧性策略；本日幂等键传到 Port** 后再进行阅读。 节点：**T9+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Idempotency 传播` · 幂等传到下游 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1139,6 +1151,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D12 熔断/舱壁概念 + 简易 CircuitBreaker 骨架（学习版）
 
 > **技术前置：** 此时应当学会 **幂等透传；本日简易熔断骨架** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Resilience4j 熔断` · 熔断 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1222,6 +1235,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D13 GET /api/ai/erp/health 聚合适配器健康
 
 > **技术前置：** 此时应当学会 **熔断概念；本日适配器健康聚合** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Spring Actuator health` · 健康检查 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1301,6 +1315,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D14 第 2 周复盘（契约 + 韧性）
 
 > **技术前置：** 此时应当学会 **契约 + 韧性（T10 第2周）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `微服务 韧性` · 韧性复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1387,6 +1402,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D15 Sandbox 适配器：对本地 stub HTTP（JDK HttpServer 概念）
 
 > **技术前置：** 此时应当学会 **韧性可讲；本日 Sandbox + JDK HttpServer stub（可选 WireMock）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `WireMock 入门` · HttpServer / WireMock stub · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1470,6 +1486,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D16 OpenAPI/契约 YAML 最小片段（库存查询、过账）
 
 > **技术前置：** 此时应当学会 **Sandbox；本日 OpenAPI 最小契约片段** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `OpenAPI 3 入门` · OpenAPI 最小契约 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1553,6 +1570,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D17 字段映射：ErpItemMapper（外部编码 ↔ 学习域模型）
 
 > **技术前置：** 此时应当学会 **OpenAPI；本日字段映射 Mapper** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `MapStruct 入门` · 对象映射 MapStruct 概念 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1637,6 +1655,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D18 主数据适配：供应商/仓库/存货查询 Port
 
 > **技术前置：** 此时应当学会 **Mapper；本日主数据查询 Port** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `主数据管理 MDM 入门` · 主数据查询 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1716,6 +1735,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D19 透传学习头：tenant/user/roles → 适配器审计上下文
 
 > **技术前置：** 此时应当学会 **主数据 Port；本日透传 tenant/user 审计上下文** 后再进行阅读。 节点：**T8+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `MDC traceId 透传` · 审计上下文透传 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1795,6 +1815,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D20 写路径端到端：APPROVE → Gateway → PostingPort(Sandbox)
 
 > **技术前置：** 此时应当学会 **上下文透传；本日 E2E：APPROVE→Gateway→PostingPort** 后再进行阅读。 节点：**T9+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `端到端测试` · E2E 过账 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1874,6 +1895,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D21 第 3 周复盘（Sandbox + 映射 + E2E）
 
 > **技术前置：** 此时应当学会 **Sandbox + 映射 + E2E（T10 第3周）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `测试替身 Test Double` · Sandbox 复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1960,6 +1982,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D22 适配器日志：outbound requestId、latency、errorCode（脱敏）
 
 > **技术前置：** 此时应当学会 **E2E 可演示；本日适配器日志（脱敏）** 后再进行阅读。 节点：**T6+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `日志脱敏` · 出站日志脱敏 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2039,6 +2062,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D23 切换演练：fake → sandbox 一键；对比行为
 
 > **技术前置：** 此时应当学会 **适配器日志；本日 fake→sandbox 切换演练** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `配置中心 概念` · 环境切换演练 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2118,6 +2142,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D24 串测 A：只读查询走 Port
 
 > **技术前置：** 此时应当学会 **切换演练；本日串测只读查询走 Port** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `适配器 演示` · 只读走 Port 演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2197,6 +2222,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D25 串测 B：受控过账走 Port + 幂等
 
 > **技术前置：** 此时应当学会 **场景 A；本日串测受控过账+幂等** 后再进行阅读。 节点：**T9+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `幂等 演示` · 过账+幂等演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2276,6 +2302,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D26 串测 C：期间关闭/超时降级
 
 > **技术前置：** 此时应当学会 **场景 B；本日串测期间关闭/超时降级** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `超时降级 演示` · 降级演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2355,6 +2382,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D27 PORTFOLIO 章节模板「适配器稳定化」
 
 > **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 适配器稳定化** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `六边形架构 简历` · PORTFOLIO 适配器 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2434,6 +2462,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D28 架构终图（1～6月叠加；强调 Port 边界）
 
 > **技术前置：** 此时应当学会 **作品集；本日架构终图强调 Port 边界** 后再进行阅读。 节点：**T0～T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `整洁架构` · 架构终图 Port 边界 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2513,6 +2542,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D29 口述自测（20 题）
 
 > **技术前置：** 此时应当学会 **架构；本日口述自测** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Port Adapter 面试` · 口述自测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2600,6 +2630,7 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ## M6-D30 收官；第7月方向（已开课：规则引擎）
 
 > **技术前置：** 此时应当学会 **第6月收官：T10 完成；可选 Testcontainers；下月 T11 规则引擎** 后再进行阅读。 节点：**T10→T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Drools 课先收藏](https://www.bilibili.com/video/BV1G44y1t7B1/) · 下月规则引擎；先看概述集 · 备用搜：`规则引擎` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

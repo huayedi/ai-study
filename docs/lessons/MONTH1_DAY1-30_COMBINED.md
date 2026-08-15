@@ -5,6 +5,7 @@
 > **每天结构：** 为什么 → 概念/对照 → 怎么做（含代码或实验）→ 坑与排障 → 读完应掌握 / 当天验收。  
 > **入口：** `docs/MONTH1.md`  
 > **技术节点：** 本月对齐 **T0～T3（主）+ T5/T6 概念** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH1 优先：黑马 DeepSeek、吴恩达 RAG、Embedding；Spring AI 全集先收藏 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **约定：** 代码骨架在讲义中；由你自行落到 `erp-ai-assistant`；助教不擅自改你本地未提交实现。  
 > **原单日文件：** Day8～12 单文件仍保留作备份；以本文为第1月主阅读入口。Day13～30 已从旧「合并概述」扩成逐日详版。
 
@@ -36,6 +37,7 @@
 ## Day1 概念 + 接通 API（详）
 
 > **技术前置：** 此时应当学会 **Java 21、Spring Boot 3、application.yml、环境变量与日志（T0 地基）** 后再进行阅读。 节点：**T0** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [黑马·DeepSeek/大模型调用入门](https://www.bilibili.com/video/BV1MtZnYtEB3/) · 先看认识大模型+调用（约 P02～P06）；先别跟 SpringAI 改栈 · 备用搜：`DeepSeek 调用大模型 Java` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -137,6 +139,7 @@ ai:
 ## Day2 消息组装链路 + 会话 / 解析 / 重试（详）
 
 > **技术前置：** 此时应当学会 **RestClient/WebClient + JSON（Jackson）与基本 HTTP 调用（T0）** 后再进行阅读。 节点：**T0→T1** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Spring AI·DeepSeek 请求原理（对照协议）](https://www.bilibili.com/video/BV1fm4yzVEpa/) · 只看「接入 deepseek / 请求原理」相关 P；实现仍用自封装 RestClient · 备用搜：`DeepSeek chat completions` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -274,6 +277,7 @@ repaired.add(new ChatMessage(
 ## Day3 Temperature / Token / 超时重试 / 坏 case（详）
 
 > **技术前置：** 此时应当学会 **OpenAI 兼容 Chat Completions 协议：messages / role / token（T1）** 后再进行阅读。 节点：**T1** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [黑马 DeepSeek 新手扫盲](https://www.bilibili.com/video/BV1iQNueoEBD/) · 了解模型与部署即可；Dify 段可跳过 · 备用搜：`DeepSeek 入门` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -358,6 +362,7 @@ repaired.add(new ChatMessage(
 ## Day4 术语表与系统提示词工程（详）
 
 > **技术前置：** 此时应当学会 **可运行的 LlmClient（mock + openai-compatible）与 /api/ai/chat（T1）** 后再进行阅读。 节点：**T1→T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [小智医疗·Prompt 系统提示词段](https://www.bilibili.com/video/BV1MyLUzrEFz/) · 对照 system/加载模板；主代码跟讲义 · 备用搜：`Prompt 系统提示词 Java` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -413,6 +418,7 @@ repaired.add(new ChatMessage(
 ## Day5 多轮连贯与历史裁剪（详）
 
 > **技术前置：** 此时应当学会 **系统提示词文件化与术语表（T2 入门）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [黑马·会话记忆相关集](https://www.bilibili.com/video/BV1MtZnYtEB3/) · 对照多轮 history；你仓用 SessionStore · 备用搜：`大模型 多轮对话` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -468,6 +474,7 @@ repaired.add(new ChatMessage(
 ## Day6 Few-shot（少样本）深化（详）
 
 > **技术前置：** 此时应当学会 **多轮 messages 组装与历史裁剪（T1+T2）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Prompt few-shot 提示词工程` · few-shot / 提示词模板概念 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -515,6 +522,7 @@ few-shot 生效；5 题打过分；至少改过 1 条并对比；拒答抽测做
 ## Day7 Prompt 打磨：弱项扫描 + 字段校验解释（详）
 
 > **技术前置：** 此时应当学会 **few-shot 与 Prompt 分层（T2）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `JSON Schema LLM 结构化输出` · 字段校验/结构化输出提示词 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -580,6 +588,7 @@ Prompt 不管：私有长手册的逐段依据 → 交给第 2 周 RAG
 ## Day8 Prompt 收口与 RAG 入门（详 · 原单日讲义全文）
 
 > **技术前置：** 此时应当学会 **Prompt 收口：JSON 约束 / 拒答 / need_human（T2）** 后再进行阅读。 节点：**T2→T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG·概述](https://www.bilibili.com/video/BV1rGCvBVEtR/) · 模块1：RAG 是什么；Python 勿照抄 · 备用搜：`吴恩达 RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -748,6 +757,7 @@ Prompt 不管：私有长手册的逐段依据 → 交给第 2 周 RAG
 ## Day9 RAG 最小闭环（详 · 原单日讲义全文）
 
 > **技术前置：** 此时应当学会 **RAG 概念：切分、检索、sources 纪律（T3 入门）** 后再进行阅读。 节点：**T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG 完整教程·原理集](https://www.bilibili.com/video/BV1QLj9zfEZ5/) · 看检索/切分直觉；实现用 KeywordRetriever · 备用搜：`RAG 关键词检索` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -953,6 +963,7 @@ Chat 可能也答得像；RAG 的差异是**显式依据检索片段**，这是�
 ## Day10 切分策略深入（详 · 原单日讲义全文）
 
 > **技术前置：** 此时应当学会 **关键词检索最小闭环（KeywordRetriever）（T3）** 后再进行阅读。 节点：**T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG·分块](https://www.bilibili.com/video/BV1rGCvBVEtR/) · 模块3 分块相关；对照 HeadingChunker · 备用搜：`RAG chunking 分块` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1161,6 +1172,7 @@ ai:
 ## Day11 Embedding 与向量检索原理（详 · 原单日讲义全文）
 
 > **技术前置：** 此时应当学会 **文档切分策略（Chunker）（T3）** 后再进行阅读。 节点：**T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Embedding 讲解（小白）](https://www.bilibili.com/video/BV1XzADeFEMs/) · 向量是什么、为何能语义检索 · 备用搜：`Embedding 向量模型` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1399,6 +1411,7 @@ POST {baseUrl}/embeddings
 ## Day12 向量检索学习版实现（详 · 原单日讲义全文）
 
 > **技术前置：** 此时应当学会 **Embedding API 与余弦相似度原理（T3）** 后再进行阅读。 节点：**T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG·语义搜索/嵌入](https://www.bilibili.com/video/BV1rGCvBVEtR/) · 模块2 语义搜索；对照余弦相似度实现 · 备用搜：`余弦相似度 Embedding` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1645,6 +1658,7 @@ Bean 注入学习期简单做法：
 ## Day13 混合检索与未命中行为（详）
 
 > **技术前置：** 此时应当学会 **内存向量检索学习版（VectorRetriever）（T3）** 后再进行阅读。 节点：**T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG·向量库与相似度](https://www.bilibili.com/video/BV1QLj9zfEZ5/) · 向量库简介即可；学习期可用内存 List · 备用搜：`向量数据库 余弦` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1779,6 +1793,7 @@ ai:
 ## Day14 RAG 周复盘（详）
 
 > **技术前置：** 此时应当学会 **混合检索直觉与未命中行为（T3；Hybrid 深化在 MONTH2）** 后再进行阅读。 节点：**T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [RAG 工作原理·混合检索相关](https://www.bilibili.com/video/BV1RbR6YmE1G/) · Hybrid 预告；完整 Hybrid 在 MONTH2 · 备用搜：`Hybrid Search RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1848,6 +1863,7 @@ ai:
 ## Day15 Tool Calling 概念（详）
 
 > **技术前置：** 此时应当学会 **第1月 RAG 闭环复盘（T0～T3）** 后再进行阅读。 节点：**T0～T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [吴恩达 RAG 复习扫](https://www.bilibili.com/video/BV1FsfsBJEtj/) · 复盘模块1～3；≤45min · 备用搜：`吴恩达 RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1916,6 +1932,7 @@ loop:
 ## Day16 只读工具设计（详）
 
 > **技术前置：** 此时应当学会 **Tool Calling 概念（只读）（仍属 T1/应用层，勿上 Agent 框架）** 后再进行阅读。 节点：**T1** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [黑马·FunctionCalling/Tools 入门](https://www.bilibili.com/video/BV1MtZnYtEB3/) · 只学「只读工具」边界；禁止写库存 Tool · 备用搜：`Function Calling Tool Java` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1986,6 +2003,7 @@ ERP AI 默认姿态：**建议与查询可以，写入必须另一条受控链�
 ## Day17 工作流 vs Agent（详）
 
 > **技术前置：** 此时应当学会 **只读工具设计与白名单思维** 后再进行阅读。 节点：**T1** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM Tool Calling 白名单` · 只读 Tool / 白名单 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2041,6 +2059,7 @@ ERP AI 默认姿态：**建议与查询可以，写入必须另一条受控链�
 ## Day18 只读 Tool 实现提纲（详 · 自行编码日）
 
 > **技术前置：** 此时应当学会 **工作流 vs Agent 边界（T5 概念预告；实现在 MONTH2）** 后再进行阅读。 节点：**T5概念** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Camunda 工作流介绍（对照）](https://www.bilibili.com/video/BV1qe4y1m7D7/) · 只看前几集「工作流是什么」；仓内自研 Flow · 备用搜：`工作流 vs Agent` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2118,6 +2137,7 @@ answer = llm.chat(messages)
 ## Day19 单据辅助生成概念（详）
 
 > **技术前置：** 此时应当学会 **只读 Tool 编码提纲** 后再进行阅读。 节点：**T1** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Spring Boot Tool Calling 只读` · 只读 Tool 编码对照 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2174,6 +2194,7 @@ ERP 现场高频诉求是「一句话变成单据字段建议」。这与闲聊�
 ## Day20 草稿辅助实现提纲（详 · 自行编码日）
 
 > **技术前置：** 此时应当学会 **单据草稿辅助概念（不写库）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM 表单填写 辅助` · 单据草稿 / 结构化生成 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2253,6 +2274,7 @@ public class DraftService {
 ## Day21 第 3 周复盘（详）
 
 > **技术前置：** 此时应当学会 **草稿辅助实现提纲（人工确认）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Human in the loop AI` · HITL 人工确认产品语义 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2302,6 +2324,7 @@ HITL    = 高风险停下给人
 ## Day22 可观测性与成本（详）
 
 > **技术前置：** 此时应当学会 **第3周 Tool/草稿复盘** 后再进行阅读。 节点：**T1～T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `大模型 可观测性` · 复盘即可，可重看本周收藏 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2357,6 +2380,7 @@ HITL    = 高风险停下给人
 ## Day23 安全与 Prompt 注入（详）
 
 > **技术前置：** 此时应当学会 **可观测性：traceId / 耗时 / 成本估算（T6 入门）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM token 成本 观测` · traceId / 成本 / token · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2403,6 +2427,7 @@ HITL    = 高风险停下给人
 ## Day24 模型路由与降级（详）
 
 > **技术前置：** 此时应当学会 **安全与 Prompt 注入防护意识** 后再进行阅读。 节点：**T2+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Prompt Injection 防护` · Prompt 注入防护 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2463,6 +2488,7 @@ try {
 ## Day25 轻量评测集（详）
 
 > **技术前置：** 此时应当学会 **模型路由与降级（配置级）** 后再进行阅读。 节点：**T1** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `LLM 降级 路由 fallback` · 模型路由与降级 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2510,6 +2536,7 @@ try {
 ## Day26 学习版架构总复习（详）
 
 > **技术前置：** 此时应当学会 **轻量评测集 JSONL 入门（T6）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG evaluation 评测` · RAG/LLM 评测入门 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2558,6 +2585,7 @@ Controller
 ## Day27 ERP 场景模式库（详）
 
 > **技术前置：** 此时应当学会 **学习版架构总复习（T0～T6 轻量）** 后再进行阅读。 节点：**T0～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [黑马课结构扫一眼](https://www.bilibili.com/video/BV1MtZnYtEB3/) · 对照你仓架构图；勿迁移依赖 · 备用搜：`Java AI 应用架构` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2605,6 +2633,7 @@ Controller
 ## Day28 从 Demo 到可维护（详）
 
 > **技术前置：** 此时应当学会 **ERP 场景模式库（业务映射）** 后再进行阅读。 节点：**T2～T3** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `企业知识库问答 RAG` · ERP/业务场景映射（可选） · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2647,6 +2676,7 @@ Demo 能跑 ≠ 可维护。可维护性是你下月加 Hybrid/评测/工作流�
 ## Day29 全月复习导图与口述自测（详）
 
 > **技术前置：** 此时应当学会 **从 Demo 到可维护（工程纪律）** 后再进行阅读。 节点：**T0～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `AI 应用 工程化` · 可维护性 / 配置外置 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2691,6 +2721,7 @@ Week4  观测 / 安全 / 路由降级 / 评测 / 架构与模式
 ## Day30 收官与下月方向（详）
 
 > **技术前置：** 此时应当学会 **全月复习与口述：确认 T0～T3 扎实后再进 MONTH2（T4）** 后再进行阅读。 节点：**闸门→T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Spring AI 全集先收藏](https://www.bilibili.com/video/BV1fm4yzVEpa/) · 下月仍自封装；T13 再系统学 · 备用搜：`Spring AI 入门` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 

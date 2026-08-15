@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH4.md`  
 > **技术节点：** 本月对齐 **T8（+ T6 飞轮 / T7 控制台）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **建议视频（本月）：** MONTH4 优先：Vue3 Vite、多租户/ACL 搜索；完整前端见 WEB · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **「可隔离、可反馈、可演示」的学习版 ERP AI 助手** — 模拟 ACL、反馈飞轮、多租户 RAG、学习控制台正式化。  
 > **约定：** 助手不擅自改你本地未提交的业务代码；你按骨架自行落地。
 
@@ -106,6 +107,7 @@ X-Trace-Id:    <可选>           # 未传则服务端生成
 ## M4-D1 差距与本月总图：为何 Demo 也要「假权限」
 
 > **技术前置：** 此时应当学会 **第3月 Store/reindex/audit/baseline（T4～T6）** 后再进行阅读。 节点：**T4～T6→T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG 权限 过滤` · 权限与检索过滤 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -206,6 +208,7 @@ LearningAuthHeaders        ← D4
 ## M4-D2 角色模型：Role / Principal / DocAcl（内存表）
 
 > **技术前置：** 此时应当学会 **为何要假权限；本日开始学 Role/Principal/DocAcl（T8）；Spring Security 只作概念对照** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RBAC Spring Security 入门` · RBAC 入门（对照假 ACL） · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -319,6 +322,7 @@ public class InMemoryDocAclRepository implements DocAclRepository {
 ## M4-D3 RetrievalFilter：检索后按允许 docId 过滤
 
 > **技术前置：** 此时应当学会 **ACL 模型；本日开始学 RetrievalFilter** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG ACL document filter` · 检索后过滤 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -406,6 +410,7 @@ GateDecision gate = retrievalGate.decide(retrieved, question);
 ## M4-D4 API：学习请求头接入 RagService / Flow
 
 > **技术前置：** 此时应当学会 **检索过滤；本日学学习请求头接入** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `API Key Header 鉴权` · 请求头鉴权学习版 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -511,6 +516,7 @@ curl -H 'X-Roles: FINANCE' -H 'X-User-Id: u2' ...
 ## M4-D5 越权评测题 + forbid 泄露不可见文档内容
 
 > **技术前置：** 此时应当学会 **请求头 Principal；本日学越权评测题** 后再进行阅读。 节点：**T8+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `越权 安全测试` · 越权测试 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -596,6 +602,7 @@ void assertAcl(EvalCase c, RagResponse resp) {
 ## M4-D6 与 HITL / 草稿的权限边界（只读可见范围）
 
 > **技术前置：** 此时应当学会 **越权题；本日学 HITL/草稿权限边界** 后再进行阅读。 节点：**T8+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `多角色 数据权限` · 草稿可见范围 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -683,6 +690,7 @@ private boolean canView(Principal viewer, FlowInstance i) {
 ## M4-D7 第 1 周复盘（模拟 ACL）
 
 > **技术前置：** 此时应当学会 **模拟 ACL（T8 第1周）** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Spring Security 过滤器链 概念` · ACL 周复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -772,6 +780,7 @@ evals/suites/acl-forbidden.jsonl + headers 断言
 ## M4-D8 反馈产品语义：useful / wrong / unsafe ≠ 自动改模型
 
 > **技术前置：** 此时应当学会 **T8 ACL 可演示；本日学反馈产品语义（非自动改模型）** 后再进行阅读。 节点：**T6飞轮** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RLHF 反馈 产品 入门` · 用户反馈 useful/wrong · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -852,6 +861,7 @@ public record FeedbackRecord(
 ## M4-D9 FeedbackRecord + JSONL Sink
 
 > **技术前置：** 此时应当学会 **反馈语义；本日学 FeedbackRecord + JSONL Sink** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `analytics event jsonl` · 反馈日志 JSONL · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -937,6 +947,7 @@ public class JsonlFeedbackSink implements FeedbackSink {
 ## M4-D10 `POST /api/ai/feedback` 挂到 chat/rag/flow 的 traceId
 
 > **技术前置：** 此时应当学会 **JSONL Sink；本日挂 POST /feedback + traceId** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `分布式 traceId` · traceId 关联反馈 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1030,6 +1041,7 @@ public record FeedbackRequest(
 ## M4-D11 从负反馈生成 eval case 草案（人工确认后入库）
 
 > **技术前置：** 此时应当学会 **feedback API；本日负反馈→eval 草案（人工确认）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `eval from feedback` · 负反馈转评测题 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1113,6 +1125,7 @@ public class FeedbackToEvalPromoter {
 ## M4-D12 Feedback → Eval 晋升流程与脚本
 
 > **技术前置：** 此时应当学会 **草案流程；本日 Feedback→Eval 晋升脚本** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `data flywheel AI` · 数据飞轮概念 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1196,6 +1209,7 @@ public List<Path> listDrafts() { ... }
 ## M4-D13 仪表：反馈计数 /stats 扩展
 
 > **技术前置：** 此时应当学会 **晋升流程；本日 /stats 反馈计数** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `Micrometer Grafana 入门` · stats 仪表 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1274,6 +1288,7 @@ public class FeedbackStatsReader {
 ## M4-D14 第 2 周复盘（反馈飞轮）
 
 > **技术前置：** 此时应当学会 **反馈飞轮（T6 加深第2周）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `human feedback loop` · 反馈飞轮复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1352,6 +1367,7 @@ public class FeedbackStatsReader {
 ## M4-D15 tenant 概念 vs 公司真实多组织（学习简化）
 
 > **技术前置：** 此时应当学会 **反馈飞轮可讲；本日开始学 tenant 概念（T8 多租户）** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [企业 RAG·metadata 隔离](https://www.bilibili.com/video/BV1GYkKBVEcW/) · 对照 tenant/metadata；学习仓用请求头 · 备用搜：`多租户 RAG` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1430,6 +1446,7 @@ rag-docs/tenant-b/*.md
 ## M4-D16 tenantId 进入 chunk 元数据与 Store 键
 
 > **技术前置：** 此时应当学会 **tenant 概念；本日 tenantId 进 chunk/Store 键** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `多租户 SaaS 隔离` · 多租户数据隔离 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1510,6 +1527,7 @@ private final Map<String, Map<String, StoredChunk>> byTenant = new ConcurrentHas
 ## M4-D17 InMemory / 接口级按 tenant 隔离 search/rebuild
 
 > **技术前置：** 此时应当学会 **元数据隔离；本日按 tenant search/rebuild** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `向量库 namespace tenant` · 按租户重建索引 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1585,6 +1603,7 @@ curl -X POST 'http://localhost:8080/api/ai/rag/reindex?tenantId=tenant-a' \
 ## M4-D18 请求头 `X-Tenant-Id`；缺省拒绝或默认 learning
 
 > **技术前置：** 此时应当学会 **隔离检索；本日 X-Tenant-Id 请求头** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `X-Tenant-Id` · Tenant 请求头 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1657,6 +1676,7 @@ public String resolveOrThrow(HttpServletRequest req) {
 ## M4-D19 串租户攻击题与审计日志字段
 
 > **技术前置：** 此时应当学会 **租户头；本日串租户攻击题 + 审计字段** 后再进行阅读。 节点：**T8+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `IDOR 越权 测试` · 串租户攻击 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1725,6 +1745,7 @@ log.info("{}", new RetrievalQualityEntry(
 ## M4-D20 ACL × Tenant 组合矩阵（谁在哪个租户可见啥）
 
 > **技术前置：** 此时应当学会 **串租户负例；本日 ACL×Tenant 矩阵** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `权限矩阵` · ACL×Tenant 矩阵 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1796,6 +1817,7 @@ public Set<String> allowedDocIds(String tenantId, Principal principal) {
 ## M4-D21 第 3 周复盘（多租户 RAG）
 
 > **技术前置：** 此时应当学会 **多租户 RAG（T8 第3周）** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `multi-tenant RAG` · 多租户周复盘 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1875,6 +1897,7 @@ evals/suites/tenant-isolation.jsonl
 ## M4-D22 控制台信息架构（比 debug.html 完整）
 
 > **技术前置：** 此时应当学会 **T8 隔离可演示；本日控制台信息架构（对接 Vue/T7 更佳，静态页亦可）** 后再进行阅读。 节点：**T7** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue3+Vite+Pinia](https://www.bilibili.com/video/BV1aa1NYxECK/) · 控制台 IA；配合 WEB 教材 · 备用搜：`Vue3 Vite Pinia` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -1955,6 +1978,7 @@ evals/suites/tenant-isolation.jsonl
 ## M4-D23 静态页实现清单与 API 对照
 
 > **技术前置：** 此时应当学会 **控制台 IA；本日静态页/API 对照（完整 Vue 见 WEB 教材）** 后再进行阅读。 节点：**T7** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Vue3 极简](https://www.bilibili.com/video/BV1585762EQ9/) · 路由/组件；对接 proxy · 备用搜：`Vite proxy` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2044,6 +2068,7 @@ async function sendFeedback(kind) {
 ## M4-D24 场景串测 A：切换角色看 sources 变化
 
 > **技术前置：** 此时应当学会 **控制台清单；本日串测切换角色看 sources** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `前端 角色切换` · 角色切换演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2116,6 +2141,7 @@ async function sendFeedback(kind) {
 ## M4-D25 场景串测 B：踩一下 → 进题集 → eval
 
 > **技术前置：** 此时应当学会 **场景 A；本日串测反馈→题集→eval** 后再进行阅读。 节点：**T6+T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `feedback eval demo` · 反馈→eval 演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2185,6 +2211,7 @@ ls evals/drafts/
 ## M4-D26 场景串测 C：租户隔离负例
 
 > **技术前置：** 此时应当学会 **场景 B；本日串测租户隔离负例** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `多租户 演示` · 租户隔离演示 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2252,6 +2279,7 @@ ls evals/drafts/
 ## M4-D27 PORTFOLIO / README 升级第4月能力
 
 > **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 升级** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `技术作品集` · 作品集升级 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2330,6 +2358,7 @@ ls evals/drafts/
 ## M4-D28 架构终图（第1～4月叠加）
 
 > **技术前置：** 此时应当学会 **作品集；本日架构终图 1～4月** 后再进行阅读。 节点：**T0～T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `系统架构图 drawio` · 架构终图 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2420,6 +2449,7 @@ flowchart TB
 ## M4-D29 口述自测（20 题）
 
 > **技术前置：** 此时应当学会 **架构终图；本日口述自测** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** B 站搜 `RAG 权限 面试` · 口述自测 · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
@@ -2505,6 +2535,7 @@ flowchart TB
 ## M4-D30 收官；第5月只选一条
 
 > **技术前置：** 此时应当学会 **第4月收官：T8 完成；可开始考虑 T14 Python 入门（每周≤3～4h）；Spring AI 建议仍待 T9** 后再进行阅读。 节点：**T8→选修** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **建议视频：** [Python 入门可开始收藏](https://www.bilibili.com/video/BV1iQNueoEBD/) · T14 窗口将开；每周≤3～4h · 备用搜：`Python 入门` · 总表 [BILIBILI.md](../BILIBILI.md)
 
 
 
