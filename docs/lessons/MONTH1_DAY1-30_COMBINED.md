@@ -335,7 +335,7 @@ repaired.add(new ChatMessage(
 - 温度实验有结论写入笔记  
 - 能说清 token 随历史上升  
 - 能说清 401 不盲重试  
-- 坏 case 题库知道去哪找（`docs/day3-experiments.md`）
+- 坏 case 题库见本合订本 Day3 节；改提示词/上 RAG 前再回归
 
 ---
 
@@ -2620,8 +2620,6 @@ ai:
 |---|---|
 | 第1月合订本（本文） | `docs/lessons/MONTH1_DAY1-30_COMBINED.md` |
 | 第1月入口 | `docs/MONTH1.md` |
-| 原 Day8～12 单文件 | `docs/lessons/day08-…` 等（备份） |
-| 旧 Day13～30 概述合集 | `docs/lessons/day13-30-combined.md`（已被本文详版替代为主阅读） |
 | 第2月详版 | `docs/lessons/MONTH2_DAY1-30_COMBINED.md` |
 | 第3月加厚详版 | `docs/lessons/MONTH3_DAY1-30_COMBINED.md` |
 | 打卡笔记 | `docs/STUDY_NOTES.md` |

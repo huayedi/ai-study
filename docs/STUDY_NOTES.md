@@ -5,8 +5,7 @@
 > 工程目录：`erp-ai-assistant/`  
 > **学习偏好：教材式讲义为主**（见 `docs/lessons/`）。  
 > **学习边界：通用 ERP 口径 + 纯学习仓库；不依赖公司手册，不落到公司项目。**  
-> **30 天总计划（逐日）：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)  
-> **第 1 月合订详版（非概述）：** [lessons/MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) · [MONTH1.md](./MONTH1.md)
+> **第 1 月合订详版：** [lessons/MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) · [MONTH1.md](./MONTH1.md)
 
 **你的当前配置（可自行改）：**
 - Provider：`openai-compatible`
@@ -375,7 +374,7 @@ attempts         本轮尝试次数（含重试）
   - 小结：本题差异存在但不大；ERP 助手默认可继续用低温度（0.2～0.3）
 - Token/成本：短问少、长答多、带 `sessionId` 因重发历史会持续升高 —— 理解正确
 - 超时/重试：`timeout-ms=30000` 管 HTTP 连接+读取；总次数=`max-retries+1`；**401 重试无意义** —— 正确
-- 坏 case：DeepSeek 成熟题上表现稳；探测题库保留在 `day3-experiments.md`，第 4–5 周改提示词/上 RAG 前再回归测一轮
+- 坏 case：DeepSeek 成熟题上表现稳；探测题保留在个人笔记/第1月合订本 Day3 节；改提示词/上 RAG 前再回归测一轮
 - 对照代码：`application.yml`（temperature/timeout/retries）、`AppConfig`/`OpenAiCompatibleLlmClient`、`ChatService`、`SessionStore`
 
 ### Day4
@@ -391,7 +390,7 @@ attempts         本轮尝试次数（含重试）
 
 ### Day5
 - 今日目标：多轮连贯、历史裁剪、问题清单补到 20、第 1 周收口  
-- 实验表：`docs/day5-experiments.md`  
+- 实验内容见第1月合订本 Day5  
 - 实际完成：
   - 多轮：能跟上文、术语正确、`totalTokens` 持续升高  
   - 裁剪：`max-messages=4` 会遗忘更早对答；理解队头删除、控 token  
@@ -401,8 +400,7 @@ attempts         本轮尝试次数（含重试）
 
 ### Day6
 - 今日目标：few-shot + 规则解释风格  
-- 实验表：`docs/day6-experiments.md`  
-- 相关文件：`prompts/erp-few-shot.txt`、`SystemPromptLoader`（会追加 few-shot）  
+- 相关文件：`prompts/erp-few-shot.txt`、`SystemPromptLoader`（会追加 few-shot）；讲义见第1月合订本 Day6  
 - 实际完成：
   - few-shot 已生效  
   - 5 道规则题打分完成  
@@ -411,7 +409,7 @@ attempts         本轮尝试次数（含重试）
 
 ### Day7
 - 今日目标：20 题速扫弱项 + 字段校验解释 few-shot + 低分回修  
-- 实验表：`docs/day7-experiments.md`  
+- 材料见第1月合订本 Day7  
 - 实际完成：
   - 20 题扫弱项完成  
   - 字段校验类 few-shot 已补充（见 `erp-few-shot.txt` 示范 4/5）  
@@ -420,31 +418,31 @@ attempts         本轮尝试次数（含重试）
 
 ### Day8
 - 形式：讲义阅读  
-- 讲义：`docs/lessons/day08-prompt-wrap-and-rag-intro.md`  
+- 讲义：`docs/lessons/MONTH1_DAY1-30_COMBINED.md`（Day8）  
 - 边界：无公司手册；通用 ERP 教材；纯学习  
 - 状态：✅ 进入 Day9
 
 ### Day9
-- 讲义：`docs/lessons/day09-rag-minimum-loop.md`  
+- 讲义：`docs/lessons/MONTH1_DAY1-30_COMBINED.md`（Day9）  
 - 代码：`com.erp.ai.rag` + `POST /api/ai/rag/ask`  
 - 状态：✅
 
 ### Day10
-- 讲义：`docs/lessons/day10-chunking-strategies.md`  
+- 讲义：`docs/lessons/MONTH1_DAY1-30_COMBINED.md`（Day10）  
 - 状态：✅（自行对照改码未提交也按完成计）
 
 ### Day11
-- 讲义：`docs/lessons/day11-embedding-vector-retrieval.md`  
+- 讲义：`docs/lessons/MONTH1_DAY1-30_COMBINED.md`（Day11）  
 - 状态：✅
 
 ### Day12
-- 讲义：`docs/lessons/day12-vector-retriever-impl.md`  
+- 讲义：`docs/lessons/MONTH1_DAY1-30_COMBINED.md`（Day12）  
 - 状态：✅（自行实现按个人进度）
 
 ### Day13～30 / 第 1 月合订
 - **合订详版（非概述）：** `docs/lessons/MONTH1_DAY1-30_COMBINED.md`  
 - 入口：`docs/MONTH1.md`  
-- 状态：✅ 已交付（Day8～12 全文收录；Day13～30 逐日加厚）
+- 状态：✅ 已交付
 
 ### 第 2 个月
 - **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH2_DAY1-30_COMBINED.md`  
