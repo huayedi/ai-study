@@ -469,9 +469,9 @@ attempts         本轮尝试次数（含重试）
 ### Web 前端轨道（独立）
 - **逐日详版合订：** `docs/lessons/WEB_DAY1-30_COMBINED.md`  
 - 入口：`docs/WEB.md`  
-- 主题：Vanilla 学习控制台（Chat/RAG/Flow/Eval/ACL头/反馈）、打磨与作品集  
-- 状态：✅ 已交付
-- 约定：骨架自落到 `static/`；可与第2～4月并行  
+- 主题：**Vue 3 + Vite** 学习控制台（Chat/RAG/Flow/Eval/ACL头/反馈）、打磨与作品集  
+- 状态：✅ 已交付（已从 Vanilla 改为 Vue）  
+- 约定：骨架自落到独立目录 `erp-ai-console/`；Vite proxy 对接后端；可与第2～5月并行  
 
 ---
 
