@@ -36,6 +36,7 @@
 | 第 1 月 Day1～30 | 整月合订详版 | ✅ 已交付 | → [MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) |
 | 第 2 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md) · [MONTH2.md](./MONTH2.md) |
 | 第 3 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) · [MONTH3.md](./MONTH3.md) |
+| 第 4 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md) · [MONTH4.md](./MONTH4.md) |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -449,6 +450,12 @@ attempts         本轮尝试次数（含重试）
 - **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH3_DAY1-30_COMBINED.md`  
 - 入口：`docs/MONTH3.md`  
 - 主题：PgStore/reindex/质量日志、多节点工作流+审计、评测跑次与 baseline、可选 OCR、作品集  
+- 状态：✅ 已交付
+
+### 第 4 个月
+- **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH4_DAY1-30_COMBINED.md`  
+- 入口：`docs/MONTH4.md`  
+- 主题：模拟 ACL、反馈飞轮、多租户 RAG、学习控制台正式化  
 - 状态：✅ 已交付  
 
 ---

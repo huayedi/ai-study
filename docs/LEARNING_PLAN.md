@@ -7,8 +7,9 @@
 > **边界：不依赖公司手册；示例文档用通用 ERP 教材；本次不应用到公司项目。**  
 > **30 天逐日计划：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)  
 > **第 1 月合订详版（非概述）：** [lessons/MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) · [MONTH1.md](./MONTH1.md)  
-> **第 2 月整月讲义+代码：** [lessons/MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md)  
-> **第 3 月整月讲义+代码：** [lessons/MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md)
+> **第 2 月整月讲义+代码：** [lessons/MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md) · [MONTH2.md](./MONTH2.md)  
+> **第 3 月整月讲义+代码：** [lessons/MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) · [MONTH3.md](./MONTH3.md)  
+> **第 4 月整月讲义+代码：** [lessons/MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md) · [MONTH4.md](./MONTH4.md)
 
 ---
 
