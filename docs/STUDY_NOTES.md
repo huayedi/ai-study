@@ -25,8 +25,9 @@
 | Day5 | 多轮与裁剪、问题清单补齐 | ✅ 完成 | |
 | Day6 | Prompt 深化：few-shot + 规则解释 | ✅ 完成 | |
 | Day7 | 20 题扫弱项 + 字段校验解释 | ✅ 完成 | |
-| Day8 | Prompt 收口 + RAG 入门（讲义） | ⬜ 阅读中 | |
-| Day9+ | RAG 最小闭环讲义与实现 | ⬜ 未开始 | |
+| Day8 | Prompt 收口 + RAG 入门（讲义） | ✅ 完成 | |
+| Day9 | RAG 最小闭环（关键词检索学习版） | ⬜ 阅读/对照代码 | |
+| Day10+ | 向量检索版 RAG | ⬜ 未开始 | |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -406,8 +407,15 @@ attempts         本轮尝试次数（含重试）
 ### Day8
 - 形式：讲义阅读  
 - 讲义：`docs/lessons/day08-prompt-wrap-and-rag-intro.md`  
-- 边界更新：无公司手册；通用 ERP 教材文档已置于 `samples/rag-docs/`；纯学习不落地公司  
-- 阅读完成：（读完告诉我，再出 Day9 讲义）
+- 边界：无公司手册；通用 ERP 教材；纯学习  
+- 状态：✅ 进入 Day9
+
+### Day9
+- 讲义：`docs/lessons/day09-rag-minimum-loop.md`  
+- 代码：`com.erp.ai.rag` + `POST /api/ai/rag/ask`  
+- 检索：学习版关键词 TopK（非向量）  
+- 教材：`classpath:rag-docs/`（与 samples/rag-docs 同步）  
+- 阅读完成：（读完告诉我）
 
 ---
 

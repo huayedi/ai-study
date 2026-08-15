@@ -114,6 +114,8 @@ mvn test
 | `src/main/resources/prompts/erp-system-prompt.txt` | 实际发给模型的 system 提示（改完需重启） |
 | `src/main/resources/prompts/erp-glossary.md` | 完整术语表（给人看/维护；精简版已写入 system 提示） |
 | `src/main/resources/prompts/erp-few-shot.txt` | 少样本示范（启动时追加到 system；Day6+） |
+| `src/main/resources/rag-docs/` | 通用 ERP 教材（RAG 索引来源） |
+| `POST /api/ai/rag/ask` | 学习版 RAG：关键词检索 + 带 sources 回答 |
 
 ## 第 1 周建议练习
 

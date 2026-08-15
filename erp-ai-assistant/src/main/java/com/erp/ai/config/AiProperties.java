@@ -53,6 +53,9 @@ public class AiProperties {
     /** 会话相关子配置 */
     private Session session = new Session();
 
+    /** RAG 学习版子配置 */
+    private Rag rag = new Rag();
+
     public String getProvider() {
         return provider;
     }
@@ -133,6 +136,14 @@ public class AiProperties {
         this.session = session;
     }
 
+    public Rag getRag() {
+        return rag;
+    }
+
+    public void setRag(Rag rag) {
+        this.rag = rag;
+    }
+
     /**
      * 多轮会话配置。
      * 对应 YAML：{@code ai.session.max-messages}
@@ -151,6 +162,35 @@ public class AiProperties {
 
         public void setMaxMessages(int maxMessages) {
             this.maxMessages = maxMessages;
+        }
+    }
+
+    /**
+     * RAG 学习版配置。
+     * 对应 YAML：{@code ai.rag.*}
+     */
+    public static class Rag {
+
+        /** 每次提问取回的资料块数量 */
+        private int topK = 3;
+
+        /** classpath 下教材目录，默认 rag-docs */
+        private String classpathDocs = "rag-docs";
+
+        public int getTopK() {
+            return topK;
+        }
+
+        public void setTopK(int topK) {
+            this.topK = topK;
+        }
+
+        public String getClasspathDocs() {
+            return classpathDocs;
+        }
+
+        public void setClasspathDocs(String classpathDocs) {
+            this.classpathDocs = classpathDocs;
         }
     }
 }

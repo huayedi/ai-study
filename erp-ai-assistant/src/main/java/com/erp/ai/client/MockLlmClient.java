@@ -40,7 +40,13 @@ public class MockLlmClient implements LlmClient {
         String userText = latestUserText(messages).toLowerCase(Locale.ROOT);
         ObjectNode root = objectMapper.createObjectNode();
 
-        if (containsAny(userText, "库存", "现存量", "有多少")) {
+        if (containsAny(userText, "【教材资料】", "教材资料")) {
+            root.put("answer", "结论：根据提供的教材资料回答（mock）。若资料含采购主链路，则常见顺序为物资请购→采购订单→到货单→采购入库→采购发票。请以 sources 中的文件章节为准。");
+            root.put("need_human", false);
+            root.putNull("suggested_doc_type");
+            root.putArray("required_fields");
+            root.put("confidence", 0.7);
+        } else if (containsAny(userText, "库存", "现存量", "有多少")) {
             // 无实时查询工具时，明确拒答并要求人工/后续接工具
             root.put("answer", "我无法直接查询实时库存。请在【库存查询】按物料编码+仓库核对，或接入只读库存工具后再问我。");
             root.put("need_human", true);
