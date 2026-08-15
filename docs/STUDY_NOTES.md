@@ -34,8 +34,8 @@
 | Day12 | 向量检索实现（讲义·自行编码） | ✅ 按进度继续 | |
 | Day13～30 | 合订详版（非概述） | ✅ 已交付 | → [MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) |
 | 第 1 月 Day1～30 | 整月合订详版 | ✅ 已交付 | → [MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) |
-| 第 2 月 Day1～30 | 合并讲义+对照代码 | ✅ 已交付 | → [MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md) |
-| 第 3 月 Day1～30 | 合并讲义+对照代码 | ⬜ 阅读/自学实现 | → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) |
+| 第 2 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md) · [MONTH2.md](./MONTH2.md) |
+| 第 3 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) · [MONTH3.md](./MONTH3.md) |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -441,13 +441,15 @@ attempts         本轮尝试次数（含重试）
 - 状态：✅ 已交付（Day8～12 全文收录；Day13～30 逐日加厚）
 
 ### 第 2 个月
-- **整月合并讲义（含对照代码）：** `docs/lessons/MONTH2_DAY1-30_COMBINED.md`  
+- **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH2_DAY1-30_COMBINED.md`  
+- 入口：`docs/MONTH2.md`  
 - 状态：✅ 已交付
 
 ### 第 3 个月
-- **整月合并讲义（含对照代码）：** `docs/lessons/MONTH3_DAY1-30_COMBINED.md`  
+- **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH3_DAY1-30_COMBINED.md`  
 - 入口：`docs/MONTH3.md`  
 - 主题：PgStore/reindex/质量日志、多节点工作流+审计、评测跑次与 baseline、可选 OCR、作品集  
+- 状态：✅ 已交付  
 
 ---
 
