@@ -1,0 +1,229 @@
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  animation: panel-in 220ms ease-out;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.panel h2 {
+  margin: 0 0 var(--space-2);
+  font-size: 1.15rem;
+  font-family: var(--font-serif);
+}
+
+.panel .hint {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  margin: 0 0 var(--space-3);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+.field label {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+.field input,
+.field select,
+.field textarea {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+}
+.field textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.85rem;
+  font: inherit;
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: var(--color-accent);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: linear-gradient(180deg, #3d9ed6, #2f7fad);
+  border-color: transparent;
+  color: #fff;
+}
+.btn-danger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.btn-ghost {
+  background: transparent;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+}
+.badge.warn {
+  color: var(--color-warn);
+  border-color: rgba(230, 162, 60, 0.45);
+}
+.badge.ok {
+  color: var(--color-success);
+  border-color: rgba(76, 175, 130, 0.45);
+}
+.badge.err {
+  color: var(--color-danger);
+  border-color: rgba(232, 93, 93, 0.45);
+}
+
+.state-box {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  color: var(--color-muted);
+  text-align: center;
+}
+.state-box.error {
+  border-color: rgba(232, 93, 93, 0.5);
+  color: var(--color-danger);
+  text-align: left;
+}
+
+.answer {
+  white-space: pre-wrap;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  margin: 0;
+}
+
+.sources {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.sources li {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+}
+.sources .meta {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+table.data th,
+table.data td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.data th {
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+.disclaimer {
+  margin-top: var(--space-3);
+  font-size: 0.8125rem;
+  color: var(--color-warn);
+}
+
+.trace-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  background: #121820;
+  font-size: 0.8125rem;
+}
+.trace-strip .label {
+  color: var(--color-muted);
+}
+
+.identity-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: end;
+}
+.identity-bar .field {
+  margin: 0;
+  min-width: 7.5rem;
+}
+
+.aside-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.aside-card h3 {
+  margin: 0 0 var(--space-2);
+  font-size: 0.95rem;
+}
+.stat-line {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  padding: 0.2rem 0;
+}
+.stat-line span:last-child {
+  font-family: var(--font-mono);
+}

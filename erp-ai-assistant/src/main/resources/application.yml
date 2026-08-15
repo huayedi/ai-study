@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: erp-ai-assistant
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# =========================
+# AI 配置说明（学习重点）
+# =========================
+# provider = 接入协议，不是厂商名：
+#   mock                 → 本地假模型，无需 Key
+#   openai-compatible    → OpenAI 兼容 HTTP（DeepSeek/通义/OpenAI 都用这个）
+#   deepseek / openai    → 同上（别名）
+#
+# DeepSeek 推荐环境变量（IDEA Run Configuration → Environment variables）：
+#   AI_PROVIDER=openai-compatible
+#   AI_BASE_URL=https://api.deepseek.com
+#   AI_API_KEY=sk-你的真实Key
+#   AI_MODEL=deepseek-chat
+#
+# 注意：
+# 1) 不要把真实 Key 写进本文件并提交 Git
+# 2) 401 通常是 Key 错/过期/带空格引号，不是代码没加载到 Bean
+# 3) 修改本文件后需重启应用
+ai:
+  provider: ${AI_PROVIDER:openai-compatible} # mock | openai-compatible
+  base-url: ${AI_BASE_URL:https://api.deepseek.com}
+  api-key: ${AI_API_KEY}
+  model: ${AI_MODEL:deepseek-v4-pro}
+  temperature: 0.2
+  timeout-ms: 30000
+  max-retries: 2
+  # 粗略成本估算（美元 / 1K tokens），可按实际模型调整
+  price-input-per-1k: 0.00015
+  price-output-per-1k: 0.0006
+  session:
+    max-messages: 20
+  rag:
+    top-k: 3
+    classpath-docs: rag-docs
+
+logging:
+  level:
+    com.erp.ai: INFO
