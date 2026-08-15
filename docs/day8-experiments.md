@@ -1,12 +1,12 @@
-# Day8 说明（已改为讲义）
+# Day8 说明
 
-本阶段按你的偏好调整：**以教材阅读为主**，不再以「出题你做」为主。
+请阅读讲义（教材，不是习题）：
 
-请直接阅读：
+→ [第 8 课：Prompt 收口与 RAG 入门](./lessons/day08-prompt-wrap-and-rag-intro.md)
 
-→ [第 8 课讲义：Prompt 收口与 RAG 入门](./lessons/day08-prompt-wrap-and-rag-intro.md)
+**学习边界（已确认）：**
+- 无公司手册要求  
+- 按常规 ERP 通用口径  
+- 只学习，不应用到公司项目  
 
-配套材料（给后续 RAG 用，不是今日试卷）：
-
-- `erp-ai-assistant/samples/rag-docs/`
-- `erp-ai-assistant/samples/rag-eval-questions.md`
+配套教材文档（已写好，供后续 RAG 用）：`erp-ai-assistant/samples/rag-docs/`
