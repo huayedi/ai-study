@@ -22,8 +22,9 @@
 | Day4 | 系统提示词工程（ERP 术语） | ✅ 完成 | |
 | Day5 | 多轮与裁剪、问题清单补齐 | ✅ 完成 | |
 | Day6 | Prompt 深化：few-shot + 规则解释 | ✅ 完成 | |
-| Day7 | 20 题扫弱项 + 字段校验解释 | ⬜ 进行中 | |
-| Day8+ | 第 3 周收口 / 准备 RAG 材料 | ⬜ 未开始 | |
+| Day7 | 20 题扫弱项 + 字段校验解释 | ✅ 完成 | |
+| Day8 | Prompt 收口 + RAG 材料准备 | ⬜ 进行中 | |
+| Day9+ | RAG 最小闭环（切分/向量/问答） | ⬜ 未开始 | |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -394,6 +395,16 @@ attempts         本轮尝试次数（含重试）
 ### Day7
 - 今日目标：20 题速扫弱项 + 字段校验解释 few-shot + 低分回修  
 - 实验表：`docs/day7-experiments.md`  
+- 实际完成：
+  - 20 题扫弱项完成  
+  - 字段校验类 few-shot 已补充（见 `erp-few-shot.txt` 示范 4/5）  
+  - 弱项回修完成  
+- 备注：示范 4 拒绝直接建单；示范 5 必填字段校验解释
+
+### Day8
+- 今日目标：Prompt 收口 + 准备 RAG 文档与评测题  
+- 实验表：`docs/day8-experiments.md`  
+- 材料目录：`samples/rag-docs/`、`samples/rag-eval-questions.md`  
 - 实际完成：（学完后填写）
 
 ---
