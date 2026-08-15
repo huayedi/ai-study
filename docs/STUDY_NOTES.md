@@ -2,6 +2,7 @@
 
 > 用途：复习 + 打卡跟踪。以当前仓库代码为准。  
 > 总计划：[LEARNING_PLAN.md](./LEARNING_PLAN.md)  
+> **技术节点路线图：** [TECH.md](./TECH.md) → [TECH_ROADMAP.md](./TECH_ROADMAP.md)  
 > 工程目录：`erp-ai-assistant/`  
 > **学习偏好：教材式讲义为主**（见 `docs/lessons/`）。  
 > **学习边界：通用 ERP 口径 + 纯学习仓库；不依赖公司手册，不落到公司项目。**  
