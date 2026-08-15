@@ -12,6 +12,7 @@ Java 5 年 ERP 工程师转 AI 应用（自学提升）仓库。
 | [docs/lessons/MONTH_30_DAY_PLAN.md](docs/lessons/MONTH_30_DAY_PLAN.md) | **30 天逐日总计划** |
 | [docs/lessons/day13-30-combined.md](docs/lessons/day13-30-combined.md) | **第1月 Day13～30 合并讲义** |
 | [docs/lessons/MONTH2_DAY1-30_COMBINED.md](docs/lessons/MONTH2_DAY1-30_COMBINED.md) | **第2月整月讲义+对照代码** |
+| [docs/lessons/MONTH3_DAY1-30_COMBINED.md](docs/lessons/MONTH3_DAY1-30_COMBINED.md) | **第3月整月讲义+对照代码** |
 | [erp-ai-assistant/](erp-ai-assistant/) | 可运行 Spring Boot 项目（Chat + 学习版 RAG） |
 
 ## IDEA 导入（Maven 没弹出来时）
