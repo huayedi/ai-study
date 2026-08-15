@@ -38,6 +38,7 @@
 | 第 3 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) · [MONTH3.md](./MONTH3.md) |
 | 第 4 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md) · [MONTH4.md](./MONTH4.md) |
 | 第 5 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md) · [MONTH5.md](./MONTH5.md) |
+| 第 6 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md) · [MONTH6.md](./MONTH6.md) |
 | Web 前端 WEB-D1～30 | 逐日详版（独立轨道） | ✅ 已交付 | → [WEB_DAY1-30_COMBINED.md](./lessons/WEB_DAY1-30_COMBINED.md) · [WEB.md](./WEB.md) |
 
 **Day2 实验：**
@@ -464,6 +465,12 @@ attempts         本轮尝试次数（含重试）
 - **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH5_DAY1-30_COMBINED.md`  
 - 入口：`docs/MONTH5.md`  
 - 主题：受控写入与模拟过账（假账本 + 强制 HITL + 审计）  
+- 状态：✅ 已交付
+
+### 第 6 个月
+- **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH6_DAY1-30_COMBINED.md`  
+- 入口：`docs/MONTH6.md`  
+- 主题：真适配器接口稳定化（Port/Adapter + Fake/Sandbox + 契约测试）  
 - 状态：✅ 已交付  
 
 ### Web 前端轨道（独立）
