@@ -2,7 +2,8 @@
 
 > 适用对象：5 年 Java，主做 ERP，不会 Python，每天 2–3 小时，天津，暂不换工作，以学习提升为主。  
 > 主策略：纯 Java 落地，紧贴 ERP 场景，先问答与辅助，不做高风险自动过账。  
-> 每日订正笔记与打卡：[STUDY_NOTES.md](./STUDY_NOTES.md)
+> 每日订正笔记与打卡：[STUDY_NOTES.md](./STUDY_NOTES.md)  
+> **交付偏好：教材式讲义（`docs/lessons/`）为主**；练习题仅作可选巩固，默认不布置“你来填表”。
 
 ---
 
