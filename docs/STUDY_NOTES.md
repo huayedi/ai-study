@@ -492,6 +492,11 @@ attempts         本轮尝试次数（含重试）
 - 状态：✅ 已交付（已取消 WEB-D1～30 逐日结构）  
 - 约定：骨架自落到 `erp-ai-console/`；Vite proxy 对接后端  
 
+### 技术节点路线图（独立 · 非按天）
+- **入口：** `docs/TECH.md` → `docs/TECH_ROADMAP.md`  
+- 主题：何时学 Spring AI（T13）、Python（T14～T15）、Vue、pgvector、规则引擎对照等  
+- 状态：✅ 已交付  
+
 ---
 
 ## 修订记录
