@@ -40,6 +40,7 @@
 | 第 5 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md) · [MONTH5.md](./MONTH5.md) |
 | 第 6 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md) · [MONTH6.md](./MONTH6.md) |
 | 第 7 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH7_DAY1-30_COMBINED.md](./lessons/MONTH7_DAY1-30_COMBINED.md) · [MONTH7.md](./MONTH7.md) |
+| 第 8 月完整教材 | 工作流可视化（非 30 天） | ✅ 已交付 | → [MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md) · [MONTH8.md](./MONTH8.md) |
 | Web 前端完整教材 | Vue 3 控制台（非 30 天） | ✅ 已交付 | → [WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md) |
 
 **Day2 实验：**
@@ -478,6 +479,12 @@ attempts         本轮尝试次数（含重试）
 - **逐日详版合订（与第1月同级，非概述）：** `docs/lessons/MONTH7_DAY1-30_COMBINED.md`  
 - 入口：`docs/MONTH7.md`  
 - 主题：规则引擎（规则先于模型；可版本化/评测/审计）  
+- 状态：✅ 已交付
+
+### 第 8 个月
+- **完整章节式教材（非 30 天）：** `docs/lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md`  
+- 入口：`docs/MONTH8.md`  
+- 主题：工作流可视化（节点/合法边/当前高亮/审计回放）  
 - 状态：✅ 已交付
 
 ### Web 前端轨道（独立 · 完整教材）
