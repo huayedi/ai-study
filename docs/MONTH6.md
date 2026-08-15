@@ -11,3 +11,5 @@
 **前置：** 第1～5月（Chat/RAG、Hybrid/Gate/HITL、Store/eval/baseline、ACL/反馈/多租户/console、WriteGateway/假账本/受控写入）。  
 
 约定：自行复制改造；**不接公司生产库/SSO/真实账套**；「真适配器」= 稳定契约 + 本地 Fake/Sandbox 假适配器 + 契约测试，**不是**接学员公司系统。
+
+连贯桥接：[lessons/CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md)

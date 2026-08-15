@@ -42,6 +42,8 @@
 | 第 7 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH7_DAY1-30_COMBINED.md](./lessons/MONTH7_DAY1-30_COMBINED.md) · [MONTH7.md](./MONTH7.md) |
 | 第 8 月完整教材 | 工作流可视化（非 30 天） | ✅ 已交付 | → [MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md) · [MONTH8.md](./MONTH8.md) |
 | Web 前端完整教材 | Vue 3 控制台（非 30 天） | ✅ 已交付 | → [WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md) |
+| 课程连贯桥接 | HITL 时间线 / 双控制台 / 旧菜单对照 | ✅ 已补 | → [CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md) |
+| 作品集模板 | PORTFOLIO | ✅ 已补 | → [PORTFOLIO.md](./PORTFOLIO.md) |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问

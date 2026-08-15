@@ -10,5 +10,7 @@
 
 **约定：** 纯学习；骨架粘贴到 `erp-ai-console/`；勿改 `erp-ai-assistant/` 应用代码；不接公司生产。
 
+与后端月份、双控制台（`console.html` vs Vue）、APPROVE 语义：[lessons/CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md)
+
 旧「WEB-D1～30」逐日合订已退役，仅留重定向：  
 → [WEB_DAY1-30_COMBINED.md](./lessons/WEB_DAY1-30_COMBINED.md)

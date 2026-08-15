@@ -11,3 +11,5 @@
 **前置：** 第1～4月（Chat/RAG、Hybrid/Gate/HITL、Store/eval/baseline、ACL/反馈/多租户/console）。  
 
 约定：自行复制改造；**不接公司生产库/SSO**；学习仓仅用内存假账本；写入只发生在 APPROVE 之后且经 WriteGateway。
+
+HITL 语义时间线（第2～4月「≠写库」→ 本月「≠生产过账」）：[lessons/CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md)

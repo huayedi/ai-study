@@ -2945,7 +2945,7 @@ Week4  OCR 边界 / FakeOcr / debug 台 / README / 彩排 / 架构终审
 3. 把 eval 最好的一次 runId 写入 baseline 的 `sourceRunId`（若尚未）。
 
 **下午（约 1h）**  
-4. 从第4月方向表**只选一条**主线，写 5 行计划（见下表）。  
+4. 打开第4月入口与合订讲义，写 5 行开读计划（四周主线已固定，不必再四选一）。  
 5. 给作品集写 3 句话 elevator pitch（可贴 LinkedIn/简历项目描述）。  
 6. 归档：压缩或备份 `evals/runs/`、`data/flow-audit/` 样例（本地即可）。
 
@@ -2957,7 +2957,7 @@ Week4  OCR 边界 / FakeOcr / debug 台 / README / 彩排 / 架构终审
 - 把学习仓当生产服务对外提供  
 - 用 OCR 结果直接驱动 ERP 写库（本仓库范围内永久禁止）
 
-### 第 4 月方向（第4月已出整月逐日详版）
+### 第 4 月方向（已开课：ACL / 反馈 / 多租户 / console）
 
 整月教材：[`MONTH4_DAY1-30_COMBINED.md`](./MONTH4_DAY1-30_COMBINED.md) · 入口 [`docs/MONTH4.md`](../MONTH4.md)
 
@@ -2970,8 +2970,9 @@ Week4  OCR 边界 / FakeOcr / debug 台 / README / 彩排 / 架构终审
 | 3 | 多租户 RAG | tenantId 隔离索引 |
 | 4 | 前端正式化 + 收官 | 学习控制台与三能力串联 |
 
-另可选观测深化（指标/trace）作为第5月方向。  
-选一条深挖落地，其余读懂 + 口述即可。
+**已排定后续主线（勿再按旧「只选一条」菜单停住）：**  
+第5月受控写入 → 第6月 Port/Adapter → 第7月规则引擎 → 第8月工作流可视化（非 30 天）。  
+观测深化（指标/trace 大盘）留作**第9月及以后可选**，见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)。
 
 ### Elevator pitch 模板（填空）
 

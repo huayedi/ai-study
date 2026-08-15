@@ -69,7 +69,7 @@
 2. **对接后端：** `api/http.js` + composable、`Chat`/`RAG` 组件、sources 与 traceId、loading/错误态。  
 3. **治理 UI：** Pinia 身份头、Flow start/decide、Feedback 三键、Eval 表、stats 侧栏、换角色看 sources。  
 4. **作品交付：** 持久化、快捷键、轻动效、响应式、Router 整理、`vite build` 进 static、彩排、截图、口述收官。  
-5. **工程纪律：** 开发用 proxy、生产注意 `base` 路径、不新开写库魔法接口、XSS 与 `v-html`、APPROVE≠写库。
+5. **工程纪律：** 开发用 proxy、生产注意 `base` 路径、不新开写库魔法接口、XSS 与 `v-html`、**APPROVE ≠ 生产过账**（第2～4月后端阶段甚至不写假账；第5月起 APPROVE 可经 WriteGateway 写**学习假账本**，前端仍禁止魔法直写）。
 
 
 ### 学习控制台 vs 生产 ERP 前台
@@ -79,7 +79,7 @@
 | 目的 | 演示 AI 能力边界 | 真实业务办理 |
 | 身份 | Pinia 模拟请求头 | SSO / 统一认证 |
 | 数据 | 学习期 Mock / 样本库 | 真实主数据 |
-| 写操作 | Flow APPROVE 仅改学习状态 | 可能触发过账 |
+| 写操作 | Flow APPROVE → 后端状态机；第5月后可触发假账 Gateway | 可能触发真实过账 |
 | 代码位置 | 独立目录，讲义粘贴 | 公司代码库 |
 
 ### 与后端月份的关系
@@ -89,9 +89,15 @@
 第2月  懂 Flow HITL、Eval、stats（可选并行）
 第3月  懂 Store/reindex/audit（前端只调 REST）
 第4月  懂 ACL/反馈/多租户（前端用 Pinia 模拟头）
-第5月  可选并行（治理深化）
-Web轨  用 Vue 3 页面把上述能力「可演示」
+第5月  APPROVE 后受控写假账（UI 文案改为 ≠生产过账）
+第6月  Port 健康/只读查询（可选面板）
+第7月  规则列表/dry-run（可选面板）
+第8月  Flow 图可视化（见 MONTH8）
+Web轨  用 Vue 3 把上述能力「可演示」
+∥ static/console.html（第4～5月零前端工程彩排；见连贯文档）
 ```
+
+连贯总图与双控制台规则：[CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)
 
 ## 怎么做
 
@@ -1807,13 +1813,22 @@ defineProps({
 
 Human-In-The-Loop：AI 建议 → 人工 APPROVE/REJECT/EDIT → 状态机推进。
 
-### APPROVE ≠ 写库（必写 UI 文案）
+### APPROVE 语义（必写 UI 文案；随后端月份演进）
+
+**Web 轨道默认文案（兼容第2～4月后端）：**
 
 ```text
 学习说明：APPROVE 仅推进学习 Flow 状态，不等于生产过账或改库存。
 ```
 
-演示时主动念出这句话—— 区分学习控制台与生产 ERP。
+**若后端已学到第5月及以后**（WriteGateway + 假账本），改为：
+
+```text
+学习说明：APPROVE ≠ 生产过账。写入（若发生）只经后端 WriteGateway → 学习假账本，
+须权限 + 幂等 + 审计；本控制台不提供跳过审批的「一键过账」。
+```
+
+时间线详见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md) §2。演示时主动念出——区分学习控制台与生产 ERP。
 
 ## 怎么做
 
@@ -3472,23 +3487,38 @@ body {
 
 # 附录 C：API 对照表
 
+| 能力 | 方法 | 路径 | 请求要点 | 响应要点 |
+|---|---|---|---|---|
 | Chat | POST | `/api/ai/chat` | `{ message, sessionId? }` | `answer`, `need_human`, `traceId` |
 | RAG | POST | `/api/ai/rag/ask` | `{ question }` | `answer`, `sources[]`, `traceId` |
 | Flow 启动 | POST | `/api/ai/flow/start` | `{ question }` | `flowId`, `status` |
 | Flow 待办 | GET | `/api/ai/flow/pending` | — | 列表 |
-| Flow 决策 | POST | `/api/ai/flow/{id}/decide` | `{ decision, comment? }` | 新状态 |
+| Flow 决策 | POST | `/api/ai/flow/{id}/decide` | `{ decision, comment? }` | 新状态（M5+ 可能含写结果摘要） |
 | Flow 审计 | GET | `/api/ai/flow/{id}/audit` | — | 事件序列 |
 | Feedback | POST | `/api/ai/feedback` | `{ traceId, kind, comment?, endpoint }` | ok |
 | Eval 运行 | POST | `/api/ai/eval/run` | `{ suite }` | `id`, `passed`, `total` |
 | Eval 历史 | GET | `/api/ai/eval/runs` | — | runs 列表 |
 | Stats | GET | `/api/ai/stats` | — | token/反馈计数等 |
+| Reindex（M3） | POST | `/api/ai/admin/reindex`（路径以实现为准） | Admin Token | 索引重建结果 |
+| 假账快照（M5） | GET | `/api/ai/ledger/snapshot` | `X-Tenant-Id` | 库存快照 |
+| 受控写入（M5） | POST | `/api/ai/write/apply` | 幂等键 + 角色；**演示优先走 Flow** | APPLIED / DUPLICATE / DENIED |
+| Adapter 健康（M6） | GET | `/api/ai/erp/health` | — | fake/sandbox 状态 |
+| 只读物料（M6） | GET | `/api/ai/items/{sku}` | tenant | 物料 DTO |
+| 只读库存（M6） | GET | `/api/ai/inventory/{sku}` | tenant + warehouse | 库存 DTO |
+| 规则列表（M7） | GET | `/api/ai/console/rules` | — | 规则摘要 |
+| 规则试跑（M7） | POST | `/api/ai/console/rules/dry-run` | namespace + context | AggregatedRuleResult |
+| Flow 图（M8） | GET | 见第8月教材 | — | graph / view / audit |
 
 **学习头（建议每个请求携带）：**
 
 ```http
 X-User-Id: demo-user-01
-X-Roles: FINANCE
+X-Roles: FINANCE,INVENTORY_CLERK
 X-Tenant-Id: tenant-a
+X-Idempotency-Key: <写路径强烈建议>
+X-Admin-Token: <可选；reindex 等>
+X-Trace-Id: <可选>
+X-Rules-Version: <可选；M7 审计快照>
 ```
 
 
@@ -3500,6 +3530,7 @@ X-Roles:       FINANCE              # 逗号分隔：FINANCE,PROCUREMENT,ADMIN
 X-Tenant-Id:   tenant-a             # RAG/Flow 建议必带
 X-Admin-Token: <可选>               # reindex 等管理接口
 X-Trace-Id:    <可选>               # 未传则服务端生成；响应 traceId 要显示
+X-Idempotency-Key: <写路径>         # 第5月起
 ```
 
 ---
@@ -3518,6 +3549,11 @@ A: 检查 `base` 与静态资源路径；Console 是否有 404。
 **Q: 换角色 sources 不变？**  
 A: 确认 `apiFetch` 已合并 Pinia 头；后端是否按租户/角色过滤。
 
+**Q: 文案还写 APPROVE≠写库，但后端已是第5月？**  
+A: 改为「≠生产过账；假账仅经 Gateway」。见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)。
+
+**Q: 用 console.html 还是 Vue？**  
+A: 第4～5月可先用静态台彩排；要可维护 UI / 第8月流程图用 `erp-ai-console/`。两者禁止魔法写接口。
 
 ---
 
@@ -3543,7 +3579,14 @@ A: 确认 `apiFetch` 已合并 Pinia 头；后端是否按租户/角色过滤。
 | 第 18 章 彩排 | M4-D24～26 | 场景剧本可复用 |
 | 第 8 章 Chat | MONTH1 Chat API | JSON 字段显示 |
 | 第 9 章 RAG | MONTH1 RAG | sources 列表 |
-| 第 11 章 Flow | MONTH2 Flow | HITL 状态机 |
+| 第 11 章 Flow | MONTH2～5 Flow | HITL；M5+ 文案用 ≠生产过账 |
+| 附录 C 写/ledger | MONTH5 | 演示优先 Flow，勿前端直 apply |
+| 附录 C erp health | MONTH6 | 只读 Port 面板可选 |
+| 附录 C rules | MONTH7 | dry-run 不写库 |
+| Flow 图路由 | MONTH8 | 见 `MONTH8_WORKFLOW_VIZ_COMPLETE.md` |
+| 双控制台 | CONTINUITY §5 | static vs Vue |
+
+总连贯：[CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)
 
 ---
 
@@ -3551,5 +3594,6 @@ A: 确认 `apiFetch` 已合并 Pinia 头；后端是否按租户/角色过滤。
 
 | 日期 | 版本 | 说明 |
 |------|------|------|
+| 2026-08-15 | 2.1 | 连贯补丁：APPROVE 语义时间线；附录 API/交叉索引扩到 M5～M8；双控制台说明 |
 | 2026-08-15 | 2.0 | 发布连续章节式完整教材 `WEB_VUE_COMPLETE.md`，取代 WEB-D1～30 逐日合订结构 |
 | 此前 | 1.x | `WEB_DAY1-30_COMBINED.md` 逐日详版（已退役，见短重定向 stub） |

@@ -2962,9 +2962,9 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 整月教材：[`MONTH8_WORKFLOW_VIZ_COMPLETE.md`](./MONTH8_WORKFLOW_VIZ_COMPLETE.md) · 入口 [`docs/MONTH8.md`](../MONTH8.md)
 
-主题：把 Flow 画成可读图（节点、合法边、当前高亮、审计回放）；可视化≠放开乱跳状态；APPROVE≠写库；**不接公司 BPM**。
+主题：把 Flow 画成可读图（节点、合法边、当前高亮、审计回放）；可视化≠放开乱跳状态；**APPROVE ≠ 生产过账**（第5月起可经 Gateway 写假账，仍禁止模型直写）；**不接公司 BPM**。
 
-其它可留第9月（只选一条）：观测大盘 / 灰度演练 / 提示词运营。
+观测大盘 / 灰度演练 / 提示词运营留作第9月及以后可选，见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)。
 
 重复产品句：**确定性业务规则用规则引擎；LLM 只做理解、草稿与解释。规则先于模型，冲突时规则优先。规则变更可版本化、可评测、可审计。本月不接公司生产规则平台。**
 
@@ -3208,8 +3208,8 @@ A: 保留旧规则集，打 error 日志，不 partial 加载。
 **Q: console dry-run 会写库吗？**  
 A: 不会；只 evaluate 返回 AggregatedRuleResult。
 
-**Q: 第8月选哪条？**  
-A: 观测大盘 / 灰度演练 / 工作流可视化 / 提示词运营 — **只选一条**。
+**Q: 第8月学什么？**  
+A: 已开课主线是**工作流可视化**完整教材（非 30 天）。见 [`MONTH8.md`](../MONTH8.md)。观测大盘 / 灰度 / 提示词运营见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)。
 
 ## 附录 G｜第7月 curl/scripts 速查
 
@@ -3438,5 +3438,6 @@ cat evals/suites/rules-cases.jsonl | wc -l
 | 2026-08-15 | 第7月首版合并讲义（RuleEngine / DecisionTable / 版本化 / 评测 / 审计） |
 | 2026-08-15 | 逐日详版：30 天完整六段结构 + 附录 A～R |
 | 2026-08-15 | 与第2/3/5/6月衔接：CLASSIFY/RISK/写前校验外置；Port 只读 |
+| 2026-08-15 | 连贯补丁：收官/FAQ 指向已开课第8月；APPROVE 文案与 CONTINUITY 对齐 |
 
 > **全文收束：** {PRODUCT}

@@ -11,3 +11,5 @@
 **前置：** 第1～6月（Chat/RAG、Hybrid/Gate/HITL、Store/eval/baseline、ACL/反馈/多租户/console、WriteGateway/假账本/受控写入、Port/Adapter/Fake/Sandbox/契约测试）。  
 
 约定：自行复制改造；**不接公司生产库/SSO/公司生产规则平台**；「规则引擎」= 本地 RuleEngine + YAML/Java 规则 + 评测审计，**不是**接学员公司规则平台。
+
+连贯桥接（HITL 语义 / 与第5～6月写入关系）：[lessons/CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md)

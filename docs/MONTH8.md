@@ -4,7 +4,7 @@
 
 → [MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md)
 
-**主题：** 工作流可视化 — 把 Flow 状态机画成可读图：节点、合法边、当前高亮、审计回放。可视化是理解与演示工具，不是放开 Agent 乱跳状态。APPROVE≠写库；写入仍经规则/Gateway。本月不接公司 BPM 平台。
+**主题：** 工作流可视化 — 把 Flow 状态机画成可读图：节点、合法边、当前高亮、审计回放。可视化是理解与演示工具，不是放开 Agent 乱跳状态。APPROVE ≠ 生产过账；写入仍经规则/Gateway。本月不接公司 BPM 平台。
 
 **技术栈：** Java DTO/API 骨架（粘贴到 `erp-ai-assistant/`）+ Vue 3 SVG 图组件（粘贴到 `erp-ai-console/`）；与 Web 轨道共用 proxy 与身份头。
 

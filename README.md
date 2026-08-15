@@ -8,11 +8,15 @@ Java 5 年 ERP 工程师转 AI 应用（自学提升）仓库。
 |---|---|
 | [docs/LEARNING_PLAN.md](docs/LEARNING_PLAN.md) | 20 周详细学习计划（每天 2–3 小时） |
 | [docs/STUDY_NOTES.md](docs/STUDY_NOTES.md) | 每日订正笔记 + 代码对照 + 打卡跟踪 |
+| [docs/PORTFOLIO.md](docs/PORTFOLIO.md) | 作品集模板（按月填证据） |
+| [docs/lessons/CURRICULUM_CONTINUITY.md](docs/lessons/CURRICULUM_CONTINUITY.md) | **1～7月连贯桥接**（HITL 语义 / 双控制台 / API 增量） |
 | [docs/lessons/](docs/lessons/) | 教材式讲义（推荐主学） |
 | [docs/lessons/MONTH_30_DAY_PLAN.md](docs/lessons/MONTH_30_DAY_PLAN.md) | **30 天逐日总计划** |
-| [docs/lessons/day13-30-combined.md](docs/lessons/day13-30-combined.md) | **第1月 Day13～30 合并讲义** |
+| [docs/lessons/MONTH1_DAY1-30_COMBINED.md](docs/lessons/MONTH1_DAY1-30_COMBINED.md) | **第1月合订详版** |
 | [docs/lessons/MONTH2_DAY1-30_COMBINED.md](docs/lessons/MONTH2_DAY1-30_COMBINED.md) | **第2月整月讲义+对照代码** |
 | [docs/lessons/MONTH3_DAY1-30_COMBINED.md](docs/lessons/MONTH3_DAY1-30_COMBINED.md) | **第3月整月讲义+对照代码** |
+| [docs/MONTH4.md](docs/MONTH4.md)～[MONTH8.md](docs/MONTH8.md) | 第4～8月入口（含非30天完整教材） |
+| [docs/WEB.md](docs/WEB.md) | Vue 控制台完整教材入口 |
 | [erp-ai-assistant/](erp-ai-assistant/) | 可运行 Spring Boot 项目（Chat + 学习版 RAG） |
 
 ## IDEA 导入（Maven 没弹出来时）

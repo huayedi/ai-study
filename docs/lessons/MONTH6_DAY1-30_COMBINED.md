@@ -2465,7 +2465,8 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 主题：确定性业务规则用 RuleEngine；LLM 只做理解/草稿/解释；规则先于模型；可版本化、可评测、可审计；**仍不接公司生产规则平台**。
 
-其它可留第8月（只选一条）：观测大盘 / 灰度演练 / 工作流可视化 / 提示词运营。
+**已排定：** 第7月后进入第8月**工作流可视化**（[`MONTH8_WORKFLOW_VIZ_COMPLETE.md`](./MONTH8_WORKFLOW_VIZ_COMPLETE.md)，非 30 天）。  
+观测大盘 / 灰度演练 / 提示词运营留作第9月及以后可选，见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)。
 
 ### 怎么做
 
@@ -2706,8 +2707,8 @@ A: 学习期不做；进阶可多 Adapter + 路由。
 **Q: 讲义能自动改 erp-ai-assistant 吗？**  
 A: **不能。** 自行复制粘贴；本文仅为 MD 骨架。
 
-**Q: 第7月选哪条？**  
-A: 观测大盘/规则引擎/灰度/工作流可视化——**只选一条**。
+**Q: 第7月学什么？**  
+A: 已开课主线是**规则引擎**（RuleEngine；规则先于模型）。见 [`MONTH7.md`](../MONTH7.md)。工作流可视化是第8月完整教材；观测/灰度见 [CURRICULUM_CONTINUITY.md](./CURRICULUM_CONTINUITY.md)。
 
 ## 附录 G｜第6月 curl/scripts 速查
 
@@ -2954,7 +2955,7 @@ ls src/test/java/**/contract/
 
 | 日期 | 说明 |
 |---|---|
-| 2026-08-15 | 第6月首版合并讲义（Port/Adapter / Fake/Sandbox / 契约测试） |
+| 2026-08-15 | 连贯补丁：收官/FAQ 指向已开课第7月；链接 CONTINUITY |
 | 2026-08-15 | 逐日详版：30 天完整六段结构 + 附录 A～R |
 | 2026-08-15 | 与第5月衔接：Gateway/Ledger/Posting 迁移至 Port |
 
