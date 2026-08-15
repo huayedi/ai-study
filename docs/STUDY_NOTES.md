@@ -38,8 +38,12 @@
 | 第 3 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) · [MONTH3.md](./MONTH3.md) |
 | 第 4 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md) · [MONTH4.md](./MONTH4.md) |
 | 第 5 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md) · [MONTH5.md](./MONTH5.md) |
+<<<<<<< HEAD
 | 第 6 月 Day1～30 | 逐日详版（与第1月同级） | ✅ 已交付 | → [MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md) · [MONTH6.md](./MONTH6.md) |
 | Web 前端 WEB-D1～30 | 逐日详版（独立轨道） | ✅ 已交付 | → [WEB_DAY1-30_COMBINED.md](./lessons/WEB_DAY1-30_COMBINED.md) · [WEB.md](./WEB.md) |
+=======
+| Web 前端完整教材 | Vue 3 控制台（非 30 天） | ✅ 已交付 | → [WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md) |
+>>>>>>> 8caea43 (Retarget indexes to WEB_VUE_COMPLETE textbook)
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -473,12 +477,12 @@ attempts         本轮尝试次数（含重试）
 - 主题：真适配器接口稳定化（Port/Adapter + Fake/Sandbox + 契约测试）  
 - 状态：✅ 已交付  
 
-### Web 前端轨道（独立）
-- **逐日详版合订：** `docs/lessons/WEB_DAY1-30_COMBINED.md`  
+### Web 前端轨道（独立 · 完整教材）
+- **完整章节式教材（非 30 天）：** `docs/lessons/WEB_VUE_COMPLETE.md`  
 - 入口：`docs/WEB.md`  
-- 主题：**Vue 3 + Vite** 学习控制台（Chat/RAG/Flow/Eval/ACL头/反馈）、打磨与作品集  
-- 状态：✅ 已交付（已从 Vanilla 改为 Vue）  
-- 约定：骨架自落到独立目录 `erp-ai-console/`；Vite proxy 对接后端；可与第2～5月并行  
+- 主题：**Vue 3 + Vite** 学习控制台（Chat/RAG/Flow/Eval/ACL头/反馈）、构建与彩排  
+- 状态：✅ 已交付（已取消 WEB-D1～30 逐日结构）  
+- 约定：骨架自落到 `erp-ai-console/`；Vite proxy 对接后端  
 
 ---
 
