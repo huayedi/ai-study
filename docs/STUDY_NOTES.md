@@ -43,6 +43,7 @@
 | 第 8 月完整教材 | 工作流可视化（非 30 天） | ✅ 已交付 | → [MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md) · [MONTH8.md](./MONTH8.md) |
 | Web 前端完整教材 | Vue 3 控制台（非 30 天） | ✅ 已交付 | → [WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md) |
 | 课程连贯桥接 | HITL 时间线 / 双控制台 / 旧菜单对照 | ✅ 已补 | → [CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md) |
+| 全部方向总览 | 对勾清单 + 分支先后图 | ✅ 已补 | → [CURRICULUM_DIRECTIONS.md](./CURRICULUM_DIRECTIONS.md) |
 | 作品集模板 | PORTFOLIO | ✅ 已补 | → [PORTFOLIO.md](./PORTFOLIO.md) |
 
 **Day2 实验：**

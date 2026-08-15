@@ -16,6 +16,7 @@
 > **第 8 月完整教材（非 30 天）：** [lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md) · [MONTH8.md](./MONTH8.md)  
 > **Web 前端轨道（完整教材，非 30 天）：** [lessons/WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md)  
 > **课程连贯审查与桥接（HITL 时间线 / 双控制台 / 旧菜单对照）：** [lessons/CURRICULUM_CONTINUITY.md](./lessons/CURRICULUM_CONTINUITY.md)  
+> **全部方向总览（对勾 + 分支图）：** [CURRICULUM_DIRECTIONS.md](./CURRICULUM_DIRECTIONS.md)  
 > **作品集模板：** [PORTFOLIO.md](./PORTFOLIO.md)
 
 ---

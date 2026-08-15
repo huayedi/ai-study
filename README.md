@@ -9,7 +9,8 @@ Java 5 年 ERP 工程师转 AI 应用（自学提升）仓库。
 | [docs/LEARNING_PLAN.md](docs/LEARNING_PLAN.md) | 20 周详细学习计划（每天 2–3 小时） |
 | [docs/STUDY_NOTES.md](docs/STUDY_NOTES.md) | 每日订正笔记 + 代码对照 + 打卡跟踪 |
 | [docs/PORTFOLIO.md](docs/PORTFOLIO.md) | 作品集模板（按月填证据） |
-| [docs/lessons/CURRICULUM_CONTINUITY.md](docs/lessons/CURRICULUM_CONTINUITY.md) | **1～7月连贯桥接**（HITL 语义 / 双控制台 / API 增量） |
+| [docs/CURRICULUM_DIRECTIONS.md](docs/CURRICULUM_DIRECTIONS.md) | **全部方向总览**（✅对勾 + 分支先后图） |
+| [docs/lessons/CURRICULUM_CONTINUITY.md](docs/lessons/CURRICULUM_CONTINUITY.md) | **1～8月连贯桥接**（HITL 语义 / 双控制台 / API 增量） |
 | [docs/lessons/](docs/lessons/) | 教材式讲义（推荐主学） |
 | [docs/lessons/MONTH_30_DAY_PLAN.md](docs/lessons/MONTH_30_DAY_PLAN.md) | **30 天逐日总计划** |
 | [docs/lessons/MONTH1_DAY1-30_COMBINED.md](docs/lessons/MONTH1_DAY1-30_COMBINED.md) | **第1月合订详版** |

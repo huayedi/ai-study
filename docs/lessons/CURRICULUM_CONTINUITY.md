@@ -2,7 +2,7 @@
 
 > **用途：** 补上各月收官「预告」与后续教材之间的断档；统一 HITL / APPROVE 语义时间线；标明双控制台与 API 演进。  
 > **形式：** 完整桥接章（**不卡 30 天**）。读完应能按真实开课路径前进，而不是停在「只选一条」的旧菜单上。  
-> **入口索引：** [LEARNING_PLAN.md](../LEARNING_PLAN.md) · [PORTFOLIO.md](../PORTFOLIO.md)
+> **入口索引：** [LEARNING_PLAN.md](../LEARNING_PLAN.md) · [PORTFOLIO.md](../PORTFOLIO.md) · **全方向对勾图：** [CURRICULUM_DIRECTIONS.md](../CURRICULUM_DIRECTIONS.md)
 
 ---
 
