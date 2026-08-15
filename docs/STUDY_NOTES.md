@@ -5,7 +5,8 @@
 > 工程目录：`erp-ai-assistant/`  
 > **学习偏好：教材式讲义为主**（见 `docs/lessons/`）。  
 > **学习边界：通用 ERP 口径 + 纯学习仓库；不依赖公司手册，不落到公司项目。**  
-> **30 天总计划（逐日）：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)
+> **30 天总计划（逐日）：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)  
+> **第 1 月合订详版（非概述）：** [lessons/MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) · [MONTH1.md](./MONTH1.md)
 
 **你的当前配置（可自行改）：**
 - Provider：`openai-compatible`
@@ -31,7 +32,8 @@
 | Day10 | 切分策略深入（仅讲义） | ✅ 完成（自行改码按已完成计） | |
 | Day11 | Embedding 与向量检索原理（仅讲义） | ✅ 完成 | |
 | Day12 | 向量检索实现（讲义·自行编码） | ✅ 按进度继续 | |
-| Day13～30 | 合并讲义 | ✅ 已交付 | → [day13-30-combined.md](./lessons/day13-30-combined.md) |
+| Day13～30 | 合订详版（非概述） | ✅ 已交付 | → [MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) |
+| 第 1 月 Day1～30 | 整月合订详版 | ✅ 已交付 | → [MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md) |
 | 第 2 月 Day1～30 | 合并讲义+对照代码 | ✅ 已交付 | → [MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md) |
 | 第 3 月 Day1～30 | 合并讲义+对照代码 | ⬜ 阅读/自学实现 | → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md) |
 
@@ -433,9 +435,10 @@ attempts         本轮尝试次数（含重试）
 - 讲义：`docs/lessons/day12-vector-retriever-impl.md`  
 - 状态：✅（自行实现按个人进度）
 
-### Day13～30
-- **合并讲义：** `docs/lessons/day13-30-combined.md`  
-- 状态：✅ 已交付正文
+### Day13～30 / 第 1 月合订
+- **合订详版（非概述）：** `docs/lessons/MONTH1_DAY1-30_COMBINED.md`  
+- 入口：`docs/MONTH1.md`  
+- 状态：✅ 已交付（Day8～12 全文收录；Day13～30 逐日加厚）
 
 ### 第 2 个月
 - **整月合并讲义（含对照代码）：** `docs/lessons/MONTH2_DAY1-30_COMBINED.md`  

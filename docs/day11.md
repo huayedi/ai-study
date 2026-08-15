@@ -1,7 +1,9 @@
-# Day11
+# Day11 说明
 
-请阅读讲义（不直接改业务代码）：
+第 1 月合订详版（推荐）：
+
+→ [MONTH1_DAY1-30_COMBINED.md](./lessons/MONTH1_DAY1-30_COMBINED.md)（内含 Day11 全文）
+
+单日备份：
 
 → [第 11 课：Embedding 与向量检索原理](./lessons/day11-embedding-vector-retrieval.md)
-
-Day10 按你的进度视为已完成（含自行对照调整）。

@@ -1,3 +1,7 @@
+> **第1月合订详版（推荐主入口）：** [`MONTH1_DAY1-30_COMBINED.md`](./MONTH1_DAY1-30_COMBINED.md) · [`docs/MONTH1.md`](../MONTH1.md)
+>
+> 本文件保留为单日备份；内容已全文收录进合订本对应 Day。
+
 # 第 8 课讲义：Prompt 收口与 RAG 入门
 
 > 学习方式：教材阅读为主。  

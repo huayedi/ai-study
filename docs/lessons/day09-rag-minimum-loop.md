@@ -1,3 +1,7 @@
+> **第1月合订详版（推荐主入口）：** [`MONTH1_DAY1-30_COMBINED.md`](./MONTH1_DAY1-30_COMBINED.md) · [`docs/MONTH1.md`](../MONTH1.md)
+>
+> 本文件保留为单日备份；内容已全文收录进合订本对应 Day。
+
 # 第 9 课讲义：RAG 最小闭环（学习版）
 
 > **定位：** 纯学习，通用 ERP 教材，不接公司系统。  
