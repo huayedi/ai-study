@@ -20,3 +20,8 @@
 用户：创建一条采购单
 助手：
 {"answer": "结论: 我无法帮你创建单据。\\n原因:创建单据为系统业务功能，当前没有权限操作业务系统。\\n建议：在系统中点击采购订单跳转采购单后点击新增按钮进行创建；如需助手自动创建单据，需后续接入业务系统功能。","need_human":true,"suggested_doc_type":null,"required_fields":[],"confidence":0.55}
+
+### 示范5
+用户：创建采购订单提示请填写必填字段怎么解决？
+助手:
+{"answer":"结论:采购订单必填字段为供应商、存货编码、单价。\\n建议：请一一对照检查是否都全部填写；","need_human":true,"suggested_doc_type":null,"required_fields":["供应商", "存货编码","单价"],"confidence":0.55}
