@@ -3176,7 +3176,7 @@ docs/PORTFOLIO.md
 | 第5月 | `docs/MONTH5.md` → `docs/lessons/MONTH5_DAY1-30_COMBINED.md` |
 | 第6月 | `docs/MONTH6.md` → `docs/lessons/MONTH6_DAY1-30_COMBINED.md` |
 | 第7月 | `docs/MONTH7.md` → `docs/lessons/MONTH7_DAY1-30_COMBINED.md` |
-| WEB | `docs/WEB.md` → `docs/lessons/WEB_DAY1-30_COMBINED.md` |
+| WEB | `docs/WEB.md` → `docs/lessons/WEB_VUE_COMPLETE.md` |
 
 ## 附录 E｜学习纪律（第7月）
 
