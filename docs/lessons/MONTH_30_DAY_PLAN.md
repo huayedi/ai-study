@@ -73,18 +73,15 @@
 - **代码：** `com.erp.ai.rag`，`POST /api/ai/rag/ask`  
 - **重点：** 切分、TopK、sources 由检索给出  
 
-### Day10 ⬜ 切分策略深入（讲义日）
+### Day10 ✅ 切分策略深入（讲义日）
 - **讲义：** `docs/lessons/day10-chunking-strategies.md`  
 - **重点：** heading / fixed / overlap；过粗过细；元数据与引用  
-- **对照（只读）：** `HeadingChunker`、`TextChunk`  
-- **约定：** 不由助教直接改代码；文末有可选自行调整指南  
+- **约定：** 不由助教直接改代码；自行对照调整  
 
 ### Day11 ⬜ Embedding 与向量检索原理（讲义日）
-- **当天教材将讲：**  
-  - Embedding 是什么、相似度（余弦）直观含义  
-  - 为何同义改写时向量优于关键词  
-  - 向量库角色（学习期可不落真实 PGVector，先讲清楚）  
-- **对照预告：** 即将出现的 `EmbeddingClient` / `VectorRetriever` 接口形状  
+- **讲义：** `docs/lessons/day11-embedding-vector-retrieval.md`  
+- **重点：** Embedding 直觉、余弦相似度、索引 vs 查询、与关键词对比  
+- **约定：** 先讲义；实现留给学员自行做（Day12 给结构提纲）  
 
 ### Day12 ⬜ 向量检索学习版实现（讲义 + 代码）
 - **当天教材将讲：**  
