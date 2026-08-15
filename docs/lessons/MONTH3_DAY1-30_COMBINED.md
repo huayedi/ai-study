@@ -2957,17 +2957,21 @@ Week4  OCR 边界 / FakeOcr / debug 台 / README / 彩排 / 架构终审
 - 把学习仓当生产服务对外提供  
 - 用 OCR 结果直接驱动 ERP 写库（本仓库范围内永久禁止）
 
-### 第 4 月方向（只选一条）
+### 第 4 月方向（第4月已出整月逐日详版）
 
-| 方向 | 你会练到 | 与第3月衔接 |
+整月教材：[`MONTH4_DAY1-30_COMBINED.md`](./MONTH4_DAY1-30_COMBINED.md) · 入口 [`docs/MONTH4.md`](../MONTH4.md)
+
+四周覆盖（编码仍建议每周深挖一条）：
+
+| 周 | 方向 | 你会练到 |
 |---|---|---|
-| 1 模拟 ACL | 角色 → 可检索 doc 集合 | 在 Store 加 tenant/role 过滤 |
-| 2 反馈飞轮 | 点赞点踩 → 题集迭代 | 扩展 eval suites |
-| 3 多租户 RAG | tenantId 隔离索引 | Pg store 加 tenant 列 |
-| 4 前端正式化 | 比 debug 更完整控制台 | 复用现有 REST |
-| 5 观测深化 | 指标大盘、trace 关联 | 扩展 quality log / AiCallLog |
+| 1 | 模拟 ACL | 角色 → 可检索 doc 集合 |
+| 2 | 反馈飞轮 | 点赞点踩 → 题集迭代 |
+| 3 | 多租户 RAG | tenantId 隔离索引 |
+| 4 | 前端正式化 + 收官 | 学习控制台与三能力串联 |
 
-选一条深挖，比五条各做 20% 更接近「能讲的项目」。
+另可选观测深化（指标/trace）作为第5月方向。  
+选一条深挖落地，其余读懂 + 口述即可。
 
 ### Elevator pitch 模板（填空）
 

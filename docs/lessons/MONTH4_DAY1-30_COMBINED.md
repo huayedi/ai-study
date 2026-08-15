@@ -2567,6 +2567,8 @@ docs/PORTFOLIO.md                       # 第4月升级
 | 第2月入口 | `docs/MONTH2.md` |
 | 第3月详版 | `docs/lessons/MONTH3_DAY1-30_COMBINED.md` |
 | 第3月入口 | `docs/MONTH3.md` |
+| 第4月详版 | `docs/lessons/MONTH4_DAY1-30_COMBINED.md` |
+| 第4月入口 | `docs/MONTH4.md` |
 | 第4月详版（本文） | `docs/lessons/MONTH4_DAY1-30_COMBINED.md` |
 | 第4月入口 | `docs/MONTH4.md` |
 | 打卡笔记 | `docs/STUDY_NOTES.md` |
