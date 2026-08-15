@@ -11,3 +11,5 @@
 **前置：** 第1～7月（Chat/RAG、Flow HITL、Store/audit、ACL/多租户、WriteGateway/假账本、Port/Adapter、RuleEngine）+ [Web 控制台](./WEB.md)（`erp-ai-console/` 工程与 `api/http.js`）。
 
 **约定：** 纯学习；骨架在 Markdown 中自行粘贴改造；**勿**直接改仓库内 `erp-ai-assistant/`、`erp-ai-console/` 应用源码；不接公司生产 BPM/流程平台。
+
+全方向对勾与分支图：[CURRICULUM_DIRECTIONS.md](./CURRICULUM_DIRECTIONS.md)
