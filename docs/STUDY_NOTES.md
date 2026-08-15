@@ -4,7 +4,8 @@
 > 总计划：[LEARNING_PLAN.md](./LEARNING_PLAN.md)  
 > 工程目录：`erp-ai-assistant/`  
 > **学习偏好：教材式讲义为主**（见 `docs/lessons/`）。  
-> **学习边界：通用 ERP 口径 + 纯学习仓库；不依赖公司手册，不落到公司项目。**
+> **学习边界：通用 ERP 口径 + 纯学习仓库；不依赖公司手册，不落到公司项目。**  
+> **30 天总计划（逐日）：** [lessons/MONTH_30_DAY_PLAN.md](./lessons/MONTH_30_DAY_PLAN.md)
 
 **你的当前配置（可自行改）：**
 - Provider：`openai-compatible`
@@ -26,8 +27,8 @@
 | Day6 | Prompt 深化：few-shot + 规则解释 | ✅ 完成 | |
 | Day7 | 20 题扫弱项 + 字段校验解释 | ✅ 完成 | |
 | Day8 | Prompt 收口 + RAG 入门（讲义） | ✅ 完成 | |
-| Day9 | RAG 最小闭环（关键词检索学习版） | ⬜ 阅读/对照代码 | |
-| Day10+ | 向量检索版 RAG | ⬜ 未开始 | |
+| Day9 | RAG 最小闭环（关键词检索学习版） | ✅ 大纲已交付，讲义阅读中 | |
+| Day10～30 | 见 30 天总计划 | ⬜ 按日索取详细讲义 | |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
