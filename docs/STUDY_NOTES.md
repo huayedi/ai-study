@@ -27,8 +27,9 @@
 | Day6 | Prompt 深化：few-shot + 规则解释 | ✅ 完成 | |
 | Day7 | 20 题扫弱项 + 字段校验解释 | ✅ 完成 | |
 | Day8 | Prompt 收口 + RAG 入门（讲义） | ✅ 完成 | |
-| Day9 | RAG 最小闭环（关键词检索学习版） | ✅ 大纲已交付，讲义阅读中 | |
-| Day10～30 | 见 30 天总计划 | ⬜ 按日索取详细讲义 | |
+| Day9 | RAG 最小闭环（关键词检索学习版） | ✅ 完成 | |
+| Day10 | 切分策略深入（仅讲义） | ⬜ 阅读中 | |
+| Day11～30 | 见 30 天总计划 | ⬜ 按日索取讲义 | |
 
 **Day2 实验：**
 - ✅ 多轮：第一次不带 `sessionId`，第二次带上追问
@@ -414,8 +415,11 @@ attempts         本轮尝试次数（含重试）
 ### Day9
 - 讲义：`docs/lessons/day09-rag-minimum-loop.md`  
 - 代码：`com.erp.ai.rag` + `POST /api/ai/rag/ask`  
-- 检索：学习版关键词 TopK（非向量）  
-- 教材：`classpath:rag-docs/`（与 samples/rag-docs 同步）  
+- 状态：✅
+
+### Day10
+- 讲义：`docs/lessons/day10-chunking-strategies.md`  
+- 约定：**不直接改业务代码**；对照现有 `HeadingChunker` 阅读；可选按文末指南自行调整  
 - 阅读完成：（读完告诉我）
 
 ---

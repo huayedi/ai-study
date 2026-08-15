@@ -74,12 +74,10 @@
 - **重点：** 切分、TopK、sources 由检索给出  
 
 ### Day10 ⬜ 切分策略深入（讲义日）
-- **当天教材将讲：**  
-  - 按标题切 vs 固定窗切 vs 重叠窗  
-  - 过粗/过细对检索的影响（用现有三份教材举例）  
-  - 元数据（docId/section）如何服务引用  
-- **对照：** `HeadingChunker`、`TextChunk`  
-- **可选动手：** 只改切分参数观察 sources 变化（不作硬性作业）  
+- **讲义：** `docs/lessons/day10-chunking-strategies.md`  
+- **重点：** heading / fixed / overlap；过粗过细；元数据与引用  
+- **对照（只读）：** `HeadingChunker`、`TextChunk`  
+- **约定：** 不由助教直接改代码；文末有可选自行调整指南  
 
 ### Day11 ⬜ Embedding 与向量检索原理（讲义日）
 - **当天教材将讲：**  
