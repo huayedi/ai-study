@@ -78,17 +78,13 @@
 - **重点：** heading / fixed / overlap；过粗过细；元数据与引用  
 - **约定：** 不由助教直接改代码；自行对照调整  
 
-### Day11 ⬜ Embedding 与向量检索原理（讲义日）
+### Day11 ✅ Embedding 与向量检索原理（讲义日）
 - **讲义：** `docs/lessons/day11-embedding-vector-retrieval.md`  
-- **重点：** Embedding 直觉、余弦相似度、索引 vs 查询、与关键词对比  
-- **约定：** 先讲义；实现留给学员自行做（Day12 给结构提纲）  
 
-### Day12 ⬜ 向量检索学习版实现（讲义 + 代码）
-- **当天教材将讲：**  
-  - 用兼容 Embedding API（或本地可替换实现）为 chunk 建向量  
-  - `VectorRetriever` 替换/并存于 `KeywordRetriever`  
-  - 配置切换：`ai.rag.retriever=keyword|vector`  
-- **边界：** 仍只用 `rag-docs` 教材，不接公司库  
+### Day12 ⬜ 向量检索学习版实现（讲义 · 自行编码）
+- **讲义：** `docs/lessons/day12-vector-retriever-impl.md`  
+- **重点：** EmbeddingClient、VectorRetriever、配置切换、进程内索引  
+- **约定：** 助教不直接改代码；学员对照讲义实现  
 
 ### Day13 ⬜ 混合检索与「未命中」行为（讲义日）
 - **当天教材将讲：**  
