@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat/Prompt/RAG + 第2月 Hybrid/Gate/Rerank、Flow HITL、Eval 入门 + 第3月 Store/reindex/audit/baseline + 第4月 ACL/反馈/多租户/console + 第5月 WriteGateway/假账本/受控写入。
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH6.md`
+> **技术节点：** 本月对齐 **T10（Port/Adapter）；可选 WireMock/Testcontainers** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
 > **本月主题：** **真适配器接口稳定化（Port/Adapter 契约 + Fake/Sandbox + 契约测试）**
 > **核心产品句（全文反复强调）：**
 > **业务代码只依赖稳定 Port/Adapter 接口；学习期用 Fake/Sandbox 实现；将来换真实 ERP 只换适配器，不改 Chat/RAG/Flow/WriteGateway 主编排。本月不接公司生产。**
@@ -172,6 +173,11 @@ WriteGateway → InventoryWritePort  → FakeInventoryWriteAdapter → (内部 I
 
 ## M6-D1 为何「接口不稳」比「模型不行」更毁项目；本月边界
 
+> **技术前置：** 此时应当学会 **第5月 WriteGateway/假账本/HITL 写（T9）** 后再进行阅读。 节点：**T9→T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -260,6 +266,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D2 Hexagonal：Domain ← Port ← Adapter；反模式清单
 
+> **技术前置：** 此时应当学会 **接口不稳危害；本日开始学 Hexagonal Port/Adapter（T10）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -346,6 +357,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D3 读端口：ItemQueryPort / InventoryQueryPort / PeriodQueryPort
+
+> **技术前置：** 此时应当学会 **六边形心智；本日学读端口 Item/Inventory/Period** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -434,6 +450,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D4 写端口：InventoryWritePort / PostingPort（对接第5月 Gateway）
 
+> **技术前置：** 此时应当学会 **读 Port；本日学写端口对接 Gateway** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -517,6 +538,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D5 统一 ErpAdapterException：TIMEOUT / CONFLICT / PERIOD_CLOSED 等
+
+> **技术前置：** 此时应当学会 **写 Port；本日学统一 ErpAdapterException** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -602,6 +628,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D6 ai.erp.adapter: fake|sandbox 装配；禁止业务 if(adapter==)
 
+> **技术前置：** 此时应当学会 **错误模型；本日 ai.erp.adapter 装配（禁业务 if）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -684,6 +715,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D7 第 1 周复盘（Port 基础 + Fake 装配）
+
+> **技术前置：** 此时应当学会 **Port 基础 + Fake 装配（T10 第1周）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -771,6 +807,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D8 契约测试：同一套测试跑 Fake 与 Stub，断言行为一致
 
+> **技术前置：** 此时应当学会 **Fake 可切换；本日开始学契约测试（可选 WireMock）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -854,6 +895,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D9 版本化：ErpApiVersion / Accept header；破坏性变更 checklist
 
+> **技术前置：** 此时应当学会 **契约测试；本日 API 版本/破坏性变更 checklist** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -929,6 +975,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D10 超时与重试策略放适配器层；401/期间关闭不重试
+
+> **技术前置：** 此时应当学会 **版本意识；本日超时重试放适配器层** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1008,6 +1059,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D11 幂等键从 Flow 传到 Port（Idempotency-Key）
 
+> **技术前置：** 此时应当学会 **韧性策略；本日幂等键传到 Port** 后再进行阅读。 节点：**T9+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1081,6 +1137,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D12 熔断/舱壁概念 + 简易 CircuitBreaker 骨架（学习版）
+
+> **技术前置：** 此时应当学会 **幂等透传；本日简易熔断骨架** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1160,6 +1221,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D13 GET /api/ai/erp/health 聚合适配器健康
 
+> **技术前置：** 此时应当学会 **熔断概念；本日适配器健康聚合** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1233,6 +1299,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D14 第 2 周复盘（契约 + 韧性）
+
+> **技术前置：** 此时应当学会 **契约 + 韧性（T10 第2周）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1315,6 +1386,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D15 Sandbox 适配器：对本地 stub HTTP（JDK HttpServer 概念）
 
+> **技术前置：** 此时应当学会 **韧性可讲；本日 Sandbox + JDK HttpServer stub（可选 WireMock）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1393,6 +1469,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D16 OpenAPI/契约 YAML 最小片段（库存查询、过账）
 
+> **技术前置：** 此时应当学会 **Sandbox；本日 OpenAPI 最小契约片段** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1470,6 +1551,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D17 字段映射：ErpItemMapper（外部编码 ↔ 学习域模型）
+
+> **技术前置：** 此时应当学会 **OpenAPI；本日字段映射 Mapper** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1550,6 +1636,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D18 主数据适配：供应商/仓库/存货查询 Port
 
+> **技术前置：** 此时应当学会 **Mapper；本日主数据查询 Port** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1623,6 +1714,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D19 透传学习头：tenant/user/roles → 适配器审计上下文
+
+> **技术前置：** 此时应当学会 **主数据 Port；本日透传 tenant/user 审计上下文** 后再进行阅读。 节点：**T8+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1698,6 +1794,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D20 写路径端到端：APPROVE → Gateway → PostingPort(Sandbox)
 
+> **技术前置：** 此时应当学会 **上下文透传；本日 E2E：APPROVE→Gateway→PostingPort** 后再进行阅读。 节点：**T9+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1771,6 +1872,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D21 第 3 周复盘（Sandbox + 映射 + E2E）
+
+> **技术前置：** 此时应当学会 **Sandbox + 映射 + E2E（T10 第3周）** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1853,6 +1959,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D22 适配器日志：outbound requestId、latency、errorCode（脱敏）
 
+> **技术前置：** 此时应当学会 **E2E 可演示；本日适配器日志（脱敏）** 后再进行阅读。 节点：**T6+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -1926,6 +2037,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D23 切换演练：fake → sandbox 一键；对比行为
+
+> **技术前置：** 此时应当学会 **适配器日志；本日 fake→sandbox 切换演练** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2001,6 +2117,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D24 串测 A：只读查询走 Port
 
+> **技术前置：** 此时应当学会 **切换演练；本日串测只读查询走 Port** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -2074,6 +2195,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D25 串测 B：受控过账走 Port + 幂等
+
+> **技术前置：** 此时应当学会 **场景 A；本日串测受控过账+幂等** 后再进行阅读。 节点：**T9+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2149,6 +2275,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D26 串测 C：期间关闭/超时降级
 
+> **技术前置：** 此时应当学会 **场景 B；本日串测期间关闭/超时降级** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -2222,6 +2353,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D27 PORTFOLIO 章节模板「适配器稳定化」
+
+> **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 适配器稳定化** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2297,6 +2433,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 
 ## M6-D28 架构终图（1～6月叠加；强调 Port 边界）
 
+> **技术前置：** 此时应当学会 **作品集；本日架构终图强调 Port 边界** 后再进行阅读。 节点：**T0～T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第5月已能经 WriteGateway 写假账，但 `DefaultWriteGateway` 直绑 `InMemoryInventoryLedger` 时，换 ERP 必改编排。本月让主编排只认 Port，Adapter 可替换。**不接公司生产库/SSO/真实账套。**
@@ -2370,6 +2511,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D29 口述自测（20 题）
+
+> **技术前置：** 此时应当学会 **架构；本日口述自测** 后再进行阅读。 节点：**T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2452,6 +2598,11 @@ curl -sf http://localhost:8080/api/ai/erp/health || echo "服务未启"
 ---
 
 ## M6-D30 收官；第7月方向（已开课：规则引擎）
+
+> **技术前置：** 此时应当学会 **第6月收官：T10 完成；可选 Testcontainers；下月 T11 规则引擎** 后再进行阅读。 节点：**T10→T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 

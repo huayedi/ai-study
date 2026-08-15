@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat/Prompt/RAG + 第2月 Hybrid/Gate/Rerank、Flow HITL、Eval 入门 + 第3月 Store/reindex/audit/baseline + 第4月 ACL/反馈/多租户/console。  
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH5.md`  
+> **技术节点：** 本月对齐 **T9（受控写入）；完成后可开 T13 Spring AI 对照** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
 > **本月主题：** **受控写入与模拟过账（假账本 + 强制 HITL + 审计）**  
 > **核心产品句（全文反复强调）：**  
 > **模型永不直接持有「无审批写库存/过账」工具。写入只发生在 APPROVE 之后，且走受控 WriteGateway + 权限 + 幂等 + 审计。学习仓用内存假账本，不接公司库。**
@@ -127,6 +128,11 @@ X-Admin-Token:     <期间开关等管理接口>
 
 ## M5-D1 为何现在才开写；风险不对称；本月边界清单
 
+> **技术前置：** 此时应当学会 **第4月 ACL/反馈/多租户/console（T8 + T6）；本日理解为何现在才开写（T9）** 后再进行阅读。 节点：**T8→T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第4月末已能 ACL、反馈、console 演示读路径。下一问必为：「审批后会不会改账？」读错可重答，写错是事故。本月用假账本练**受控写入**，且强调：模型永不直接持有无审批写工具。
 
@@ -209,6 +215,11 @@ posting/InMemoryPostingService.java
 ---
 
 ## M5-D2 写操作分级（读/建议/受控写/禁止）
+
+> **技术前置：** 此时应当学会 **写入风险不对称；本日学写操作分级** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 团队对「AI 能干什么」若不分级，会有人把 RAG 答错与「自动过账」混为一谈。今天建立**写入风险四级**，并明确 Chat/RAG 永远停在 READ。
@@ -304,6 +315,11 @@ public enum WriteRiskLevel {
 ---
 
 ## M5-D3 WriteGateway / WriteCommand / WriteResult 接口设计
+
+> **技术前置：** 此时应当学会 **写分级；本日开始学 WriteGateway / WriteCommand / WriteResult（T9）** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 散落的 `ledger.add()` 调用无法统一做权限、幂等、审计。Gateway 是**唯一写入口**——与第3月 Store 单一职责同理。
@@ -423,6 +439,11 @@ public interface WriteGateway {
 
 ## M5-D4 InMemoryInventoryLedger：改数量（假），带 before/after
 
+> **技术前置：** 此时应当学会 **WriteGateway 接口；本日开始学假账本 InMemoryInventoryLedger** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 库存调整是 ERP 最常演示的「写」。今天在内存里实现**可快照、可 diff** 的假账本，为 eval `expectLedgerDelta` 打基础。
 
@@ -527,6 +548,11 @@ public interface InventoryLedger {
 ---
 
 ## M5-D5 InMemoryPostingService：模拟过账状态机（DRAFT→POSTED）
+
+> **技术前置：** 此时应当学会 **假库存；本日开始学模拟过账状态机** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 过账比改数量更敏感：涉及期间、单据状态。今天做**内存过账状态机**；期间关闭时拒绝 POST。
@@ -633,6 +659,11 @@ public class InMemoryPostingService {
 
 ## M5-D6 ACL×Write：无角色禁止 APPLY；与第4月 Principal 结合
 
+> **技术前置：** 此时应当学会 **假过账；本日学 ACL×Write** 后再进行阅读。 节点：**T9+T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第4月 Principal 过滤**读**；本月同一主体必须过滤**写**。无 `INVENTORY_CLERK` / `POSTING` 角色不得 `apply`。
 
@@ -724,6 +755,11 @@ Flow 审批人角色与 Gateway `requestedBy` 必须一致或可映射（避免�
 
 ## M5-D7 第 1 周复盘（写入基础 + 假账本）
 
+> **技术前置：** 此时应当学会 **WriteGateway + 假账本（T9 第1周）** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第1周涉及分级、Gateway、双账本、ACL×Write；复盘日串讲「为何不直写」。
 
@@ -814,6 +850,11 @@ grep -r "adjust\|post(" --include="*.java" | grep -v write | grep -v test
 
 
 ## M5-D8 Flow 状态增加 APPLY_WRITE；合法迁移表更新
+
+> **技术前置：** 此时应当学会 **T9 基础可讲；本日 Flow 增加 APPLY_WRITE（T5+T9）** 后再进行阅读。 节点：**T5+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第2月 Flow 在 APPROVE 后直达 DONE，**没有写窗口**。今天插入 `APPLY_WRITE`，且仅 `decision=APPROVE` 可进入。
@@ -914,6 +955,11 @@ DRAFT → RISK_CHECK → WAIT_HUMAN → APPLY_WRITE → DONE
 ---
 
 ## M5-D9 decide(APPROVE) 才 enqueue WriteCommand；REJECT/EDIT 不写
+
+> **技术前置：** 此时应当学会 **APPLY_WRITE 节点；本日 decide(APPROVE) 才写** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 产品最易翻车：REJECT 也改库存。今天把 **decide 分支**写死：仅 APPROVE 构造 `WriteCommand` 并入队。
@@ -1016,6 +1062,11 @@ Flow 启动时 payload 应含 `writeType`/`sku`/`delta` 等，但**不得**预�
 
 ## M5-D10 幂等：Idempotency-Key / commandId；重复 APPROVE 不双写
 
+> **技术前置：** 此时应当学会 **APPROVE 写窗口；本日开始学幂等键** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 网络重试、双击审批会导致**双写**。本月用 `commandId` + `IdempotencyStore` 保证 at-most-once。
 
@@ -1105,6 +1156,11 @@ REVERSE：reverse-{originalCommandId}
 ---
 
 ## M5-D11 超时与部分失败；失败进 FAILED + 审计；禁止静默成功
+
+> **技术前置：** 此时应当学会 **幂等；本日超时/部分失败→FAILED+审计** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 写路径可能抛异常或业务拒绝。任何失败必须：**Flow→FAILED** + `WRITE_REJECTED` 审计，禁止 HTTP 200 但账没变。
@@ -1196,6 +1252,11 @@ Gateway REJECTED
 
 ## M5-D12 禁止 Llm Tool 直接 write；工具白名单扫描 + Write* 黑名单
 
+> **技术前置：** 此时应当学会 **失败可见；本日禁止 LLM Tool 直写 + 黑名单扫描** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 模型若持有 `writeInventory` tool，全月纪律崩塌。今天加**静态扫描测试** + 运行时 tool 注册审查。
 
@@ -1282,6 +1343,11 @@ void llmToolsMustNotExposeDirectWrite() {
 
 ## M5-D13 补偿/回滚学习版：reverse command（概念+最小实现）
 
+> **技术前置：** 此时应当学会 **禁直写；本日补偿/回滚学习版** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 真分布式回滚很复杂；学习版用 **REVERSE command** 冲销：记录原 commandId，写相反 delta，审计 `WRITE_REVERSED`。
 
@@ -1352,6 +1418,11 @@ private WriteResult applyReverse(WriteCommand cmd) {
 
 ## M5-D14 第 2 周复盘（Flow 写窗口 + 幂等 + 禁直写）
 
+> **技术前置：** 此时应当学会 **Flow 写窗口 + 幂等 + 禁直写（T9 第2周）** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 串测：APPROVE 写、REJECT 不写、双写幂等、工具扫描。
 
@@ -1419,6 +1490,11 @@ FlowEngine.decide → ApplyWriteHandler → WriteGateway → IdempotencyStore
 
 
 ## M5-D15 write-safety.jsonl 题集设计
+
+> **技术前置：** 此时应当学会 **T9 写路径可控；本日 write-safety 题集（T6）** 后再进行阅读。 节点：**T6+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 读路径有 acl-forbidden；写路径需要 **write-safety**：越权、关期间、无幂等、双写期望。
@@ -1499,6 +1575,11 @@ FlowEngine.decide → ApplyWriteHandler → WriteGateway → IdempotencyStore
 
 ## M5-D16 Eval 断言：expectNoLedgerChange / expectLedgerDelta / expectPostingState
 
+> **技术前置：** 此时应当学会 **write-safety 题；本日 Eval 断言 ledger/posting** 后再进行阅读。 节点：**T6+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 写路径 eval 需要读**账本快照**而非仅比字符串。今天实现三类断言 helper。
 
@@ -1577,6 +1658,11 @@ public final class WriteSafetyAssertions {
 
 ## M5-D17 期间关闭、缺权限、缺幂等键负例
 
+> **技术前置：** 此时应当学会 **写断言；本日期间关闭/缺权/缺幂等负例** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 负例日：三条必须红（或按设计 DUPLICATE/REJECTED），且 **ledger 不变**。
 
@@ -1644,6 +1730,11 @@ curl -s -X POST .../write/apply   -H 'X-Roles: INVENTORY_CLERK'   -d '{"type":"A
 ---
 
 ## M5-D18 审计流水：WRITE_REQUESTED / APPLIED / REJECTED / REVERSED
+
+> **技术前置：** 此时应当学会 **负例；本日写审计事件流水** 后再进行阅读。 节点：**T5+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 合规问：谁何时改了什么？审计事件必须含 **who/when/what/before/after**。
@@ -1727,6 +1818,11 @@ public record WriteAuditEvent(
 
 ## M5-D19 baseline 纳入 write-safety；门禁演示
 
+> **技术前置：** 此时应当学会 **写审计；本日 baseline 纳入 write-safety** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第3月 baseline 门禁本月扩展：**write-safety 不过 = 不过门禁**。
 
@@ -1798,6 +1894,11 @@ public record WriteAuditEvent(
 
 ## M5-D20 与反馈飞轮结合：错误写入相关踩 → 题集
 
+> **技术前置：** 此时应当学会 **baseline；本日反馈飞轮×错误写入** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第4月反馈晋升 eval；本月把 **UNSAFE 写入尝试** 晋升为 write-safety 题。
 
@@ -1861,6 +1962,11 @@ if (feedback.kind() == UNSAFE && feedback.comment().contains("写入")) {
 ---
 
 ## M5-D21 第 3 周复盘（write-safety + 审计 + baseline）
+
+> **技术前置：** 此时应当学会 **write-safety + 审计 + baseline（T9 第3周）** 后再进行阅读。 节点：**T9+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 跑 write-safety 全量 + 抽查 audit JSONL + baseline 门禁。
@@ -1929,6 +2035,11 @@ jq -c 'select(.kind=="WRITE_APPLIED")' data/write-audit/*.jsonl | head
 
 
 ## M5-D22 console：展示 ledger 快照、approve→apply 动画/步骤
+
+> **技术前置：** 此时应当学会 **门禁可演示；本日 console 展示 ledger/approve 步骤（T7）** 后再进行阅读。 节点：**T7+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第4月 console 偏读；本月加 **写入演示面**：快照、审批、apply 结果、审计 link。
@@ -2021,6 +2132,11 @@ async function approveFlow(id) {
 
 ## M5-D23 串测 A：合法 APPROVE 改假库存
 
+> **技术前置：** 此时应当学会 **console；本日串测合法 APPROVE 改假库存** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 场景 A：采购申请加库存，经理 APPROVE，qty 正确变化，审计完整。
 
@@ -2104,6 +2220,11 @@ curl -s -X POST /api/ai/flow/instances/{id}/decide \
 
 ## M5-D24 串测 B：未审批路径无法改账
 
+> **技术前置：** 此时应当学会 **场景 A；本日串测未审批无法改账** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 场景 B：REJECT 或停在 WAIT 时，任何路径 ledger 不变；恶意 curl apply 也被拒。
 
@@ -2171,6 +2292,11 @@ curl -s -X POST /api/ai/flow/instances/{id}/decide \
 
 ## M5-D25 串测 C：越权/关期间拒绝
 
+> **技术前置：** 此时应当学会 **场景 B；本日串测越权/关期间拒绝** 后再进行阅读。 节点：**T8+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 场景 C：关账期间 POST 拒；越权角色 apply 拒；FAILED + REJECTED 审计。
 
@@ -2233,6 +2359,11 @@ C3：跨 tenant（若实现）
 ---
 
 ## M5-D26 PORTFOLIO「受控写入」章节模板
+
+> **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 受控写入** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 作品集升级：用招聘官能读懂的语言写清 **为何不直写 + 如何证明**。
@@ -2297,6 +2428,11 @@ C3：跨 tenant（若实现）
 ---
 
 ## M5-D27 架构终图（叠加第1～5月）
+
+> **技术前置：** 此时应当学会 **作品集；本日架构终图 1～5月** 后再进行阅读。 节点：**T0～T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 一张图讲清五个月演进：RAG → HITL → 运维 eval → ACL/租户 → **受控写入**。
@@ -2378,6 +2514,11 @@ flowchart TB
 
 ## M5-D28 安全对照总表
 
+> **技术前置：** 此时应当学会 **架构；本日安全对照总表** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 把读安全与写安全放在一张表，面试常问「AI 怎么防越权写」。
 
@@ -2446,6 +2587,11 @@ flowchart TB
 ---
 
 ## M5-D29 口述自测（20 题）
+
+> **技术前置：** 此时应当学会 **安全总表；本日口述自测** 后再进行阅读。 节点：**T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 收官前口述：WriteGateway、幂等、APPLY_WRITE、假账、审计、禁 tool。
@@ -2524,6 +2670,11 @@ flowchart TB
 ---
 
 ## M5-D30 收官；第6月只选一条
+
+> **技术前置：** 此时应当学会 **第5月收官：T9 完成；建议窗口：可对照学 Spring AI（T13）；主交付仍自封装** 后再进行阅读。 节点：**T9→T13窗口** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 填收官清单；跑全量 eval；第6月**只选一条**主线。

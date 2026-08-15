@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat/Prompt/RAG + 第2月 Hybrid/Gate/Rerank、Flow HITL、Eval 入门 + 第3月 Store/reindex/audit/baseline。  
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH4.md`  
+> **技术节点：** 本月对齐 **T8（+ T6 飞轮 / T7 控制台）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
 > **本月主题：** **「可隔离、可反馈、可演示」的学习版 ERP AI 助手** — 模拟 ACL、反馈飞轮、多租户 RAG、学习控制台正式化。  
 > **约定：** 助手不擅自改你本地未提交的业务代码；你按骨架自行落地。
 
@@ -104,6 +105,11 @@ X-Trace-Id:    <可选>           # 未传则服务端生成
 
 ## M4-D1 差距与本月总图：为何 Demo 也要「假权限」
 
+> **技术前置：** 此时应当学会 **第3月 Store/reindex/audit/baseline（T4～T6）** 后再进行阅读。 节点：**T4～T6→T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第3月末你已经能 reindex、跑 eval、回放 Flow 审计。但演示时常见尴尬：
 
@@ -198,6 +204,11 @@ LearningAuthHeaders        ← D4
 ---
 
 ## M4-D2 角色模型：Role / Principal / DocAcl（内存表）
+
+> **技术前置：** 此时应当学会 **为何要假权限；本日开始学 Role/Principal/DocAcl（T8）；Spring Security 只作概念对照** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 没有显式模型，权限逻辑会散落在 Controller `if (roles.contains("FIN"))` 里，难以测试、难以与 RetrievalFilter 对接。  
@@ -307,6 +318,11 @@ public class InMemoryDocAclRepository implements DocAclRepository {
 
 ## M4-D3 RetrievalFilter：检索后按允许 docId 过滤
 
+> **技术前置：** 此时应当学会 **ACL 模型；本日开始学 RetrievalFilter** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 `DocAclRepository` 只回答「谁能看哪些 doc」；**必须在检索流水线落地**，否则 LLM 仍可能吃到越权 chunk。  
 今天实现 `RetrievalFilter`：输入候选 `RetrievedChunk` 列表 + Principal，输出过滤后列表——位置在 **retriever 之后、Rerank/Gate 之前或之后**（本讲义推荐：**Rerank 后、Gate 前**，保证精排不浪费在不可见块上；若性能紧可提前到 retrieve 后）。
@@ -388,6 +404,11 @@ GateDecision gate = retrievalGate.decide(retrieved, question);
 ---
 
 ## M4-D4 API：学习请求头接入 RagService / Flow
+
+> **技术前置：** 此时应当学会 **检索过滤；本日学学习请求头接入** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 Principal 不能只存在于单元测试。需要 HTTP 层把「谁在看」传进服务层，且与第3月 traceId、审计字段风格一致。  
@@ -489,6 +510,11 @@ curl -H 'X-Roles: FINANCE' -H 'X-User-Id: u2' ...
 
 ## M4-D5 越权评测题 + forbid 泄露不可见文档内容
 
+> **技术前置：** 此时应当学会 **请求头 Principal；本日学越权评测题** 后再进行阅读。 节点：**T8+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 「感觉过滤了」不够；需要**可回归的越权题**：采购员问财务关账，sources 不得含 `finance-close.md`，答案不得复述该文档专有段落。  
 同时练 **forbid-leak** 纪律：即使模型「知道」训练语料，**应用层**也不得把不可见 chunk 塞进 prompt。
@@ -568,6 +594,11 @@ void assertAcl(EvalCase c, RagResponse resp) {
 ---
 
 ## M4-D6 与 HITL / 草稿的权限边界（只读可见范围）
+
+> **技术前置：** 此时应当学会 **越权题；本日学 HITL/草稿权限边界** 后再进行阅读。 节点：**T8+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 RAG 过滤了，但 Flow 待确认队列若展示**全量上下文**或草稿字段来自不可见 doc，仍会「间接越权」。  
@@ -650,6 +681,11 @@ private boolean canView(Principal viewer, FlowInstance i) {
 ---
 
 ## M4-D7 第 1 周复盘（模拟 ACL）
+
+> **技术前置：** 此时应当学会 **模拟 ACL（T8 第1周）** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 ACL 涉及模型、过滤、API、eval、Flow 边界五处；若今天不能**不看代码**串讲，第2周 feedback 会挂在不稳定的 trace 与 principal 上。  
@@ -735,6 +771,11 @@ evals/suites/acl-forbidden.jsonl + headers 断言
 
 ## M4-D8 反馈产品语义：useful / wrong / unsafe ≠ 自动改模型
 
+> **技术前置：** 此时应当学会 **T8 ACL 可演示；本日学反馈产品语义（非自动改模型）** 后再进行阅读。 节点：**T6飞轮** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 产品侧常把「点踩」误解成「立刻训模型」。工程上可行且可控的路径是：**结构化反馈 → 日志 → 人工筛选 → eval 题集 → 回归**。  
 今天定语义与边界，避免第2周做成「自动改 prompt 按钮」。
@@ -809,6 +850,11 @@ public record FeedbackRecord(
 ---
 
 ## M4-D9 FeedbackRecord + JSONL Sink
+
+> **技术前置：** 此时应当学会 **反馈语义；本日学 FeedbackRecord + JSONL Sink** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 反馈要**可追加、可 grep、可备份**，JSONL 与第3月 flow-audit、eval runs 风格一致。今天实现 `FeedbackSink` + 按日滚动文件。
@@ -889,6 +935,11 @@ public class JsonlFeedbackSink implements FeedbackSink {
 ---
 
 ## M4-D10 `POST /api/ai/feedback` 挂到 chat/rag/flow 的 traceId
+
+> **技术前置：** 此时应当学会 **JSONL Sink；本日挂 POST /feedback + traceId** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 反馈必须挂到**同一次 AI 交互**；traceId 是桥梁。今天暴露 REST，并确保 chat/rag/flow 响应均带 `traceId` 供前端/console 回传。
@@ -978,6 +1029,11 @@ public record FeedbackRequest(
 
 ## M4-D11 从负反馈生成 eval case 草案（人工确认后入库）
 
+> **技术前置：** 此时应当学会 **feedback API；本日负反馈→eval 草案（人工确认）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 WRONG/UNSAFE 反馈若直接进 suite，题集会被噪声淹没。今天做 **FeedbackToEvalPromoter**：从反馈生成**草案**到 `evals/drafts/`，人工编辑后再并入正式 suite。
 
@@ -1055,6 +1111,11 @@ public class FeedbackToEvalPromoter {
 ---
 
 ## M4-D12 Feedback → Eval 晋升流程与脚本
+
+> **技术前置：** 此时应当学会 **草案流程；本日 Feedback→Eval 晋升脚本** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 手动复制 JSON 易错。今天补**半自动脚本**（或 Gradle task）：列出待确认 draft、合并到 suite、触发 eval——保持「人工确认」闸门。
@@ -1134,6 +1195,11 @@ public List<Path> listDrafts() { ... }
 
 ## M4-D13 仪表：反馈计数 /stats 扩展
 
+> **技术前置：** 此时应当学会 **晋升流程；本日 /stats 反馈计数** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 演示时需要一眼看到「本周收了多少 WRONG」；扩展第2月 `/stats` 而非另造管理后台。
 
@@ -1206,6 +1272,11 @@ public class FeedbackStatsReader {
 ---
 
 ## M4-D14 第 2 周复盘（反馈飞轮）
+
+> **技术前置：** 此时应当学会 **反馈飞轮（T6 加深第2周）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 反馈链路与 ACL 的 traceId、Principal 交织；复盘确保：**能演示一次完整飞轮**，且没有「自动改模型」越界实现。
@@ -1280,6 +1351,11 @@ public class FeedbackStatsReader {
 
 ## M4-D15 tenant 概念 vs 公司真实多组织（学习简化）
 
+> **技术前置：** 此时应当学会 **反馈飞轮可讲；本日开始学 tenant 概念（T8 多租户）** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 「多租户」在 SaaS ERP 里指数据与配置隔离；学习仓不能接真租户平台，但**索引与检索必须按 tenantId 分开**，否则演示「A 公司语料」会泄露给「B 公司」请求。
 
@@ -1352,6 +1428,11 @@ rag-docs/tenant-b/*.md
 ---
 
 ## M4-D16 tenantId 进入 chunk 元数据与 Store 键
+
+> **技术前置：** 此时应当学会 **tenant 概念；本日 tenantId 进 chunk/Store 键** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 隔离的根基是**写入时带 tenantId、查询时带 tenantId**。今天改 `TextChunk`（或并行元数据）与 Store 的 upsert/search 签名。
@@ -1428,6 +1509,11 @@ private final Map<String, Map<String, StoredChunk>> byTenant = new ConcurrentHas
 
 ## M4-D17 InMemory / 接口级按 tenant 隔离 search/rebuild
 
+> **技术前置：** 此时应当学会 **元数据隔离；本日按 tenant search/rebuild** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 昨天改了签名，今天要**端到端打通**：RagService、reindex API、quality log 均带 `tenantId`，并验证 rebuild 不跨租户。
 
@@ -1498,6 +1584,11 @@ curl -X POST 'http://localhost:8080/api/ai/rag/reindex?tenantId=tenant-a' \
 
 ## M4-D18 请求头 `X-Tenant-Id`；缺省拒绝或默认 learning
 
+> **技术前置：** 此时应当学会 **隔离检索；本日 X-Tenant-Id 请求头** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 与 ACL 学习头对称；并练**配置策略**：缺租户时默认 `learning` 还是 400——两种都要会讲。
 
@@ -1565,6 +1656,11 @@ public String resolveOrThrow(HttpServletRequest req) {
 
 ## M4-D19 串租户攻击题与审计日志字段
 
+> **技术前置：** 此时应当学会 **租户头；本日串租户攻击题 + 审计字段** 后再进行阅读。 节点：**T8+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 隔离必须**负向证明**：用 tenant-b 的头访问 tenant-a 专属语料，应 0 命中。审计字段帮助回放「当时是谁在哪个租户」。
 
@@ -1627,6 +1723,11 @@ log.info("{}", new RetrievalQualityEntry(
 ---
 
 ## M4-D20 ACL × Tenant 组合矩阵（谁在哪个租户可见啥）
+
+> **技术前置：** 此时应当学会 **串租户负例；本日 ACL×Tenant 矩阵** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 单测各维不够；真实请求同时带 **X-Tenant-Id** 与 **X-Roles**。今天用矩阵表设计手测与 eval，避免「tenant 过了 ACL 漏了」。
@@ -1693,6 +1794,11 @@ public Set<String> allowedDocIds(String tenantId, Principal principal) {
 ---
 
 ## M4-D21 第 3 周复盘（多租户 RAG）
+
+> **技术前置：** 此时应当学会 **多租户 RAG（T8 第3周）** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 租户隔离 + ACL 是本月「可隔离」核心；复盘日验证：**串租户负例、reindex 不交叉、矩阵手测**。
@@ -1768,6 +1874,11 @@ evals/suites/tenant-isolation.jsonl
 
 ## M4-D22 控制台信息架构（比 debug.html 完整）
 
+> **技术前置：** 此时应当学会 **T8 隔离可演示；本日控制台信息架构（对接 Vue/T7 更佳，静态页亦可）** 后再进行阅读。 节点：**T7** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第4月「可演示」需要**一个页面**切换角色、租户、看反馈与 eval，而不是向观众解释 curl。今天只做信息架构（IA）与线框，代码 D23 落地。
 
@@ -1842,6 +1953,11 @@ evals/suites/tenant-isolation.jsonl
 ---
 
 ## M4-D23 静态页实现清单与 API 对照
+
+> **技术前置：** 此时应当学会 **控制台 IA；本日静态页/API 对照（完整 Vue 见 WEB 教材）** 后再进行阅读。 节点：**T7** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 IA 之后要**可运行页面**：今天实现 fetch 封装、头注入、RAG 问答、反馈按钮、stats 拉取。
@@ -1927,6 +2043,11 @@ async function sendFeedback(kind) {
 
 ## M4-D24 场景串测 A：切换角色看 sources 变化
 
+> **技术前置：** 此时应当学会 **控制台清单；本日串测切换角色看 sources** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 演示彩排第一幕：**同一问题、不同角色，sources 不同**——证明模拟 ACL 真在检索链生效。
 
@@ -1994,6 +2115,11 @@ async function sendFeedback(kind) {
 
 ## M4-D25 场景串测 B：踩一下 → 进题集 → eval
 
+> **技术前置：** 此时应当学会 **场景 A；本日串测反馈→题集→eval** 后再进行阅读。 节点：**T6+T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 彩排第二幕：证明**反馈飞轮**不是 PPT——现场点踩，展示 jsonl、draft、suite、eval。
 
@@ -2058,6 +2184,11 @@ ls evals/drafts/
 
 ## M4-D26 场景串测 C：租户隔离负例
 
+> **技术前置：** 此时应当学会 **场景 B；本日串测租户隔离负例** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 彩排第三幕：**串租户**——tenant-b 身份问 tenant-a 专属内容，sources 为空，与 eval 一致。
 
@@ -2119,6 +2250,11 @@ ls evals/drafts/
 ---
 
 ## M4-D27 PORTFOLIO / README 升级第4月能力
+
+> **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 升级** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 作品集要反映**第4月三柱**：隔离、反馈、演示。今天更新 `docs/PORTFOLIO.md` 与仓库 README 片段。
@@ -2192,6 +2328,11 @@ ls evals/drafts/
 ---
 
 ## M4-D28 架构终图（第1～4月叠加）
+
+> **技术前置：** 此时应当学会 **作品集；本日架构终图 1～4月** 后再进行阅读。 节点：**T0～T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 四个月能力要在**一张图**讲清：从 Chat 到 ACL×Tenant×Feedback×Eval 的终态。今天画终图并写 5 分钟讲解词。
@@ -2278,6 +2419,11 @@ flowchart TB
 
 ## M4-D29 口述自测（20 题）
 
+> **技术前置：** 此时应当学会 **架构终图；本日口述自测** 后再进行阅读。 节点：**T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 面试与答辩靠口述；今天 20 题覆盖第4月全周，自评薄弱回读对应 Day。
 
@@ -2357,6 +2503,11 @@ flowchart TB
 ---
 
 ## M4-D30 收官；第5月只选一条
+
+> **技术前置：** 此时应当学会 **第4月收官：T8 完成；可开始考虑 T14 Python 入门（每周≤3～4h）；Spring AI 建议仍待 T9** 后再进行阅读。 节点：**T8→选修** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第4月终点是 **可隔离、可反馈、可演示** 的学习版 ERP AI 助手。今天清点成果、锁定边界、**只选一条**第5月主线。

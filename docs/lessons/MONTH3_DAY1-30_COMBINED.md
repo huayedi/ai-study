@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat/Prompt/RAG + 第2月 Hybrid/Gate/Rerank、Flow HITL、Eval 入门。  
 > **每天结构（固定五段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH3.md`  
+> **技术节点：** 本月对齐 **T4 运维 + T5/T6 加深** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
 > **编码策略：** 主线 A/B/C/D 选一条深挖；其它主线读懂 + 口述即可。  
 > **约定：** 助手不擅自改你本地未提交的业务代码；你按骨架自行落地。
 
@@ -74,6 +75,11 @@
 ---
 
 ## M3-D1 差距诊断：从「能查」到「可运维」
+
+> **技术前置：** 此时应当学会 **第2月 Hybrid/Gate/Rerank + HITL + Eval 入门（T4～T6）** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第2月检索常常是「本机能跑」。一重启、一换 embedding 模型、一改教材，就容易出现：
@@ -171,6 +177,11 @@ controller/RagAdminController.java   ← D6
 ---
 
 ## M3-D2 维度治理与元数据设计（详）
+
+> **技术前置：** 此时应当学会 **差距诊断完成；本日开始学维度/模型元数据治理（T4 运维）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 `vector(1536)` 与模型输出维不一致会直接崩；不存 `model`/`content_hash`，后期无法判断索引是否过期、能否增量跳过。
@@ -299,6 +310,11 @@ public static String sha256(String content) {
 ---
 
 ## M3-D3 `ChunkVectorStore` 与 Pg 实现骨架（详）
+
+> **技术前置：** 此时应当学会 **dims/model 治理；本日开始学 ChunkVectorStore + Pg 实现（pgvector）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 RagService 不应关心「向量躺在 ConcurrentHashMap 还是 Postgres」。接口稳定后，本周后面的 reindex / 质量日志都挂在同一抽象上。
@@ -539,6 +555,11 @@ ChunkVectorStore chunkVectorStore(AiProperties props, ObjectProvider<JdbcTemplat
 
 ## M3-D4 增量重建（hash 跳过）全流程
 
+> **技术前置：** 此时应当学会 **PgStore 骨架；本日开始学 content_hash 增量重建** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 三份小教材也要养成增量习惯：以后文档变多，全量 embed 又慢又贵，还容易在调试时反复烧额度。
 
@@ -635,6 +656,11 @@ public record ReindexResult(int total, int skipped, int embedded, long tookMs) {
 
 ## M3-D5 检索质量日志（强制 schema）
 
+> **技术前置：** 此时应当学会 **增量 reindex；本日开始学检索质量日志 schema** 后再进行阅读。 节点：**T4+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 没有结构化日志，Hybrid/阈值/切分问题全靠猜。第3月要求：**每次 ask 都能回答「命中了谁、卡在哪段耗时」。**
 
@@ -726,6 +752,11 @@ qualityLog.emit(Map.of(
 
 ## M3-D6 Reindex API 与安全注意
 
+> **技术前置：** 此时应当学会 **质量日志；本日开始学 Reindex API（注意鉴权学习级）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 没有 HTTP/管理入口，重建只能改代码重启；有了入口，debug 页和第4周彩排才能一键操作。  
 同时：**reindex = 重建知识库**，必须在 README 写清风险。
@@ -812,6 +843,11 @@ public ReindexResult reindex() {
 ---
 
 ## M3-D7 第 1 周复盘（检索）
+
+> **技术前置：** 此时应当学会 **Store/reindex/质量日志（T4 运维第1周）；可选 Docker Compose 起 Postgres** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第1周引入了 Store、hash 增量、质量日志、reindex API。若今天不能**不看代码**串讲全链路，下周工作流与评测会建立在「我以为检索没问题」的假象上。  
@@ -911,6 +947,11 @@ classpath docs
 
 ## M3-D8 多节点流设计（详）
 
+> **技术前置：** 此时应当学会 **T4 运维可讲清；本日开始学多节点 Flow 设计（T5 加深）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么升级节点
 第2月最小流：`RETRIEVE → DRAFT → WAIT_HUMAN`。  
 第3月加 **CLASSIFY / TOOL / RISK_CHECK**，把「规则」从 prompt 里部分外置到状态机，便于审计与单测。
@@ -1001,6 +1042,11 @@ public class FlowInstance {
 ---
 
 ## M3-D9 审计表与回放（详）
+
+> **技术前置：** 此时应当学会 **多节点流；本日开始学审计表与回放** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 没有审计，HITL 只是「多点一次按钮」；有审计才能回答：「谁在何时、从何状态、因何事件、到了何状态」。
@@ -1113,6 +1159,11 @@ private void transition(FlowInstance fi, FlowState to, String event, Object deta
 
 ## M3-D10 合法迁移表（防非法跳转）
 
+> **技术前置：** 此时应当学会 **审计回放；本日开始学合法迁移表（防非法跳转；Camunda 对照概念）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 避免代码 bug 或乱调 API 把 `WAIT_HUMAN` 直接变 `RETRIEVE` 等脏状态。迁移表是状态机的「宪法」。
 
@@ -1173,6 +1224,11 @@ void terminalHasNoOutgoing() {
 ---
 
 ## M3-D11 节点超时与降级策略（详）
+
+> **技术前置：** 此时应当学会 **合法迁移；本日学节点超时与降级** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 LLM/工具抖动时，工作流不能「挂死」；学习项目也要演示降级文案，而不是无限等。
@@ -1238,6 +1294,11 @@ private void doTool(FlowInstance fi) {
 ---
 
 ## M3-D12 人工决策：APPROVE / REJECT / EDIT
+
+> **技术前置：** 此时应当学会 **超时降级；本日学 APPROVE/REJECT/EDIT** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第2月只有 APPROVE/REJECT；真实业务常有「大体对，人改两个字」。EDIT 让人审真正落地，同时再次锁定：**全都不是写 ERP。**
@@ -1309,6 +1370,11 @@ public FlowInstance decide(String flowId, String decision, String editedAnswer, 
 ---
 
 ## M3-D13 待确认队列 API 与 FlowEngine 总装
+
+> **技术前置：** 此时应当学会 **人工三决策；本日待确认队列 API + Flow 总装** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 多条 WAIT_HUMAN 时需要队列；同时本周应把引擎主循环补全，避免节点设计停在纸上。
@@ -1432,6 +1498,11 @@ public class FlowEngine {
 
 ## M3-D14 第 2 周复盘（工作流）
 
+> **技术前置：** 此时应当学会 **多节点 Flow + 审计回放（T5 第2周）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第2周把 Flow 从「能到 WAIT_HUMAN」升级到「多节点 + 审计 + 合法边 + 超时 + EDIT」。若今天不能**用一条 audit 讲清故事**，第3周评测里的 `flow-hitl` 套件会测不准，作品集演示也会露馅。  
 复盘日：**对照状态图跑通三条路径（APPROVE / REJECT / EDIT），并证明没有写库副作用。**
@@ -1543,6 +1614,11 @@ void auditReplayMatchesApprovePath() {
 
 ## M3-D15 题集与断言字典（扩）
 
+> **技术前置：** 此时应当学会 **T5 加深可演示；本日扩题集与断言字典（T6）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第2月「能跑 eval」；第3月要「多套件 + 断言可扩展」，才能分别证明 RAG / 安全 / HITL。
 
@@ -1603,6 +1679,11 @@ evals/
 ---
 
 ## M3-D16 Run 持久化（文件版详实现）
+
+> **技术前置：** 此时应当学会 **断言字典；本日开始学 Run 持久化** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 只打控制台无法对比「昨天改 prompt 之前」。Run 落盘 = 评测资产。
@@ -1736,6 +1817,11 @@ void assertCase(EvalCase c, EvalCaseResult r, String answer, List<String> docs) 
 
 ## M3-D17 报告与 HTTP 查询
 
+> **技术前置：** 此时应当学会 **Run 落盘；本日学报告与 HTTP 查询** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 JSON 适合程序；人眼需要失败列表。HTTP 方便 debug 页按钮。
 
@@ -1807,6 +1893,11 @@ curl/浏览器能拿到最近一次 run；失败 reasons 人话可读。
 
 ## M3-D18 脚本与 CI 概念（详）
 
+> **技术前置：** 此时应当学会 **报告查询；本日学脚本与 CI 概念（勿上公司流水线）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 「我记得上次过了」不可靠；一条本地命令 + CI 概念文件，把回归变成习惯。
 
@@ -1865,6 +1956,11 @@ jobs:
 ---
 
 ## M3-D19 Baseline 门禁（详）
+
+> **技术前置：** 此时应当学会 **CI 概念；本日开始学 baseline 门禁** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 分数会漂。Baseline =「我认可的最低线」；改动后不得无声跌破。
@@ -1929,6 +2025,11 @@ public class BaselineGuard {
 ---
 
 ## M3-D20 多套件与安全扫描
+
+> **技术前置：** 此时应当学会 **baseline；本日多套件与安全扫描题** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 只测 RAG 会漏「乱改库存话术」「提示词倾倒」「Flow 未停在人审」。安全套件是作品集里很加分的证明——它说明你知道 **LLM 应用的风险面**，而不只是会调 API。  
@@ -2047,6 +2148,11 @@ void assertSafety(EvalCase c, EvalCaseResult r, ChatResponse resp) {
 
 ## M3-D21 第 3 周复盘（评测）
 
+> **技术前置：** 此时应当学会 **Eval Run/baseline/门禁（T6 第3周）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第3周把 eval 从「跑一次看控制台」升级到 **runs 落盘 + 报告 + 脚本 + baseline 门禁**。若今天不能演示「故意改坏 → 门禁红 → 改回 → 绿」，第4周彩排里的「可证明」会站不住。  
 复盘日：**少写新用例，多对比历史 run、多练 baseline 话术。**
@@ -2149,6 +2255,11 @@ static void assertBaseline() throws IOException {
 
 ## M3-D22 多模态边界课（先思后码）（详）
 
+> **技术前置：** 此时应当学会 **T6 门禁可演示；本日多模态边界（先思后码）** 后再进行阅读。 节点：**T2** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 很多人一听 OCR 就想「拍单即入账」。第3月必须先建立边界：OCR 是噪声文本输入，不是真理。今天**先思后码**，不急着接真 OCR API。
 
@@ -2198,6 +2309,11 @@ multipart image
 
 
 ## M3-D23 FakeOcr 与接口
+
+> **技术前置：** 此时应当学会 **多模态边界；本日 FakeOcr（真 OCR/Tesseract 仅扩展）** 后再进行阅读。 节点：**选修OCR** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 真 OCR 不稳定、要 Key、难单测。FakeOcr 按文件名映射固件，保证第4周可演示。
@@ -2264,6 +2380,11 @@ void fakeOcrReadsFixture() {
 
 ## M3-D24 OCR → Draft API（详）
 
+> **技术前置：** 此时应当学会 **FakeOcr；本日 OCR→Draft API（强制人工）** 后再进行阅读。 节点：**选修OCR** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### API
 
 ```text
@@ -2316,6 +2437,11 @@ Pattern QTY = Pattern.compile("数量[:：]\\s*(\\d+)");
 ---
 
 ## M3-D25 Debug 台增强任务清单
+
+> **技术前置：** 此时应当学会 **OCR 草稿链路（可选）；本日 Debug 台增强** 后再进行阅读。 节点：**T6→T7** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 curl 能验收，但作品集演示、第4周彩排更需要**一页操作台**。Debug 页是「可运维」的门面：reindex、eval、flow 队列、（可选）OCR 都应能**不翻终端**完成。  
@@ -2445,6 +2571,11 @@ function decideEdit(flowId) {
 ---
 
 ## M3-D26 作品集 README（完整模板）
+
+> **技术前置：** 此时应当学会 **Debug 增强清单；本日作品集 README** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 到第3月末，代码量已够作品集展示，但**陌生人 15 分钟能否跑起来**取决于 README。  
@@ -2577,6 +2708,11 @@ mvn spring-boot:run
 
 ## M3-D27 端到端彩排剧本（逐步打勾）
 
+> **技术前置：** 此时应当学会 **作品集骨架；本日端到端彩排** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第3月最后一周的前半段是**集成彩排**，不是加功能。今天按固定剧本走一遍全流程，暴露「单测都绿但连不起来」的问题。  
 产出：**彩排笔记**（失败点、耗时、技术债），供 D28 终审与 D30 收官使用。
@@ -2675,6 +2811,11 @@ echo "smoke ok"
 ---
 
 ## M3-D28 架构终审（加厚总图）
+
+> **技术前置：** 此时应当学会 **彩排；本日架构终审** 后再进行阅读。 节点：**T0～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 彩排通过后，还需要**静态终审**：边界是否清晰、危险接口是否有说明、模块依赖是否可讲。  
@@ -2796,6 +2937,11 @@ README「明确不做」与图中边界一致。
 
 ## M3-D29 口述自测（20 题）
 
+> **技术前置：** 此时应当学会 **架构终审；本日口述自测** 后再进行阅读。 节点：**闸门A** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第3月知识点横跨检索、工作流、评测、OCR、作品集。口述自测是第1月 Day29 的延续：**闭卷能讲清，才说明真的内化**。  
 今天不写代码；录音或书面作答，错题进入「第4月补学清单」。
@@ -2894,6 +3040,11 @@ Week4  OCR 边界 / FakeOcr / debug 台 / README / 彩排 / 架构终审
 ---
 
 ## M3-D30 收官与第 4 月
+
+> **技术前置：** 此时应当学会 **第3月收官：闸门 A（T0～T6）趋近；MONTH4 起 T8；Spring AI/Python 仍建议暂缓** 后再进行阅读。 节点：**闸门A** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第3月的终点不是「功能更多」，而是系统**可证明、可回放、可人工接管**。今天做成果清点、边界再锁定、选第4月主线——与第1月 Day30 对称收官。

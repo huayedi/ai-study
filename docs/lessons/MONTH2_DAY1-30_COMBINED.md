@@ -4,6 +4,7 @@
 > **形式：** 与第1月合订本一样——**一天是一天的完整讲义**（为什么 → 概念加深 → 怎么做 → 代码骨架 / 实验 → 坑与排障 → 当天验收），不是大纲缩写。  
 > **前置：** 第1月 Chat / Prompt / RAG（切分·关键词·向量）/ Tool·草稿概念。  
 > **入口：** `docs/MONTH2.md`  
+> **技术节点：** 本月对齐 **T4～T6** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
 > **约定：** 骨架在讲义中；由你自行落到 `erp-ai-assistant`；助教不擅自改你本地未提交实现。
 
 ---
@@ -43,6 +44,11 @@
 ---
 
 ## M2-D1 回顾、差距清单与本周定义（详）
+
+> **技术前置：** 此时应当学会 **第1月 Chat/Prompt/RAG 最小闭环（T0～T3：自封装 LLM + Embedding + sources）** 后再进行阅读。 节点：**T0～T3→T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 没有共同语言，后面 Hybrid/Rerank 会对不齐。先盘点「你现在到底有什么」。
@@ -135,6 +141,11 @@ RagService  → 负责编排 + sources 映射 + 调 LLM
 ---
 
 ## M2-D2 持久化向量与 PGVector（原理详解）
+
+> **技术前置：** 此时应当学会 **内存向量检索与 TextChunk 模型（T3）；本日开始学 PostgreSQL + pgvector 原理（T4）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 内存向量够用学链路，但重启丢索引、无法多实例共享。今天把持久化两阶段与 PGVector 角色讲透，并定 **Store 接口**，为第3月真库留插槽。
@@ -281,6 +292,11 @@ void warmVectorIndex() {
 
 ## M2-D3 HybridRetriever（RRF 融合）详解 + 完整骨架
 
+> **技术前置：** 此时应当学会 **VectorStore 抽象与持久化向量概念（T4）；本日开始学 Hybrid / RRF** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么 Hybrid
 - 专名题（「会计期间」「采购入库」）→ 关键词稳  
 - 口语题（「货到了怎么入账」）→ 向量稳  
@@ -423,6 +439,11 @@ curl -s localhost:8080/api/ai/rag/ask -H 'Content-Type: application/json' \
 
 ## M2-D4 RetrievalGate（空/弱/强命中）详解
 
+> **技术前置：** 此时应当学会 **HybridRetriever（RRF）（T4）；本日开始学 RetrievalGate** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么要 Gate
 检索差时若仍「一本正经生成」，用户会以为有依据。  
 Gate 把不确定性变成**显式策略**。
@@ -541,6 +562,11 @@ EMPTY 可短路不调 LLM，或调 LLM 但 system 强制不得编造。
 
 ## M2-D5 简易 Rerank 详解
 
+> **技术前置：** 此时应当学会 **RetrievalGate 空/弱/强命中（T4）；本日开始学简易 Rerank** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 Fusion 后的 TopN 仍可能「相关但不精确」。Rerank 在较小候选集上再打分，学习期用规则/特征即可建立「先召回、再精排」的工程直觉。
 
@@ -658,6 +684,11 @@ Rerank  ：只对候选 N 条重打分 → topK 条
 
 ## M2-D6 配置、装配与对比实验（详）
 
+> **技术前置：** 此时应当学会 **Hybrid + Gate + Rerank 流水线（T4）；本日做配置装配与对比实验** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 组件齐了不会用配置切换、不会做单变量对比，等于没工程化。今天把 Bean 装配与对比实验流程固化，以后改检索才能归因。
 
@@ -758,6 +789,11 @@ Reranker reranker(AiProperties p) {
 
 ## M2-D7 第 1 周复盘课（详）
 
+> **技术前置：** 此时应当学会 **ChunkVectorStore、Hybrid、Gate、Rerank（T4 第1周）** 后再进行阅读。 节点：**T4** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第1周概念多、类也多，需要一天专门串联，否则 Hybrid/Gate/Rerank 在脑子里是散的。复盘日不强制新功能，但要能对外讲清检索子系统。
 
@@ -829,6 +865,11 @@ Chunker → Embed/Index(Store) → Retriever(lanes) → Fusion(RRF)
 ---
 
 ## M2-D8 工作流思维（相对 Agent）（详）
+
+> **技术前置：** 此时应当学会 **T4 检索加深可演示；本日开始学工作流思维 vs Agent（T5）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 ERP 场景里让模型自己决定下一步工具与是否结束，审计与风控都难。工作流把合法迁移写死，模型只在节点内产出草稿——这是本月 Flow 的出发点。
@@ -909,6 +950,11 @@ RECEIVED → RETRIEVING → (QUERYING_TOOL?) → DRAFTING → WAIT_HUMAN
 ---
 
 ## M2-D9 领域对象与内存仓（详）
+
+> **技术前置：** 此时应当学会 **工作流 vs Agent 边界（T5）；本日学领域对象与内存仓** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 没有清晰的 `FlowInstance`，引擎会变成一堆 Map 乱炖，decide/查询都难。今天先把领域对象与内存仓定稿，明天再写引擎循环。
@@ -1007,6 +1053,11 @@ void repoRoundTrip() {
 ---
 
 ## M2-D10 FlowEngine 主循环（完整骨架）
+
+> **技术前置：** 此时应当学会 **Flow 领域模型（T5）；本日开始学 FlowEngine 主循环** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 状态对象有了，需要「推进到 WAIT_HUMAN 或终态」的引擎，并暴露 start/decide API。今天落主循环与 guard，是第2周的核心编码日。
@@ -1155,6 +1206,11 @@ start 后状态到 WAIT_HUMAN；decide 后到 DONE/FAILED。
 
 ## M2-D11 HITL 产品语义与提示词（详）
 
+> **技术前置：** 此时应当学会 **FlowEngine 状态迁移（T5）；本日学 HITL 产品语义（Camunda 只作概念对照）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 技术状态机对了，产品话术错了，演示时仍会被理解成「AI 已过账」。今天专治 HITL 语义与提示词，钉死 APPROVE≠写库。
 
@@ -1233,6 +1289,11 @@ start 后状态到 WAIT_HUMAN；decide 后到 DONE/FAILED。
 
 ## M2-D12 节点内挂 RAG / Tool（详）
 
+> **技术前置：** 此时应当学会 **HITL：WAIT_HUMAN / APPROVE≠写库（T5）；本日挂 RAG/Tool 节点** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 空壳状态机没有业务价值。今天把第1周检索与只读工具挂进节点，让 Flow 真正能答教材题和库存题。
 
@@ -1310,6 +1371,11 @@ DRAFTING:    sources + toolTrace + question → LLM → draftAnswer
 ---
 
 ## M2-D13 工作流测试用例（详）
+
+> **技术前置：** 此时应当学会 **节点内 RAG/Tool 编排（T5）；本日写工作流测试** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 工作流 bug 藏在分支里；没有用例表，下周评测也没原料。今天把用例表跑通，形成可重复验收资产。
@@ -1394,6 +1460,11 @@ void decideOnWrongStateFails() {
 
 ## M2-D14 第 2 周复盘（详）
 
+> **技术前置：** 此时应当学会 **FlowEngine + HITL 最小闭环（T5 第2周）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第2周结束前要确认：状态机、HITL 语义、与裸 RAG 职责都清楚。复盘日对照清单，避免带着「好像能跑」进入评测周。
 
@@ -1455,6 +1526,11 @@ void decideOnWrongStateFails() {
 ---
 
 ## M2-D15 题集设计（详）
+
+> **技术前置：** 此时应当学会 **T5 HITL 可演示；本日开始学评测题集设计（T6）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 「我觉得变好了」不可复现。题集是回归的钉子；没有 JSONL 套件，EvalRunner 无米下锅。
@@ -1529,6 +1605,11 @@ evals/suites/flow-cases.jsonl
 ---
 
 ## M2-D16 EvalRunner 更完整骨架（详）
+
+> **技术前置：** 此时应当学会 **JSONL 题集设计（T6）；本日开始学 EvalRunner** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 有题集还要有执行器：跑题、断言、汇总。今天落 Runner，让改 prompt/检索后的回归从手测变成半自动。
@@ -1634,6 +1715,11 @@ POST /api/ai/eval/run  {"suite":"rag"}
 
 ## M2-D17 把评测当门禁（详）
 
+> **技术前置：** 此时应当学会 **EvalRunner（T6）；本日学把门禁当回归** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 评测若只是「有时跑一下」，改 Prompt 仍会静默变差。今天建立门禁意识：改配置 → 跑 eval → 看失败 → 单变量修复。
 
@@ -1701,6 +1787,11 @@ flow 核心路径: #1 #2 #4 必须过
 ---
 
 ## M2-D18 观测字段扩展（详）
+
+> **技术前置：** 此时应当学会 **评测门禁思维（T6）；本日扩展观测字段（可选 Micrometer 概念）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第1月有 trace/token；第2月检索与 flow 变复杂，日志字段要跟上，否则对比实验只能靠猜。
@@ -1782,6 +1873,11 @@ String promptVersion = HexFormat.of().formatHex(dig).substring(0, 8);
 ---
 
 ## M2-D19 成本累计与 /stats（详）
+
+> **技术前置：** 此时应当学会 **观测字段（T6）；本日学成本累计与 /stats** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 多轮 + RAG 资料 + 重试会烧钱。进程内累计成本与 `/stats`，便于学习期心中有数。
@@ -1870,6 +1966,11 @@ aggregator.record(promptTokens, completionTokens, usd);
 
 ## M2-D20 实验记录模板（详）
 
+> **技术前置：** 此时应当学会 **成本与 stats（T6）；本日固定实验记录模板** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 评测与观测有了，还要用统一模板记实验，否则串测时忘了「上次 topK 是几」。
 
@@ -1930,6 +2031,11 @@ aggregator.record(promptTokens, completionTokens, usd);
 ---
 
 ## M2-D21 第 3 周复盘（详）
+
+> **技术前置：** 此时应当学会 **Eval + 观测 + 成本（T6 第3周）** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 第3周结束检查：题集、Runner、日志、stats、实验记录是否成体系。复盘日巩固门禁节奏。
@@ -1992,6 +2098,11 @@ aggregator.record(promptTokens, completionTokens, usd);
 ---
 
 ## M2-D22 debug 页（更完整示例）（详）
+
+> **技术前置：** 此时应当学会 **T4～T6 可回归；本日做 debug 页（前端深度见 WEB/T7）** 后再进行阅读。 节点：**T6→T7概念** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 curl 能验收，演示与自己日常调试需要一页静态度面板。debug 页是第4周串联三场景的抓手。
@@ -2084,6 +2195,11 @@ async function showStats(){ out(await (await fetch('/api/ai/stats')).json()); }
 
 ## M2-D23 场景 A：手册问答串测（详）
 
+> **技术前置：** 此时应当学会 **debug/观测可用；本日串测手册问答（T3+T4）** 后再进行阅读。 节点：**T4+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 场景 A 验证「手册问答」全链：Hybrid、Gate、sources 纪律、eval 回归。串测不是走形式，是找检索链断点。
 
@@ -2147,6 +2263,11 @@ async function showStats(){ out(await (await fetch('/api/ai/stats')).json()); }
 
 ## M2-D24 场景 B：只读库存串测（详）
 
+> **技术前置：** 此时应当学会 **场景 A 串测；本日串测只读库存 Tool（T1 只读）** 后再进行阅读。 节点：**T1+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 场景 B 验证只读工具链：库存数字必须来自 tool，写操作必须被拒绝。这是 ERP AI 的安全底线演练。
 
@@ -2200,6 +2321,11 @@ async function showStats(){ out(await (await fetch('/api/ai/stats')).json()); }
 ---
 
 ## M2-D25 场景 C：草稿 + HITL 串测（详）
+
+> **技术前置：** 此时应当学会 **场景 B；本日串测草稿 + HITL（T5）** 后再进行阅读。 节点：**T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 场景 C 验证 HITL：WAIT_HUMAN、APPROVE/REJECT 语义、DONE 无副作用。产品语义与技术状态必须一致。
@@ -2258,6 +2384,11 @@ start → WAIT_HUMAN --APPROVE--> DONE (无写库)
 
 ## M2-D26 安全对照表（展开）（详）
 
+> **技术前置：** 此时应当学会 **三场景串测基础；本日安全对照表** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 第2月能力多了，攻击面也大了。用对照表系统抽测注入、写库、空检索等风险，避免「演示能跑」但安全洞还在。
 
@@ -2307,6 +2438,11 @@ start → WAIT_HUMAN --APPROVE--> DONE (无写库)
 ---
 
 ## M2-D27 性能与体验（展开）（详）
+
+> **技术前置：** 此时应当学会 **安全边界；本日性能与体验** 后再进行阅读。 节点：**T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 功能堆齐后，延迟与费用开始显性。先拆解耗时、列杠杆，再谈优化；不要没度量就上缓存或换大模型。
@@ -2380,6 +2516,11 @@ log.info("timing embed={} search={} llm={}", embedMs, searchMs, llmMs);
 
 ## M2-D28 架构终稿（文字版详图）（详）
 
+> **技术前置：** 此时应当学会 **性能意识；本日架构终稿（文字）** 后再进行阅读。 节点：**T0～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 月底需要一张与仓库一致的架构图，能指着讲 3 分钟。今天终审模块边界与纪律清单。
 
@@ -2450,6 +2591,11 @@ Controller → Service → (Retriever|FlowEngine|EvalRunner)
 ---
 
 ## M2-D29 全月复习（扩）（详）
+
+> **技术前置：** 此时应当学会 **架构终稿；本日全月复习：确认闸门 A 组件（T0～T6）** 后再进行阅读。 节点：**闸门A** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 全月口述自测，查漏补缺。15 题覆盖四周主题，错题对应回具体 Day 补学。
@@ -2531,6 +2677,11 @@ W4  Debug / 三场景 / 安全 / 架构
 ---
 
 ## M2-D30 收官与第 3 月（详）
+
+> **技术前置：** 此时应当学会 **第2月收官：T4～T6 扎实后再进 MONTH3；仍不要主学 Spring AI / Python** 后再进行阅读。 节点：**T4～T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 收官日：勾选成果、重申禁止项、选定第3月唯一主线。学习要有闭环，不要带着模糊进入下月。

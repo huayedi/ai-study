@@ -4,6 +4,10 @@
 
 → [MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md)
 
+**技术节点：** T10 Port/Adapter / 契约测试  
+**技术前置：** 合订/完整教材内每个 Day（或第8月每章）开头有「此时应当学会 … 后再进行阅读」。可选 WireMock、Testcontainers。  
+总图：[TECH_ROADMAP.md](./TECH_ROADMAP.md) · 入口：[TECH.md](./TECH.md)
+
 每天结构：为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 
 主题：**真适配器接口稳定化**——业务代码只依赖稳定 Port/Adapter 接口；学习期用 Fake/Sandbox 实现；将来换真实 ERP 只换适配器，不改 Chat/RAG/Flow/WriteGateway 主编排。  

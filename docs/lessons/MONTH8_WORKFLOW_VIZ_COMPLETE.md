@@ -16,6 +16,7 @@
 > **前置：** 第1～7月 + [Web 控制台](../WEB.md)
 >
 > **入口：** [docs/MONTH8.md](../MONTH8.md)
+> **技术节点：** 本月对齐 **T12（工作流可视化）**；需 **T7 Vue** + **T5 Flow** · [TECH_ROADMAP](../TECH_ROADMAP.md)
 
 ---
 
@@ -71,6 +72,11 @@
 ---
 
 # 1. 定位与总目标：学习可视化 vs BPMN 生产平台
+
+> **技术前置：** 此时应当学会 **第1～7月能力 + Vue 3 / Vite 控制台基础（T7）+ Flow HITL（T5）** 后再进行阅读。 节点：**T5+T7→T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 为什么需要「工作流可视化」
 
@@ -281,6 +287,11 @@ watch(() => props.instanceId, () => reload(), { immediate: true })
 开放问题：
 ```
 # 2. 领域模型 DTOs：FlowGraph / NodeDef / EdgeDef / FlowInstanceView / AuditEventView
+
+> **技术前置：** 此时应当学会 **可视化定位边界（T12）；本章开始学 FlowGraph DTO 契约** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 为什么静态图与动态实例必须分离
 
@@ -602,6 +613,11 @@ void deserializeGraphJson() throws Exception {
 | durationMs in annotation | 2026.08.1 | 可选 |
 # 3. 后端三 API：graph / view / audit（Controller + Service 骨架）
 
+> **技术前置：** 此时应当学会 **DTO 契约；本章开始学 graph/view/audit 三读 API** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 为什么可视化只新增「三读」
 
 第 2 月已有 `POST /start`、`POST /{id}/decide`、`GET /pending`。本月**不重复**写状态机，只新增三个**投影**端点，把已有 `FlowInstance` + 审计表组装成 DTO。写路径仍走 orchestrator — Controller 内禁止出现 `writeGateway.apply()`。
@@ -873,6 +889,11 @@ class FlowGraphControllerTest {
 | AuditReadPort | AuditLogRepository | listByFlowId |
 # 4. 合法迁移表驱动可画边与禁用边（与 FlowTransitions 对齐）
 
+> **技术前置：** 此时应当学会 **三读 API；本章开始学 legalTransitions 驱动可画边（T5）** 后再进行阅读。 节点：**T5+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 为什么 legalTransitions 是「可画边」的唯一权威
 
 前端**不能**根据 edge 列表「看起来能连」就允许交互。第 5 月 `FlowTransitions` / `LegalTransitionMatrix` 在后端 decide 与 orchestrator 推进时校验；可视化层必须消费**同一张表**，否则会出现「图画能走、API 409」或「图画不能走、其实合法」的双源真相。
@@ -1082,6 +1103,11 @@ void eachLegalPairHasEdgeOrIsTeachOnly(String from, String to) {
 ```
 # 5. 渲染选型：手写 SVG 优先；Canvas / 轻量库利弊
 
+> **技术前置：** 此时应当学会 **合法边模型；本章开始学手写 SVG 渲染（勿先上重型图编辑器）** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 为什么先手写 SVG
 
 工作流图的学习目标是：**坐标系、命中检测、状态 class、审计回放** — 这些用 SVG + DOM 事件最透明。Canvas 或 `@vue-flow/core` 等库能加速，但会遮挡「边如何从 view DTO 变色」这一评审重点。
@@ -1284,6 +1310,11 @@ export function useSvgPan(svgRef) {
 学习期默认不实现 pan，避免喧宾夺主；PORTFOLIO 提一句「可扩展」。
 # 6. 布局：手工坐标 JSON + 分层布局可运行算法
 
+> **技术前置：** 此时应当学会 **SVG 渲染基础；本章学布局坐标 JSON / 分层算法** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 为什么学习期用手工坐标为主
 
 自动布局（Sugiyama / dagre）很诱人，但评审常问：「WAIT_HUMAN 为什么在中间？」—— 手工 `flow-layout.json` 可**讲故事**（从左到右：分类 → 风控 → 人审 → 写库）。算法作为**补充**：当新增节点时一键生成初稿，再人工微调 JSON。
@@ -1455,6 +1486,11 @@ test('layerLayout snapshot', () => {
 改 LEGAL 或 gap 常数时会失败 — 提醒 review 坐标 diff。
 # 7. 高亮当前态、历史路径、FAILED 样式（CSS 变量完整）
 
+> **技术前置：** 此时应当学会 **布局；本章学当前态/历史路径/FAILED 样式** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 原则：样式只来自 view DTO
 
 禁止前端写 `if (userClickedApprove) highlight(APPLY_WRITE)`。所有 `current` / `visited` / `failed` class 来自：
@@ -1606,6 +1642,11 @@ export function nodeVisualState(nodeId, view) {
 
 节点 label 改用 `fill: var(--text-primary)` 保证对比度。
 # 8. HITL：图上选中 → decide 面板；APPROVE≠写库文案
+
+> **技术前置：** 此时应当学会 **高亮样式；本章学图上 HITL decide（APPROVE≠写库）（T5+T9）** 后再进行阅读。 节点：**T5+T9+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 交互模型
 
@@ -1791,6 +1832,11 @@ catch (e) {
 }
 ```
 # 9. 审计回放播放器（完整 Vue 逻辑）
+
+> **技术前置：** 此时应当学会 **HITL 面板；本章开始学审计回放播放器（T5）** 后再进行阅读。 节点：**T5+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 目标
 
@@ -1998,6 +2044,11 @@ const displayEdges = computed(() =>
 退出回放时 `reset()` 并恢复 view.visited 样式。
 # 10. 规则引擎标注：RISK_CHECK 与 RULE_DENIED 徽标
 
+> **技术前置：** 此时应当学会 **审计回放；本章学规则标注 RULE_DENIED（T11）** 后再进行阅读。 节点：**T11+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 与第 7 月对齐
 
 规则引擎在 `RISK_CHECK` 节点产出：
@@ -2122,6 +2173,11 @@ if ("RULE_DENIED".equals(inst.lastAuditType())) {
 
 口述：同一节点 shape，不同 badge — 规则结果可视化。
 # 11. APPLY_WRITE 与假账本侧栏
+
+> **技术前置：** 此时应当学会 **规则标注；本章学 APPLY_WRITE / 假账本侧栏（T9）** 后再进行阅读。 节点：**T9+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 边界回顾
 
@@ -2267,6 +2323,11 @@ dl { display: grid; grid-template-columns: 5rem 1fr; gap: 0.25rem 0.5rem; font-s
 - audit 可能两条 WRITE_RESULT 或第二条标记 duplicate；
 - 图仍 WRITE_OK — 口播幂等设计。
 # 12. 多实例列表绑定
+
+> **技术前置：** 此时应当学会 **写入侧栏；本章学多实例列表绑定** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 场景
 
@@ -2419,6 +2480,11 @@ if (to.params.id && !(await instanceExists(to.params.id))) {
 ```
 # 13. 接入 erp-ai-console：路由、Pinia、文件树、proxy
 
+> **技术前置：** 此时应当学会 **多实例；本章接入 erp-ai-console 路由/Pinia/proxy（T7）** 后再进行阅读。 节点：**T7+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 推荐文件树
 
 ```text
@@ -2552,6 +2618,11 @@ export default defineConfig({
 避免用户只找到列表不知道有图。
 # 14. 节点耗时与 traceId 标注
 
+> **技术前置：** 此时应当学会 **控制台接入；本章学节点耗时与 traceId（T6）** 后再进行阅读。 节点：**T6+T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 可观测性目标
 
 评审问「慢在哪？」— 在节点右下角显示 `durationMs`（来自 annotation 或 audit 聚合）；右上角显示 `traceId` 短码，点击复制完整 trace。
@@ -2655,6 +2726,11 @@ function durationClass(ms) {
 traceId tr-abc → （未来）/jaeger/trace/tr-abc
 ```
 # 15. a11y 与只读演示模式
+
+> **技术前置：** 此时应当学会 **观测标注；本章学 a11y 与只读 demo 模式** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 无障碍要求
 
@@ -2768,6 +2844,11 @@ const readOnly = computed(() => route.query.demo === '1')
 5. Write 侧栏 ledgerRef 复制
 ```
 # 16. 4 个端到端彩排剧本（逐步可打勾）
+
+> **技术前置：** 此时应当学会 **a11y/demo；本章跑 4 个端到端彩排剧本** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 彩排环境检查（共用 preamble）
 
@@ -2890,6 +2971,11 @@ cd erp-ai-console && npm run dev
 | D demo | 1 min | 只展示 banner |
 # 17. PORTFOLIO 完整可粘贴章节
 
+> **技术前置：** 此时应当学会 **彩排通过；本章写 PORTFOLIO** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 使用说明
 
 将以下 Markdown **原样粘贴**到作品集 `PORTFOLIO.md` 的「第 8 月：工作流可视化」章节。替换截图路径为你的仓库相对路径。
@@ -2965,6 +3051,11 @@ audit replay, HITL panel (APPROVE ≠ ledger write). See `docs/lessons/MONTH8_WO
 > HITL, rule denials, and fake-ledger write results on the graph.
 > APPROVE ≠ post to ledger. No BPM engine, just clear boundaries.
 # 18. 1～8 月架构终图
+
+> **技术前置：** 此时应当学会 **作品集；本章 1～8 月架构终图** 后再进行阅读。 节点：**T0～T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 全景（能力叠加）
 
@@ -3089,6 +3180,11 @@ flowchart TB
 ○：Port/Adapter 与 WRITE 结果展示间接相关。
 # 19. 口述 20 题 + 能力清单
 
+> **技术前置：** 此时应当学会 **架构终图；本章口述 20 题 + 能力清单** 后再进行阅读。 节点：**T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ## 口述题（自测）
 
 1. 工作流可视化与 BPMN 平台最大区别是什么？
@@ -3172,6 +3268,11 @@ flowchart TB
 
 面試 5 分钟版：必答 4、5、6、8、15 — 覆盖边界、写库、规则、回放、侧栏。
 # 20. 明确不做 + 第9月方向
+
+> **技术前置：** 此时应当学会 **口述通过；本章明确不做 + 第9月方向；闸门 A + T8～T12 后可深挖 T13/T14** 后再进行阅读。 节点：**T12→选修** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ## 明确不做（范围守卫）
 

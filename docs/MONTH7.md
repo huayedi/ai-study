@@ -4,6 +4,10 @@
 
 → [MONTH7_DAY1-30_COMBINED.md](./lessons/MONTH7_DAY1-30_COMBINED.md)
 
+**技术节点：** T11 RuleEngine（Drools 仅对照）  
+**技术前置：** 合订/完整教材内每个 Day（或第8月每章）开头有「此时应当学会 … 后再进行阅读」。规则先于模型。  
+总图：[TECH_ROADMAP.md](./TECH_ROADMAP.md) · 入口：[TECH.md](./TECH.md)
+
 每天结构：为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 
 主题：**规则引擎**——确定性业务规则用规则引擎；LLM 只做理解、草稿与解释；规则先于模型，冲突时规则优先；规则变更可版本化、可评测、可审计。  

@@ -6,6 +6,7 @@
 > **前置：** 第1月 Chat/Prompt/RAG + 第2月 Hybrid/Gate/Rerank、Flow HITL、Eval 入门 + 第3月 Store/reindex/audit/baseline + 第4月 ACL/反馈/多租户/console + 第5月 WriteGateway/假账本/受控写入 + 第6月 Port/Adapter/Fake/Sandbox/契约测试。
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH7.md`
+> **技术节点：** 本月对齐 **T11（RuleEngine；Drools 仅对照）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
 > **本月主题：** **规则引擎（RuleEngine / RuleSet / DecisionTable / 版本化 / 评测 / 审计）**
 > **核心产品句（全文反复强调）：**
 > **确定性业务规则用规则引擎；LLM 只做理解、草稿与解释。规则先于模型，冲突时规则优先。规则变更可版本化、可评测、可审计。本月不接公司生产规则平台。**
@@ -164,6 +165,11 @@ Accept:            application/vnd.erp-ai.v1+json
 
 ## M7-D1 为何需要规则引擎；「全靠 Prompt」的失败模式
 
+> **技术前置：** 此时应当学会 **第6月 Port/Adapter/契约（T10）+ 第5月受控写（T9）** 后再进行阅读。 节点：**T10→T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第2/3月 Flow 的 CLASSIFY、RISK_CHECK 与第5月写前校验仍散落在 if/else 或 Prompt 里：模型「听起来合理」但不可审计、不可版本化、不可回归。本月引入 **RuleEngine**，把确定性业务规则外置。**不接公司生产规则平台/SSO/生产库。**
@@ -279,6 +285,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D2 什么该规则、什么该 LLM（对照表）
 
+> **技术前置：** 此时应当学会 **为何要规则引擎；本日对照「全靠 Prompt」失败模式（T11）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 规则与 LLM 分工不清时，团队要么「全 Prompt」要么「全 if」，两者都不可维护。今天冻结对照表：**什么必须规则、什么可以 LLM**。**不接公司生产。**
@@ -381,6 +392,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D3 Rule / RuleContext / RuleResult（ALLOW/DENY/WARN/ROUTE）
+
+> **技术前置：** 此时应当学会 **规则 vs LLM 边界；本日学 Rule/Context/Result** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -495,6 +511,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D4 RuleEngine.evaluate(context) 顺序、优先级、短路
+
+> **技术前置：** 此时应当学会 **核心类型；本日学 RuleEngine.evaluate 优先级/短路** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -616,6 +637,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D5 决策表：期间关闭禁止过账；缺仓库 WARN
 
+> **技术前置：** 此时应当学会 **Engine 执行；本日开始学决策表（Drools 仅概念对照）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 「期间关闭禁止过账」「缺仓库 WARN」是 ERP 最典型的表驱动规则，适合 DecisionTable 入门。
@@ -730,6 +756,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D6 与 Flow 数据：把 intent/risk 从硬编码迁到规则
 
+> **技术前置：** 此时应当学会 **决策表；本日把 intent/risk 从硬编码迁到规则** 后再进行阅读。 节点：**T11+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 第3月 Flow 里 intent/risk 硬编码阻碍版本化；今天规划迁移到 RuleEngine，保持节点职责不变。
@@ -819,6 +850,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D7 第 1 周复盘（规则边界 + 核心类型 + 决策表）
+
+> **技术前置：** 此时应当学会 **规则边界 + 核心类型 + 决策表（T11 第1周）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -916,6 +952,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D8 规则注册表 RuleRegistry + 命名空间（classify/risk/write-precheck）
+
+> **技术前置：** 此时应当学会 **T11 基础；本日 RuleRegistry + 命名空间** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1018,6 +1059,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D9 YAML/JSON 规则装载（学习版）+ Java 实现类混用
 
+> **技术前置：** 此时应当学会 **Registry；本日 YAML/JSON 规则装载** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 纯 Java 规则难让非开发改表；学习版 YAML/JSON 与 Java Rule 混用，校验失败不加载。
@@ -1115,6 +1161,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D10 CLASSIFY 节点改调 RuleEngine
+
+> **技术前置：** 此时应当学会 **装载；本日 CLASSIFY 节点改调 RuleEngine** 后再进行阅读。 节点：**T11+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1217,6 +1268,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D11 RISK_CHECK / 写前校验规则集
 
+> **技术前置：** 此时应当学会 **CLASSIFY 接入；本日 RISK_CHECK / 写前校验规则集** 后再进行阅读。 节点：**T11+T9** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** RISK_CHECK 产出 WARN；write-precheck 在 Gateway 前 DENY — 与第5月写入纪律衔接。
@@ -1306,6 +1362,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D12 规则版本 rulesVersion 写入 audit / eval config 快照
+
+> **技术前置：** 此时应当学会 **写前规则；本日 rulesVersion 写入 audit/eval** 后再进行阅读。 节点：**T11+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1397,6 +1458,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D13 规则单元测试模式（给定 context → 断言结果）
 
+> **技术前置：** 此时应当学会 **规则版本；本日规则单元测试模式** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 规则最适合表驱动单测：给定 RuleContext → 断言 RuleResult；不依赖 LLM。
@@ -1486,6 +1552,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D14 第 2 周复盘（接入点 + 版本 + 单测）
+
+> **技术前置：** 此时应当学会 **接入点 + 版本 + 单测（T11 第2周）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1586,6 +1657,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D15 evals/suites/rules-cases.jsonl 规则评测套件
 
+> **技术前置：** 此时应当学会 **接入可演示；本日 rules-cases.jsonl 评测套件（T6）** 后再进行阅读。 节点：**T11+T6** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 与第3月 eval 对齐；`rules-cases.jsonl` 专测规则 outcome，不测文案相似度。
@@ -1672,6 +1748,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D16 冲突实验：Prompt 说可以、规则 DENY → 以规则为准
+
+> **技术前置：** 此时应当学会 **规则评测；本日冲突实验：Prompt vs 规则→规则优先** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1762,6 +1843,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D17 审计事件 RULE_FIRED / RULE_DENIED
+
+> **技术前置：** 此时应当学会 **冲突实验；本日 RULE_FIRED / RULE_DENIED 审计** 后再进行阅读。 节点：**T11+T5** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -1857,6 +1943,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D18 RuleContext 注入 tenant/roles/principal（第4月）
 
+> **技术前置：** 此时应当学会 **规则审计；本日 Context 注入 tenant/roles（T8）** 后再进行阅读。 节点：**T11+T8** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 第4月 ACL 头进入 RuleContext；无 FINANCE 角色规则 DENY，不靠 LLM 猜权限。
@@ -1947,6 +2038,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D19 规则调用只读 Port 查期间状态（第6月），禁止规则内直写
 
+> **技术前置：** 此时应当学会 **上下文注入；本日规则调只读 Port（禁直写）（T10）** 后再进行阅读。 节点：**T11+T10** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 期间状态以 Port 为准；规则调 `PeriodQueryPort` 只读，**禁止**规则里调 PostingPort。
@@ -2036,6 +2132,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D20 热加载概念（文件变更 reload）与安全（校验失败不加载）
+
+> **技术前置：** 此时应当学会 **规则+Port；本日热加载概念与校验失败不加载** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2132,6 +2233,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D21 第 3 周复盘（评测 + 审计 + Port + 热加载）
+
+> **技术前置：** 此时应当学会 **评测 + 审计 + Port + 热加载（T11 第3周）** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2232,6 +2338,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D22 console：规则列表、试跑 Context 表单
 
+> **技术前置：** 此时应当学会 **治理可讲；本日 console 规则浏览器/试跑（T7）** 后再进行阅读。 节点：**T7+T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** console 增规则列表、试跑 Context JSON 表单，便于演示与排障。
@@ -2324,6 +2435,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D23 串测 A：关期间 DENY 过账
 
+> **技术前置：** 此时应当学会 **console；本日串测关期间 DENY** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 串测 A：关期间过账必须 DENY，不经 HITL 蒙混。
@@ -2413,6 +2529,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D24 串测 B：口语意图 ROUTE 到 RAG_TOOL
+
+> **技术前置：** 此时应当学会 **场景 A；本日串测口语意图 ROUTE** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2504,6 +2625,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D25 串测 C：Prompt 诱导绕过 → 规则仍 DENY
 
+> **技术前置：** 此时应当学会 **场景 B；本日串测 Prompt 诱导仍 DENY** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 串测 C：Prompt 诱导绕过期间关闭，规则仍 DENY。
@@ -2590,6 +2716,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D26 PORTFOLIO「规则引擎」章节
+
+> **技术前置：** 此时应当学会 **三场景；本日 PORTFOLIO 规则引擎** 后再进行阅读。 节点：**作品集** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2681,6 +2812,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D27 架构终图（1～7月；RuleEngine 位置）
 
+> **技术前置：** 此时应当学会 **作品集；本日架构终图 RuleEngine 位置** 后再进行阅读。 节点：**T0～T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 叠加第1～7月架构终图，标出 RuleEngine 在 Flow 与 Gateway 之间的位置。
@@ -2770,6 +2906,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D28 规则治理清单（谁改规则、如何回归）
+
+> **技术前置：** 此时应当学会 **架构；本日规则治理清单** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
@@ -2861,6 +3002,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 ## M7-D29 口述自测（20 题）
 
+> **技术前置：** 此时应当学会 **治理清单；本日口述自测** 后再进行阅读。 节点：**T11** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
+
 ### 为什么
 
 第6月 Port 已稳定；本月在编排层外置规则。**不接公司生产规则平台/SSO/生产库。** 口述 20 题覆盖边界、短路、冲突、审计、Port 纪律。
@@ -2951,6 +3097,11 @@ curl -sf http://localhost:8080/api/ai/console/rules 2>/dev/null || echo "console
 
 
 ## M7-D30 收官；第8月方向（已开课：工作流可视化 · 完整教材）
+
+> **技术前置：** 此时应当学会 **第7月收官：T11 完成；下月 T12 可视化（需 T7 Vue）** 后再进行阅读。 节点：**T11→T12** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+
+
+
 
 ### 为什么
 
