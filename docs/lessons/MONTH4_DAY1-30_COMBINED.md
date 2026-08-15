@@ -2409,22 +2409,23 @@ flowchart TB
 5. 写 5 行计划 + elevator pitch 三句。  
 6. 归档 feedback jsonl 与 eval runs 样例。
 
-### 第5月方向（只选一条）
+### 第5月方向（已开课：受控写入）
 
-| 方向 | 你会练到 | 与第4月衔接 |
-|---|---|---|
-| 观测平台化 | 指标、trace 关联、dashboard | 扩展 quality log / stats |
-| 真 pg 运维深化 | 租户列、备份、迁移 | Pg Store + tenant_id |
-| 工作流可视化 | Flow 图、节点状态 UI | console 增 Flow 面板 |
-| 规则引擎 | 业务规则 vs LLM 分工 | ACL 旁路规则 |
+整月教材：[`MONTH5_DAY1-30_COMBINED.md`](./MONTH5_DAY1-30_COMBINED.md) · 入口 [`docs/MONTH5.md`](../MONTH5.md)
+
+主题：**受控写入与模拟过账**（假账本 + 强制 HITL + 审计）。  
+模型仍**永不**直接持有无审批写工具；写入只在 APPROVE 之后经 WriteGateway。
+
+其它可留第6月（只选一条）：观测平台化 / 真 pg 运维深化 / 工作流可视化 / 规则引擎。
 
 ### 明确不做（再次锁定）
 
 - 公司 SSO / 生产权限平台实装  
-- 自动过账、改库存、写操作 Tool  
+- **无审批**自动过账、模型直连改库存 Tool  
 - 反馈驱动在线微调 / 自动改 prompt 上线  
 - 跨租户超级管理员合并视图  
-- 把学习仓当生产多租户 SaaS
+- 把学习仓当生产多租户 SaaS  
+- 第5月假账本 **≠** 公司真实库
 
 ### 代码骨架（Elevator pitch 模板）
 

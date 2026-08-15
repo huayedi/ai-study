@@ -2721,7 +2721,7 @@ docs/PORTFOLIO.md                      # 第5月「受控写入」章
 | 第3月入口 | `docs/MONTH3.md` |
 | 第4月详版 | `docs/lessons/MONTH4_DAY1-30_COMBINED.md` |
 | 第4月入口 | `docs/MONTH4.md` |
-| 第5月详版（本文） | `docs/lessons/MONTH5_DAY1-30_COMBINED.md` |
+| 第5月详版 | `docs/lessons/MONTH5_DAY1-30_COMBINED.md` |
 | 第5月入口 | `docs/MONTH5.md` |
 | 打卡笔记 | `docs/STUDY_NOTES.md` |
 | 作品集 | `docs/PORTFOLIO.md` |
