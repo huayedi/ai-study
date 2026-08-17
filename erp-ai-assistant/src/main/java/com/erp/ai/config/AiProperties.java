@@ -178,8 +178,7 @@ public class AiProperties {
         private String classpathDocs = "rag-docs";
 
         /**
-         * 检索器：{@code keyword}（默认）| {@code vector}。
-         * Day11 起可切换对比 sources。
+         * 检索器：{@code keyword} | {@code vector} | {@code hybrid}（Day13）。
          */
         private String retriever = "keyword";
 
@@ -202,6 +201,21 @@ public class AiProperties {
 
         /** hash embedding 维度（学习版） */
         private int embeddingDimensions = 256;
+
+        /** Hybrid 每路先召回条数（再 RRF 融合取 topK） */
+        private int recallK = 10;
+
+        /** RRF 常数 k，常用 60 */
+        private int rrfK = 60;
+
+        /**
+         * 弱命中阈值：最高分低于此值视为 WEAK。
+         * keyword/向量余弦约为 0～1；hybrid 的 RRF 分通常更小（如 0.01～0.03），需按模式标定。
+         */
+        private double minScore = 0.02;
+
+        /** 空命中时是否跳过 LLM，直接返回拒答（sources=[]） */
+        private boolean skipLlmOnEmpty = true;
 
         public int getTopK() {
             return topK;
@@ -265,6 +279,38 @@ public class AiProperties {
 
         public void setEmbeddingDimensions(int embeddingDimensions) {
             this.embeddingDimensions = embeddingDimensions;
+        }
+
+        public int getRecallK() {
+            return recallK;
+        }
+
+        public void setRecallK(int recallK) {
+            this.recallK = recallK;
+        }
+
+        public int getRrfK() {
+            return rrfK;
+        }
+
+        public void setRrfK(int rrfK) {
+            this.rrfK = rrfK;
+        }
+
+        public double getMinScore() {
+            return minScore;
+        }
+
+        public void setMinScore(double minScore) {
+            this.minScore = minScore;
+        }
+
+        public boolean isSkipLlmOnEmpty() {
+            return skipLlmOnEmpty;
+        }
+
+        public void setSkipLlmOnEmpty(boolean skipLlmOnEmpty) {
+            this.skipLlmOnEmpty = skipLlmOnEmpty;
         }
     }
 }

@@ -10,8 +10,12 @@ public class RagAskResponse {
     private String traceId;
     private String provider;
     private String model;
-    /** keyword | vector（Day11） */
+    /** keyword | vector | hybrid（Day11/13） */
     private String retriever;
+    /** EMPTY | WEAK | STRONG（Day13 Gate） */
+    private String gate;
+    private String gateReason;
+    private double topScore;
     private AssistantReply reply;
     private List<Source> sources = new ArrayList<>();
     private long latencyMs;
@@ -48,6 +52,30 @@ public class RagAskResponse {
 
     public void setRetriever(String retriever) {
         this.retriever = retriever;
+    }
+
+    public String getGate() {
+        return gate;
+    }
+
+    public void setGate(String gate) {
+        this.gate = gate;
+    }
+
+    public String getGateReason() {
+        return gateReason;
+    }
+
+    public void setGateReason(String gateReason) {
+        this.gateReason = gateReason;
+    }
+
+    public double getTopScore() {
+        return topScore;
+    }
+
+    public void setTopScore(double topScore) {
+        this.topScore = topScore;
     }
 
     public AssistantReply getReply() {

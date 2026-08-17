@@ -37,6 +37,7 @@ class RagApiIntegrationTest {
                 .andExpect(jsonPath("$.traceId").isNotEmpty())
                 .andExpect(jsonPath("$.provider").value("mock"))
                 .andExpect(jsonPath("$.retriever").value("keyword"))
+                .andExpect(jsonPath("$.gate").exists())
                 .andExpect(jsonPath("$.reply.answer", not(emptyString())))
                 .andExpect(jsonPath("$.sources.length()", greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.sources[0].docId").isNotEmpty());

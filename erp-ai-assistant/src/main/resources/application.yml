@@ -24,9 +24,10 @@ management:
 #   AI_BASE_URL=https://api.deepseek.com
 #   AI_API_KEY=sk-你的真实Key
 #   AI_MODEL=deepseek-v4-pro
-# Day11 向量检索（DeepSeek 无 embeddings，默认 hash）：
-#   AI_RAG_RETRIEVER=vector
+# Day11/13 检索：
+#   AI_RAG_RETRIEVER=keyword|vector|hybrid
 #   AI_EMBEDDING_PROVIDER=hash
+#   AI_RAG_MIN_SCORE=0.02
 #
 # 注意：
 # 1) 不要把真实 Key 写进本文件并提交 Git
@@ -49,8 +50,13 @@ ai:
   rag:
     top-k: 3
     classpath-docs: rag-docs
-    # Day11：keyword | vector（切换后看 sources 差异）
+    # Day13：keyword | vector | hybrid
     retriever: ${AI_RAG_RETRIEVER:keyword}
+    recall-k: ${AI_RAG_RECALL_K:10}
+    rrf-k: ${AI_RAG_RRF_K:60}
+    # hybrid 的 RRF 分通常较小；keyword/vector 为 0～1，按模式自行标定
+    min-score: ${AI_RAG_MIN_SCORE:0.02}
+    skip-llm-on-empty: true
     # DeepSeek 无 /embeddings → 默认 hash 学习替身；真向量需另配兼容网关
     embedding-provider: ${AI_EMBEDDING_PROVIDER:hash} # hash | openai-compatible
     embedding-model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
