@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH6.md`
 > **技术节点：** 本月对齐 **T10（Port/Adapter）；可选 WireMock/Testcontainers** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH6：多搜「六边形/Port Adapter/WireMock」；链接触发少 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **真适配器接口稳定化（Port/Adapter 契约 + Fake/Sandbox + 契约测试）**
 > **核心产品句（全文反复强调）：**
@@ -2618,6 +2619,32 @@ public record AdapterContext(String tenantId, String userId) {}
 17. 串测 A/B/C？ 18. 切换演练？ 19. 第7月方向？ 20. 8 分钟 pitch？
 
 评分：16/20 过关。
+
+### 标准答案（先自测再对照）
+
+> 完整版：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m6d29-口述-20-题)
+
+1. 模型再强，接口一变编排全改、难测难切环境。  
+2. **业务只依赖 Port；学习用 Fake/Sandbox；换 ERP 只换适配器。**  
+3. Port=稳定接口；Adapter=实现。  
+4. 读写分离：查询与写副作用、权限与重试策略不同。  
+5. Gateway 依赖 Port，不 `new` 具体账本类。  
+6. TIMEOUT/CONFLICT/PERIOD_CLOSED/UNAUTHORIZED/VALIDATION/UNAVAILABLE（按你实现六码）。  
+7. 401/期间关闭/校验错误通常**不重试**。  
+8. 同一断言跑多适配器，防「假绿」。  
+9. fake=内存；sandbox=打本地 stub HTTP。  
+10. Flow commandId → Gateway → Port 头/参数透传。  
+11. 熔断 OPEN 时快速失败，防雪崩。  
+12. health 聚合适配器是否可用，演示/探活。  
+13. Mapper 放 Adapter 侧（外部模型↔领域模型）。  
+14. OpenAPI 描述外部契约；Port 是领域边界。  
+15. 学习边界；无公司 SSO/库。  
+16. tenant/user/roles 进适配器审计上下文。  
+17. A 只读 Port；B 过账+幂等；C 关期间/超时降级。  
+18. 配置切换 fake→sandbox，行为对比。  
+19. 第7月：规则引擎外置 CLASSIFY/RISK。  
+20. pitch：Port 边界 + 契约测 + 不接生产。
+
 
 ### 回归命令（D29）
 

@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH5.md`  
 > **技术节点：** 本月对齐 **T9（受控写入）；完成后可开 T13 Spring AI 对照** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH5：Tool 视频当反例；收官可开 Spring AI 对照（T13） · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **受控写入与模拟过账（假账本 + 强制 HITL + 审计）**  
 > **核心产品句（全文反复强调）：**  
@@ -916,6 +917,19 @@ public class FlowTransitionTable {
 | APPROVE 直达 DONE | 跳过写审计 | 必须经 APPLY_WRITE |
 | FAILED 不可达 | 静默吞异常 | WRITE_FAIL 进 FAILED |
 
+### 标准答案（先自测再对照）
+
+> [ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m5d7--d14--d21--d29)
+
+1. 先有 RAG/HITL/评测/ACL。  
+2. 模型永不直接持有无审批写库存工具；写只经 APPROVE→Gateway。  
+3. READ 只查；CONTROLLED_WRITE 审批后写假账。  
+4. 统一鉴权/幂等/审计。  
+5. 内存假账；不接公司库。  
+6. 读看 DocAcl；写看写角色+Gateway。  
+7. Chat 无写命令通道。  
+8. 关期间拒绝过账类写。
+
 ### 当天验收
 - 迁移表单测全绿
 - 非法迁移抛错
@@ -1543,6 +1557,17 @@ FlowEngine.decide → ApplyWriteHandler → WriteGateway → IdempotencyStore
 | 题集只有 happy path | 测不出越权 | 负例 ≥50% |
 | assert 含糊 | 难自动 | 用命名断言 |
 
+### 标准答案（先自测再对照）
+
+1. 合法迁移且 APPROVE 后。  
+2. REJECT 不 enqueue 写。  
+3. DUPLICATE=幂等已成功；FAILED=执行失败。  
+4. 禁止 write 类 Tool 名。  
+5. Gateway/幂等层，随 commandId。  
+6. Flow→FAILED + 审计。  
+7. suggest 建议；write 改账（禁直出）。  
+8. 仅受控补偿路径+权限。
+
 ### 当天验收
 - jsonl ≥8 题
 - 含关期间/越权/幂等
@@ -2102,6 +2127,17 @@ async function approveFlow(id) {
 |---|---|---|
 | console 直调 apply 无 Flow | 违背叙事 | 演示走 Flow |
 | 跳过 WAIT_HUMAN | 假 HITL | 强制队列 |
+
+### 标准答案（先自测再对照）
+
+1. 未审批不写、越权/关期间拒绝、幂等不双写等。  
+2. 负例路径账本不变。  
+3. 写安全回归门禁。  
+4. who/when/what/reason（+commandId）。  
+5. 反馈→人工确认→write-safety 题。  
+6. expect 关期间错误码/拒写。  
+7. 读评测看答案；写评测看账本副作用。  
+8. 写审计事件 vs Flow 迁移审计。
 
 ### 当天验收
 - console 见快照
@@ -2695,6 +2731,32 @@ flowchart TB
 1. 为何第5月才开写？ 2. 核心产品句？ 3. Chat 为何禁止写？ 4. APPROVE 与 APPLY_WRITE？ 5. commandId 与 traceId？ 6. DUPLICATE 算成功吗？ 7. reverse 与 DB rollback？ 8. write-safety vs acl-forbidden？ 9. 关期间失败 Flow 状态？ 10. suggest 与 write 区别？ 11. 写权限谁定？ 12. before/after 从哪来？ 13. console 为何不能直 apply？ 14. baseline 为何 1.0？ 15. 反馈如何进 write-safety？ 16. PostingState？ 17. FAILED 与 REJECTED 审计？ 18. 假账丢数据行吗？ 19. 第6月选哪条？ 20. 8 分钟 pitch？
 
 评分：16/20 为过关；薄弱题回读对应 Day。
+
+### 标准答案（先自测再对照）
+
+> 完整版：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m5d7--d14--d21--d29)
+
+1. 先有 RAG/HITL/评测/ACL 才敢写。  
+2. **模型永不直接持有无审批写库存工具；写只经 APPROVE→Gateway。**  
+3. Chat 路径无写命令通道，防绕过 Gateway。  
+4. APPROVE 推进 HITL；**APPLY_WRITE** 才调 Gateway 写假账。  
+5. **commandId** 幂等业务键；**traceId** 观测关联。  
+6. **DUPLICATE** 对账本算成功（不双写）。  
+7. reverse 是受控补偿路径+权限；≠ DB 事务自动 rollback。  
+8. write-safety 测写副作用；acl-forbidden 测读越权。  
+9. 关期间 → **FAILED** + WRITE_REJECTED。  
+10. suggest 给建议；write 改账（禁模型直出写工具）。  
+11. 写角色/权限在 **Gateway** 校验。  
+12. before/after 来自假账本执行结果。  
+13. console 只能 **decide**，不能绕过 Gateway 直 apply。  
+14. 写安全不允许「差不多」；门禁常要求全过（baseline 1.0）。  
+15. 错误写入反馈 → 人工确认 → 晋升 write-safety 题。  
+16. PostingState：按实现（如 DRAFT/POSTED/CLOSED）；关期间拒绝过账。  
+17. FAILED=执行失败审计；REJECTED=人拒/拒写审计（分清）。  
+18. 假账重启可丢数据行，学习期可接受。  
+19. 开放：第6月常选 Port/Adapter 稳定化（说清理由即可）。  
+20. **8 分钟 pitch**：假账本 + HITL + 禁写工具 + 幂等/审计；APPROVE≠过账；不接真实库存写。
+
 
 
 ---

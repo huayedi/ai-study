@@ -6,6 +6,7 @@
 > **每天结构（固定五段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH3.md`  
 > **技术节点：** 本月对齐 **T4 运维 + T5/T6 加深** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH3 优先：企业 RAG 痛点、pgvector 搜索、Camunda 对照 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **编码策略：** 主线 A/B/C/D 选一条深挖；其它主线读懂 + 口述即可。  
 > **约定：** 助手不擅自改你本地未提交的业务代码；你按骨架自行落地。

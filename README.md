@@ -9,6 +9,7 @@ Java 5 年 ERP 工程师转 AI 应用（自学提升）仓库。
 | [docs/LEARNING_PLAN.md](docs/LEARNING_PLAN.md) | 20 周详细学习计划（每天 2–3 小时） |
 | [docs/TECH.md](docs/TECH.md) | **技术节点路线图**：何时学 Spring AI / Python / Vue 等 |
 | [docs/BILIBILI.md](docs/BILIBILI.md) | **B 站视频对照**：精选 BV + 与 MONTH 对齐 |
+| [docs/ORAL_ANSWERS.md](docs/ORAL_ANSWERS.md) | **口述/自测标准答案**（MONTH1～8 · WEB） |
 | [docs/STUDY_NOTES.md](docs/STUDY_NOTES.md) | 每日订正笔记 + 代码对照 + 打卡跟踪 |
 | [docs/lessons/](docs/lessons/) | 教材式讲义（推荐主学） |
 | [docs/MONTH1.md](docs/MONTH1.md) | 第1月入口 → 合订详版 |

@@ -17,6 +17,7 @@
 >
 > **入口：** [docs/MONTH8.md](../MONTH8.md)
 > **技术节点：** 本月对齐 **T12（工作流可视化）**；需 **T7 Vue** + **T5 Flow** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH8：Vue + SVG；Camunda 只对照，不接设计器 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 
 ---
@@ -3228,30 +3229,30 @@ flowchart TB
 19. 列表 pending API 与 view API 分工？
 20. 第 9 月可做什么（见第 20 章）？
 
-## 参考答法（摘要）
+## 参考答法（完整口述句）
 
-| # | 要点 |
-|---|------|
-| 1 | 只读投影 vs 设计器+引擎；本月不接 BPM |
-| 2 | 静态拓扑可缓存；实例动态频繁变 |
-| 3 | 必须同源；单测 assertEquals |
-| 4 | 禁止；改状态仅 decide/orchestrator |
-| 5 | 否；APPROVE 继续 Flow；写库看 APPLY_WRITE |
-| 6 | RISK_CHECK；否，已 FAILED |
-| 7 | 调 WriteGateway；假账本/适配器 |
-| 8 | replayEdgeIds 累积 audit 可见事件 |
-| 9 | 后端稳定 edge id；审计填 edgeId |
-| 10 | a11y/命中/教学透明 |
-| 11 | current=WAIT_HUMAN 且 RUNNING 且非 readOnly |
-| 12 | decide/start；回放可看 |
-| 13 | 串联 Chat/Flow/Write 日志 |
-| 14 | 清 replay 态与 composable |
-| 15 | ledgerRef、idempotencyKey、WRITE_OK/FAIL |
-| 16 | HITL 双边框可点；WRITE 数据库图标只读 |
-| 17 | toast + reload；不 POST 改边 |
-| 18 | 职责分离；可视化是投影层 |
-| 19 | pending 列表；view 单实例快照 |
-| 20 | 实时 WS、大图、多图版本 |
+> 总库：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m8第19章已有参考答法此处补完整口述句)
+
+1. 学习可视化=只读投影；BPM=设计器+引擎；本月不接公司 BPM。  
+2. graph 静态可缓存；view 随实例变。  
+3. legalTransitions 必须与 FlowTransitions 同源（单测对齐）。  
+4. 前端禁止拖边改状态；只走 decide。  
+5. APPROVE≠写库；写在 APPLY_WRITE→Gateway。  
+6. RISK_CHECK 上 RULE_DENIED；之后 FAILED，不能再 APPROVE 当成功写。  
+7. APPLY_WRITE 调 Gateway；假账本/适配器落地。  
+8. 回放用 audit 事件累积 replay 边高亮。  
+9. 稳定 edgeId 贯通拓扑与审计。  
+10. SVG 易 a11y/命中检测/教学透明。  
+11. current=WAIT_HUMAN 且运行中且非只读。  
+12. demo 禁 decide/start；可回放观看。  
+13. 用 traceId 串 Chat/Flow/Write 日志。  
+14. `:key` 强制重建，清回放态。  
+15. ledgerRef、幂等键、成功/失败徽标。  
+16. HITL 可点；WRITE 只读样式。  
+17. toast + 重新拉 view；不前端改边。  
+18. 可视化是投影层，不改编排职责。  
+19. pending 列表；view 单实例快照。  
+20. 选修：WS、大图、多版本等（见第20章）。
 
 ## 能力清单（打完勾 = 本月毕业）
 

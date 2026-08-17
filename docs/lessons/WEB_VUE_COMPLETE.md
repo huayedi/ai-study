@@ -18,6 +18,8 @@
 > **约定：** 代码骨架在 Markdown 中，粘贴到 `erp-ai-console/`；**勿**改 `erp-ai-assistant/` 应用代码。入口：[docs/WEB.md](../WEB.md)
 >
 > **视觉纪律：** 避免「AI 紫 + 奶油白」模板审美；用**有性格的字体系**与**清晰层级**；控制台可比营销页更密，但**一屏一事**；少卡片堆砌。
+>
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md#web第19章-口述提纲标准答法)（第19章自述/自检亦有就地答法）
 
 ---
 
@@ -3308,6 +3310,27 @@ Web 轨 30 天复盘：
 | v-html XSS | 模型输出执行脚本 | 默认文本插值；sources 用 v-for |
 | proxy 未启后端 | 502 / ECONNREFUSED | 先 `mvn spring-boot:run` |
 | 改样式不生效 | scoped 选择器 | 用 `:deep()` 或全局 tokens |
+
+### 口述标准答法（先自测再对照）
+
+> 完整版：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#web第19章-口述提纲标准答法)
+
+**1′ 定位** — Vue3+Vite 学习控制台，对接 `erp-ai-assistant` 的 `/api/ai/*`；不接公司 SSO。  
+**2′ ACL** — Pinia/请求头模拟角色与租户；切换后 RAG sources 变化可演示。  
+**3′ RAG** — 展示 sources 与 Gate；强调引用非模型编造。  
+**4′ Flow** — WAIT_HUMAN → decide；口述「APPROVE≠写库」。  
+**5′ 反馈/观测** — 反馈挂 traceId；stats/eval 可回归。  
+**6′ Q&A** — 边界：假权限、假账本、学习仓。
+
+**收官一句（标准稿）：**  
+「我用 Vue3 控制台接学习期 ERP AI：模拟 ACL/租户，RAG 展示 sources，反馈挂 traceId，Eval 可回归；Flow 的 APPROVE 不等于写库。」
+
+### 本章自检 · 对照通过标准
+
+- `npm run build` 成功；`npm run dev` 无红错  
+- 经 proxy 的 `/api/ai/*` 为 200（若后端已启）  
+- 能按上面提纲 8～10 分钟讲完，且明确说出 **APPROVE≠写库**  
+- PORTFOLIO 三张截图 + console README 可复现启动步骤
 
 ## 本章自检
 

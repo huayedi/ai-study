@@ -12,7 +12,8 @@
 > **第 5 月整月讲义+代码：** [lessons/MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md) · [MONTH5.md](./MONTH5.md)  
 > **第 6 月整月讲义+代码：** [lessons/MONTH6_DAY1-30_COMBINED.md](./lessons/MONTH6_DAY1-30_COMBINED.md) · [MONTH6.md](./MONTH6.md)  
 > **第 7 月整月讲义+代码：** [lessons/MONTH7_DAY1-30_COMBINED.md](./lessons/MONTH7_DAY1-30_COMBINED.md) · [MONTH7.md](./MONTH7.md)  
-> **第 8 月完整教材（非 30 天）：** [lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md) · [MONTH8.md](./MONTH8.md)  
+> **第 8 月完整教材（非 30 天）：** [lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md) · [MONTH8.md](./MONTH8.md)
+> **口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（MONTH1～8 · WEB；合订本口述节亦有就地答案）  
 > **Web 前端轨道（完整教材，非 30 天）：** [lessons/WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md) · [WEB.md](./WEB.md)  
 > **技术节点路线图（何时学 Spring AI / Python / 某框架）：** [TECH.md](./TECH.md) → [TECH_ROADMAP.md](./TECH_ROADMAP.md)  
 > **B 站视频对照：** [BILIBILI.md](./BILIBILI.md)（逐日建议在各月合订本 Day 开头）

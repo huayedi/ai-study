@@ -7,6 +7,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH7.md`
 > **技术节点：** 本月对齐 **T11（RuleEngine；Drools 仅对照）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH7：Drools 只对照概念；主路径自研 RuleEngine · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **规则引擎（RuleEngine / RuleSet / DecisionTable / 版本化 / 评测 / 审计）**
 > **核心产品句（全文反复强调）：**
@@ -3114,6 +3115,32 @@ RuleEngine ──► 口述自测（20 题）
 ### 口述 20 题完整列表
 
 见「代码骨架」；每题 30 秒，录音可选。
+
+### 标准答案（先自测再对照）
+
+> 完整版：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m7d29-口述-20-题)
+
+1. 确定性规则走引擎；LLM 理解/草稿/解释。  
+2. DENY 禁止；WARN 可继续但提示。  
+3. DENY/ROUTE 可配置短路，后续规则不跑。  
+4. CLASSIFY 用 ROUTE 把意图导向 RAG/TOOL 等节点。  
+5. WriteGateway 前 **write-precheck**。  
+6. rulesVersion 进审计/eval 快照可回归。  
+7. RULE_FIRED：ruleId、result、context 摘要等。  
+8. **冲突时规则优先。**  
+9. 禁止；规则只读 Port，不直写 ERP。  
+10. PeriodQueryPort 查期间状态，供决策表。  
+11. 热加载校验失败不加载，保留旧版。  
+12. Gate 管检索强弱；Rule 管业务允许与否。  
+13. jsonl：给定 context → ALLOW/DENY/ROUTE。  
+14. 命名空间：classify / risk / write-precheck。  
+15. DecisionTable：关期间 DENY、缺仓 WARN 等。  
+16. 无 FINANCE 角色则写前 DENY（示例策略）。  
+17. console dry-run：试跑 Context，不改生产状态。  
+18. A 关期间 DENY；B 口语 ROUTE；C Prompt 诱导仍 DENY。  
+19. 治理：规则单测 + rules-cases + 相关回归。  
+20. 开放：第8月工作流可视化等（说清理由）。
+
 
 ### 回归命令（D29)
 

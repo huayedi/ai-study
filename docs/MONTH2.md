@@ -4,6 +4,8 @@
 
 → [MONTH2_DAY1-30_COMBINED.md](./lessons/MONTH2_DAY1-30_COMBINED.md)
 
+**口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（合订本口述节亦有就地答案）
+
 **技术节点：** T4 Hybrid/Gate/Rerank/Store + T5 HITL + T6 Eval  
 **技术前置：** 合订/完整教材内每个 Day（或第8月每章）开头有「此时应当学会 … 后再进行阅读」。例：M2-D7 要求先掌握 T4 第1周再复盘。  
 总图：[TECH_ROADMAP.md](./TECH_ROADMAP.md) · 入口：[TECH.md](./TECH.md)

@@ -4,6 +4,8 @@
 
 → [MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md)
 
+**口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（第19章参考答法已展开为完整口述句）
+
 **技术节点：** T12 Flow 可视化（需 T7 Vue）  
 **技术前置：** 合订/完整教材内每个 Day（或第8月每章）开头有「此时应当学会 … 后再进行阅读」。章节开头均有技术前置。  
 总图：[TECH_ROADMAP.md](./TECH_ROADMAP.md) · 入口：[TECH.md](./TECH.md)

@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH4.md`  
 > **技术节点：** 本月对齐 **T8（+ T6 飞轮 / T7 控制台）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH4 优先：Vue3 Vite、多租户/ACL 搜索；完整前端见 WEB · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **「可隔离、可反馈、可演示」的学习版 ERP AI 助手** — 模拟 ACL、反馈飞轮、多租户 RAG、学习控制台正式化。  
 > **约定：** 助手不擅自改你本地未提交的业务代码；你按骨架自行落地。
@@ -755,6 +756,19 @@ evals/suites/acl-forbidden.jsonl + headers 断言
 | sources 空但答案很长 | prompt 仍含越权块 |
 | Flow 未传 principal | D6 边界未做 |
 
+### 标准答案（先自测再对照）
+
+> [ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m4d7-acl-周复盘8-题)
+
+1. 学习头模拟身份，非完整认证。  
+2. 建议检索后、进 Prompt 前（防泄露）。  
+3. 不可见正文不得出现在回答/sources。  
+4. ADMIN=可检索全集（假权限）。  
+5. 证明禁看内容未被输出/喂给模型。  
+6. 待办也不能泄露无权限摘要。  
+7. Demo 可伪造；生产必须真认证。  
+8. 记 principal/roles、过滤前后命中数。
+
 ### 当天验收
 - Part A 六步有记录  
 - 口述 ≥6/8 流利  
@@ -1347,6 +1361,15 @@ public class FeedbackStatsReader {
 | eval 无 headers | 晋升时丢失 ACL 头 |
 | 自动 merge suite | 违反人工确认 |
 
+### 标准答案（先自测再对照）
+
+1. 点踩噪声大，需人工晋升评测题。  
+2. 请求生成→响应/反馈/eval 同一 ID。  
+3. WRONG=错答；UNSAFE=安全违规优先。  
+4. 追加只写、易回放。  
+5. drafts 待审；suite 才进门禁。  
+6. 展示反馈计数/种类证明飞轮。
+
 ### 当天验收
 - 飞轮 Part A 全程有截图或日志  
 - 检查清单 ≥6/7 勾  
@@ -1873,6 +1896,17 @@ evals/suites/tenant-isolation.jsonl
 | 负例未跑 | tenant-isolation 空 |
 | 矩阵只口述 | 无 curl 记录 |
 | log 无 tenant | D19 未做 |
+
+### 标准答案（先自测再对照）
+
+1. 学习隔离键 ≠ 公司真实多组织。  
+2. 防串库；限定 search/rebuild 作用域。  
+3. 易误绑；更稳拒绝或缺省显式 learning。  
+4. 学习可设计跨租户；默认仍建议带头。  
+5. 只重建当前租户。  
+6. A 问到 B 语料必须空/拒。  
+7. 先 tenant 再 ACL。  
+8. tenantId、roles、命中 docs、gate、latency。
 
 ### 当天验收
 - 双 suite eval 有记录  
@@ -2486,6 +2520,31 @@ flowchart TB
 18. sources 纪律与本月关系？  
 19. 第4月明确不做哪三条？  
 20. 第5月你选哪条主线？为什么？
+
+### 标准答案（先自测再对照）
+
+> 总库：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m4d29-口述-20-题)
+
+1. 无假权限会养成越权演示习惯。  
+2. Principal=谁；DocAcl=可见 doc；Filter=过滤。  
+3. 检索后、拼 Prompt 前。  
+4. 禁答/禁 sources 泄露不可见正文。  
+5. 待办也不能越权。  
+6. useful / wrong / unsafe。  
+7. 噪声大，乱改无回归。  
+8. 生成→返回→反馈/日志/eval 复用。  
+9. drafts 确认后才进 suite。  
+10. 反馈→日志→晋升题→回归。  
+11. 学习隔离键 vs 企业组织。  
+12. 索引键空间隔离。  
+13. 拒绝缺省，或明确 default。  
+14. 跨租户不得命中他租资料。  
+15. tenant 定范围，ACL 定角色可见。  
+16. 角色/租户/反馈/eval 一体彩排。  
+17. A 权限 sources；B 反馈进题；C 租户负例。  
+18. sources 仍只能来自允许集。  
+19. 不接 SSO/真权；不自动改模型；不接生产库。  
+20. 开放题：只选一条第5月主线并说理由。
 
 ### 怎么做
 

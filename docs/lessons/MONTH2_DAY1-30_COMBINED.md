@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat / Prompt / RAG（切分·关键词·向量）/ Tool·草稿概念。  
 > **入口：** `docs/MONTH2.md`  
 > **技术节点：** 本月对齐 **T4～T6** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH2 优先：吴恩达/RAG Hybrid、Camunda 仅概念；勿上 BPM 依赖 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **约定：** 骨架在讲义中；由你自行落到 `erp-ai-assistant`；助教不擅自改你本地未提交实现。
 
@@ -860,6 +861,16 @@ Chunker → Embed/Index(Store) → Retriever(lanes) → Fusion(RRF)
 | 复盘只背概念 | 没跑通 | 至少演示一题 |
 | 检索链仍断 | 跳天实现 | 按 D2～D6 补 |
 
+### 标准答案（先自测再对照）
+
+> 总库：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m2d7-第1周复盘)
+
+1. RRF 用排名融合，不要求原始分同量纲。  
+2. minScore 量纲随 keyword/余弦/RRF 而变，要用题集标定。  
+3. recallK=多召回候选；topK=最终进提示词。  
+4. 改配置后全量重建向量索引（reindex/重启）。  
+5. upsert/search（+可选 rebuild）；统一 RetrievedChunk。
+
 ### 当天验收
 - 五题口述过关  
 - 一页检索笔记 + 对比结论  
@@ -1514,6 +1525,15 @@ void decideOnWrongStateFails() {
 2. RETRIEVING 与 DRAFTING 各写哪些字段？  
 3. APPROVE 后系统改了什么、没改什么？  
 
+### 标准答案（先自测再对照）
+
+> 总库：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m2d14-第2周复盘)
+
+1. **状态机非纯 Agent** — 合法边、审计、HITL；可控可测。  
+2. **RETRIEVING/DRAFTING** — 检索写 hits/sources；起草写 draftAnswer/warnings。  
+3. **APPROVE** — 推进状态/接受草稿展示；**不等于写库**。
+
+
 ### 怎么做（今天）
 
 1. 勾对照清单，缺口列理由与补学日。  
@@ -2107,6 +2127,14 @@ aggregator.record(promptTokens, completionTokens, usd);
 | eval 有了从不跑 | 习惯 | 绑 commit 前跑 |
 | 日志仍纯文本 | 未完成 D18 | 补 JSON |
 
+### 标准答案（先自测再对照）
+
+1. 先看 sources/Gate；资料错再查 Prompt。  
+2. 评测可归因、可回滚口径。  
+3. 安全红线不可漂。  
+4. 流式追加、易解析、坏一行不毁全文。  
+5. 学习期可接受；生产要外置。
+
 ### 当天验收
 - 清单打勾或有缺口计划  
 - eval 汇总留存  
@@ -2683,6 +2711,26 @@ W4  Debug / 三场景 / 安全 / 架构
 13. 换 embedding 三步？  
 14. debug 最小按钮集？  
 15. 第2月最大落地风险？（权限/写入）
+
+### 标准答案（先自测再对照）
+
+> 总库：[ORAL_ANSWERS.md](../ORAL_ANSWERS.md#m2d29-口述-15-题)
+
+1. 切分/模型/语料变时 rebuild；启动或 reindex。  
+2. 平滑排名贡献，减轻第一名霸权。  
+3. 声明依据不足；强制 need_human、压 confidence。  
+4. 两路各≤10 → RRF → 取 3。  
+5. 拒迁（409），审计，不改业务状态。  
+6. 人工确认继续流程；≠过账。  
+7. 断言禁止危险/越权内容。  
+8. 评测可归因与回滚。  
+9. 次数、延迟、token/成本等。  
+10. 对比哪路贡献命中。  
+11. 产品边界；写库另开 Gateway 月。  
+12. 来自召回候选，非整库。  
+13. 改配置→全量 reindex→跑 eval。  
+14. 提问、切换 retriever、看 sources/Gate。  
+15. 无权限隔离或提前写入；第2月仍只读+HITL。
 
 ### 怎么做（今天）
 
