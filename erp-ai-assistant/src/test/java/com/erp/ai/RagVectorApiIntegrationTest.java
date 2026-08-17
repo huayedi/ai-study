@@ -14,31 +14,32 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Day11：向量检索模式（hash embedding + mock chat）。
+ */
 @SpringBootTest(properties = {
         "ai.provider=mock",
         "ai.api-key=",
-        "ai.rag.retriever=keyword",
+        "ai.rag.retriever=vector",
         "ai.rag.embedding-provider=hash"
 })
 @AutoConfigureMockMvc
-class RagApiIntegrationTest {
+class RagVectorApiIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void ragAskReturnsSourcesFromTextbook() throws Exception {
+    void vectorRagAskReturnsSources() throws Exception {
         mockMvc.perform(post("/api/ai/rag/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"question":"采购主链路有哪些单据？"}
+                                {"question":"下完采购单以后货到了怎么处理？"}
                                 """))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.traceId").isNotEmpty())
-                .andExpect(jsonPath("$.provider").value("mock"))
-                .andExpect(jsonPath("$.retriever").value("keyword"))
+                .andExpect(jsonPath("$.retriever").value("vector"))
                 .andExpect(jsonPath("$.reply.answer", not(emptyString())))
                 .andExpect(jsonPath("$.sources.length()", greaterThanOrEqualTo(1)))
-                .andExpect(jsonPath("$.sources[0].docId").isNotEmpty());
+                .andExpect(jsonPath("$.sources[0].score").isNumber());
     }
 }

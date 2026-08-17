@@ -177,6 +177,32 @@ public class AiProperties {
         /** classpath 下教材目录，默认 rag-docs */
         private String classpathDocs = "rag-docs";
 
+        /**
+         * 检索器：{@code keyword}（默认）| {@code vector}。
+         * Day11 起可切换对比 sources。
+         */
+        private String retriever = "keyword";
+
+        /**
+         * Embedding 实现：{@code hash}（学习替身，默认）|
+         * {@code openai-compatible}（POST /embeddings）。
+         * <p>
+         * DeepSeek 无 embeddings 时请保持 hash，或把 embedding-base-url 指到其它兼容网关。
+         */
+        private String embeddingProvider = "hash";
+
+        /** Embedding 模型名（仅 openai-compatible 时使用；与 chat model 通常不同） */
+        private String embeddingModel = "text-embedding-3-small";
+
+        /** 可选：单独的 embeddings base-url；空则复用 ai.base-url */
+        private String embeddingBaseUrl = "";
+
+        /** 可选：单独的 embeddings API Key；空则复用 ai.api-key */
+        private String embeddingApiKey = "";
+
+        /** hash embedding 维度（学习版） */
+        private int embeddingDimensions = 256;
+
         public int getTopK() {
             return topK;
         }
@@ -191,6 +217,54 @@ public class AiProperties {
 
         public void setClasspathDocs(String classpathDocs) {
             this.classpathDocs = classpathDocs;
+        }
+
+        public String getRetriever() {
+            return retriever;
+        }
+
+        public void setRetriever(String retriever) {
+            this.retriever = retriever;
+        }
+
+        public String getEmbeddingProvider() {
+            return embeddingProvider;
+        }
+
+        public void setEmbeddingProvider(String embeddingProvider) {
+            this.embeddingProvider = embeddingProvider;
+        }
+
+        public String getEmbeddingModel() {
+            return embeddingModel;
+        }
+
+        public void setEmbeddingModel(String embeddingModel) {
+            this.embeddingModel = embeddingModel;
+        }
+
+        public String getEmbeddingBaseUrl() {
+            return embeddingBaseUrl;
+        }
+
+        public void setEmbeddingBaseUrl(String embeddingBaseUrl) {
+            this.embeddingBaseUrl = embeddingBaseUrl;
+        }
+
+        public String getEmbeddingApiKey() {
+            return embeddingApiKey;
+        }
+
+        public void setEmbeddingApiKey(String embeddingApiKey) {
+            this.embeddingApiKey = embeddingApiKey;
+        }
+
+        public int getEmbeddingDimensions() {
+            return embeddingDimensions;
+        }
+
+        public void setEmbeddingDimensions(int embeddingDimensions) {
+            this.embeddingDimensions = embeddingDimensions;
         }
     }
 }

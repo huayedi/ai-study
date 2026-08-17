@@ -23,14 +23,18 @@ management:
 #   AI_PROVIDER=openai-compatible
 #   AI_BASE_URL=https://api.deepseek.com
 #   AI_API_KEY=sk-你的真实Key
-#   AI_MODEL=deepseek-chat
+#   AI_MODEL=deepseek-v4-pro
+# Day11 向量检索（DeepSeek 无 embeddings，默认 hash）：
+#   AI_RAG_RETRIEVER=vector
+#   AI_EMBEDDING_PROVIDER=hash
 #
 # 注意：
 # 1) 不要把真实 Key 写进本文件并提交 Git
 # 2) 401 通常是 Key 错/过期/带空格引号，不是代码没加载到 Bean
 # 3) 修改本文件后需重启应用
+# 4) DeepSeek 只保证 Chat；真语义向量需另配有 /embeddings 的兼容网关
 ai:
-  provider: ${AI_PROVIDER:openai-compatible} # mock | openai-compatible
+  provider: ${AI_PROVIDER:openai-compatible} # mock | openai-compatible（DeepSeek 用这个）
   base-url: ${AI_BASE_URL:https://api.deepseek.com}
   api-key: ${AI_API_KEY}
   model: ${AI_MODEL:deepseek-v4-pro}
@@ -45,6 +49,13 @@ ai:
   rag:
     top-k: 3
     classpath-docs: rag-docs
+    # Day11：keyword | vector（切换后看 sources 差异）
+    retriever: ${AI_RAG_RETRIEVER:keyword}
+    # DeepSeek 无 /embeddings → 默认 hash 学习替身；真向量需另配兼容网关
+    embedding-provider: ${AI_EMBEDDING_PROVIDER:hash} # hash | openai-compatible
+    embedding-model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
+    embedding-base-url: ${AI_EMBEDDING_BASE_URL:} # 空则复用 ai.base-url
+    embedding-dimensions: 256
 
 logging:
   level:

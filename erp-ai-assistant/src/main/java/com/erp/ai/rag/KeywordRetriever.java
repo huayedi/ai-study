@@ -15,13 +15,14 @@ import java.util.stream.Collectors;
 /**
  * 学习版检索器：中文友好的极简关键词重叠打分。
  * <p>
- * 后续可替换为向量检索，而不改 {@link RagService} 主流程。
+ * 与 {@link VectorRetriever} 并列实现 {@link RagRetriever}，由配置切换。
  */
 @Component
-public class KeywordRetriever {
+public class KeywordRetriever implements RagRetriever {
 
     private static final Pattern SPLIT = Pattern.compile("[^\\p{IsHan}A-Za-z0-9]+");
 
+    @Override
     public List<RetrievedChunk> retrieve(String question, List<TextChunk> corpus, int topK) {
         Set<String> queryTerms = tokenize(question);
         if (queryTerms.isEmpty() || corpus == null || corpus.isEmpty() || topK <= 0) {
@@ -49,6 +50,11 @@ public class KeywordRetriever {
                         .thenComparing(r -> r.getChunk().getId()))
                 .limit(topK)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String name() {
+        return "keyword";
     }
 
     static Set<String> tokenize(String text) {

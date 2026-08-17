@@ -13,16 +13,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
  * RAG 编排：检索教材 → 拼提示词 → 调模型 → 返回回答与 sources。
+ * <p>
+ * Day11：按 {@code ai.rag.retriever=keyword|vector} 切换检索器；生成链路不变。
  */
 @Service
 public class RagService {
 
     private final RagCorpusIndex corpusIndex;
-    private final KeywordRetriever retriever;
+    private final KeywordRetriever keywordRetriever;
+    private final VectorRetriever vectorRetriever;
     private final RagPromptBuilder promptBuilder;
     private final LlmClient llmClient;
     private final ReplyParser replyParser;
@@ -30,14 +34,16 @@ public class RagService {
     private final AiCallLog aiCallLog;
 
     public RagService(RagCorpusIndex corpusIndex,
-                      KeywordRetriever retriever,
+                      KeywordRetriever keywordRetriever,
+                      VectorRetriever vectorRetriever,
                       RagPromptBuilder promptBuilder,
                       LlmClient llmClient,
                       ReplyParser replyParser,
                       AiProperties properties,
                       AiCallLog aiCallLog) {
         this.corpusIndex = corpusIndex;
-        this.retriever = retriever;
+        this.keywordRetriever = keywordRetriever;
+        this.vectorRetriever = vectorRetriever;
         this.promptBuilder = promptBuilder;
         this.llmClient = llmClient;
         this.replyParser = replyParser;
@@ -49,6 +55,7 @@ public class RagService {
         String traceId = UUID.randomUUID().toString().replace("-", "");
         long started = System.currentTimeMillis();
 
+        RagRetriever retriever = selectRetriever();
         int topK = Math.max(1, properties.getRag().getTopK());
         List<RetrievedChunk> retrieved = retriever.retrieve(
                 request.getQuestion(),
@@ -75,7 +82,7 @@ public class RagService {
                 double cost = estimateCost(result.getPromptTokens(), result.getCompletionTokens());
                 aiCallLog.success(
                         traceId,
-                        "rag",
+                        "rag/" + retriever.name(),
                         llmClient.providerName(),
                         result.getModel(),
                         latency,
@@ -89,6 +96,7 @@ public class RagService {
                 response.setTraceId(traceId);
                 response.setProvider(llmClient.providerName());
                 response.setModel(result.getModel());
+                response.setRetriever(retriever.name());
                 response.setReply(reply);
                 response.setSources(toSources(retrieved));
                 response.setLatencyMs(latency);
@@ -113,8 +121,17 @@ public class RagService {
 
         long latency = System.currentTimeMillis() - started;
         String reason = lastError == null ? "unknown" : lastError.getMessage();
-        aiCallLog.failure(traceId, "rag", llmClient.providerName(), latency, attempts, reason);
+        aiCallLog.failure(traceId, "rag/" + retriever.name(), llmClient.providerName(), latency, attempts, reason);
         throw new IllegalStateException("RAG 调用失败(traceId=" + traceId + "): " + reason, lastError);
+    }
+
+    private RagRetriever selectRetriever() {
+        String mode = properties.getRag().getRetriever();
+        String normalized = mode == null ? "keyword" : mode.trim().toLowerCase(Locale.ROOT);
+        if ("vector".equals(normalized)) {
+            return vectorRetriever;
+        }
+        return keywordRetriever;
     }
 
     private static List<RagAskResponse.Source> toSources(List<RetrievedChunk> retrieved) {

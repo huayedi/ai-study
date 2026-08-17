@@ -10,6 +10,8 @@ public class RagAskResponse {
     private String traceId;
     private String provider;
     private String model;
+    /** keyword | vector（Day11） */
+    private String retriever;
     private AssistantReply reply;
     private List<Source> sources = new ArrayList<>();
     private long latencyMs;
@@ -38,6 +40,14 @@ public class RagAskResponse {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getRetriever() {
+        return retriever;
+    }
+
+    public void setRetriever(String retriever) {
+        this.retriever = retriever;
     }
 
     public AssistantReply getReply() {
