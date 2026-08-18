@@ -335,10 +335,15 @@ public class AiProperties {
         private long timeoutMs = 3000;
 
         /**
-         * Chat 衔接路径：{@code rule}（Day18 路径 B）| {@code off}。
-         * 真 tool_calls（路径 A）后续再开。
+         * Chat 衔接路径：
+         * {@code tool-calls}（Day18 路径 A，默认）|
+         * {@code rule}（路径 B）|
+         * {@code off}。
          */
-        private String chatPath = "rule";
+        private String chatPath = "tool-calls";
+
+        /** 路径 A：单次用户请求内最多 tool_calls 轮次（防死循环） */
+        private int maxRounds = 4;
 
         public long getTimeoutMs() {
             return timeoutMs;
@@ -356,9 +361,34 @@ public class AiProperties {
             this.chatPath = chatPath;
         }
 
+        public int getMaxRounds() {
+            return maxRounds;
+        }
+
+        public void setMaxRounds(int maxRounds) {
+            this.maxRounds = maxRounds;
+        }
+
+        public String normalizedChatPath() {
+            if (chatPath == null || chatPath.isBlank()) {
+                return "tool-calls";
+            }
+            String p = chatPath.trim().toLowerCase().replace('_', '-');
+            if ("a".equals(p) || "path-a".equals(p) || "toolcalls".equals(p) || "tools".equals(p)) {
+                return "tool-calls";
+            }
+            if ("b".equals(p) || "path-b".equals(p)) {
+                return "rule";
+            }
+            return p;
+        }
+
         public boolean isRulePathEnabled() {
-            return chatPath == null || chatPath.isBlank()
-                    || "rule".equalsIgnoreCase(chatPath.trim());
+            return "rule".equals(normalizedChatPath());
+        }
+
+        public boolean isToolCallsPathEnabled() {
+            return "tool-calls".equals(normalizedChatPath());
         }
     }
 }

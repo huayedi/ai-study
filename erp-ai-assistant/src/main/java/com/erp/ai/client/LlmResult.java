@@ -1,33 +1,34 @@
 package com.erp.ai.client;
 
+import java.util.List;
+
 /**
  * 单次 LLM 调用的原始结果（尚未解析为业务 JSON）。
  * <p>
- * 与 {@code AssistantReply} 的区别：
- * <ul>
- *   <li>{@code LlmResult.content}：模型返回的原始字符串（期望是 JSON 文本）</li>
- *   <li>{@code AssistantReply}：解析校验后的结构化业务对象</li>
- * </ul>
+ * Day18 路径 A：若 {@link #toolCalls} 非空，表示模型要求先执行工具，此时 {@link #content} 可能为空。
  */
 public class LlmResult {
 
-    /** 模型输出正文（本项目要求为 JSON 字符串） */
     private final String content;
-
-    /** 实际命中的模型名（有些网关会回写） */
     private final String model;
-
-    /** 提示词（输入）消耗的 Token 数 */
     private final int promptTokens;
-
-    /** 生成（输出）消耗的 Token 数 */
     private final int completionTokens;
+    private final List<LlmToolCall> toolCalls;
 
     public LlmResult(String content, String model, int promptTokens, int completionTokens) {
+        this(content, model, promptTokens, completionTokens, List.of());
+    }
+
+    public LlmResult(String content,
+                     String model,
+                     int promptTokens,
+                     int completionTokens,
+                     List<LlmToolCall> toolCalls) {
         this.content = content;
         this.model = model;
         this.promptTokens = promptTokens;
         this.completionTokens = completionTokens;
+        this.toolCalls = toolCalls == null ? List.of() : List.copyOf(toolCalls);
     }
 
     public String getContent() {
@@ -46,8 +47,15 @@ public class LlmResult {
         return completionTokens;
     }
 
-    /** 输入 + 输出 Token 合计，用于成本粗算 */
     public int getTotalTokens() {
         return promptTokens + completionTokens;
+    }
+
+    public List<LlmToolCall> getToolCalls() {
+        return toolCalls;
+    }
+
+    public boolean hasToolCalls() {
+        return toolCalls != null && !toolCalls.isEmpty();
     }
 }

@@ -120,9 +120,9 @@ mvn test
 | `POST /api/ai/rag/ask` | 学习版 RAG：关键词检索 + 带 sources 回答 |
 | `GET /api/ai/tool/list` | Day16：列出只读工具定义 |
 | `POST /api/ai/tool/invoke` | Day16：执行白名单工具（假数据；禁写） |
-| `POST /api/ai/chat` + `toolTraces` | Day18 路径 B：规则预查只读工具后回答 |
+| `POST /api/ai/chat` + `toolTraces` | Day18 路径 A：tool_calls 循环后回答（可切 rule/off） |
 
-Day18 手测：
+Day18 手测（路径 A）：
 
 ```bash
 curl -s http://localhost:8080/api/ai/chat \

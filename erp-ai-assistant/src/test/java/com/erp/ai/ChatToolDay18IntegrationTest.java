@@ -13,12 +13,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Day18：Chat + 只读 Tool 路径 B 验收。
+ * Day18 路径 A：tool_calls 循环验收。
  */
 @SpringBootTest(properties = {
         "ai.provider=mock",
         "ai.api-key=",
-        "ai.tool.chat-path=rule"
+        "ai.tool.chat-path=tool-calls"
 })
 @AutoConfigureMockMvc
 class ChatToolDay18IntegrationTest {

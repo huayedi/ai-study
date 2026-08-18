@@ -15,7 +15,8 @@ import java.util.regex.Pattern;
 /**
  * Day18 路径 B：规则编排 — 先只读查工具，再把结果塞进 messages。
  * <p>
- * 不做真 tool_calls（路径 A 留作后续）；无写库存工具；写意图一律拦截。
+ * 默认已切路径 A（tool_calls）；本类在 {@code ai.tool.chat-path=rule} 时启用。
+ * 无写库存工具；写意图一律拦截。
  */
 @Component
 public class ChatToolOrchestrator {
@@ -111,7 +112,10 @@ public class ChatToolOrchestrator {
         }
     }
 
-    static boolean isWriteIntent(String text) {
+    public static boolean isWriteIntent(String text) {
+        if (text == null || text.isBlank()) {
+            return false;
+        }
         String t = text.toLowerCase(Locale.ROOT);
         return containsAny(t,
                 "改成", "改库存", "调库存", "写成", "调成",

@@ -1,27 +1,29 @@
 package com.erp.ai.client;
 
 import com.erp.ai.model.ChatMessage;
+import com.erp.ai.tool.ToolDefinition;
 
 import java.util.List;
 
 /**
  * 大模型调用抽象。
  * <p>
- * 业务层（{@code ChatService}）只依赖本接口，不关心底层是 mock 还是 DeepSeek。
- * 这是典型的“面向接口编程”，方便切换实现与单测打桩。
+ * Day18 路径 A：{@link #chat(List, List)} 携带只读工具定义，可能返回 {@link LlmToolCall}。
  */
 public interface LlmClient {
 
-    /**
-     * @return 实现标识，写入响应和日志，例如 {@code mock} / {@code openai-compatible}
-     */
     String providerName();
 
     /**
-     * 发起一次 Chat Completions 风格调用。
-     *
-     * @param messages 完整消息列表（通常含 system + 历史 + 当前 user）
-     * @return 模型原始文本内容及 Token 用量等
+     * 无 tools 的普通对话（兼容旧调用方）。
      */
-    LlmResult chat(List<ChatMessage> messages);
+    default LlmResult chat(List<ChatMessage> messages) {
+        return chat(messages, List.of());
+    }
+
+    /**
+     * @param messages 完整消息列表（可含 assistant.tool_calls / role=tool）
+     * @param tools    只读工具定义；空列表表示本轮不暴露 tools
+     */
+    LlmResult chat(List<ChatMessage> messages, List<ToolDefinition> tools);
 }

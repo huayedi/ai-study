@@ -2,6 +2,7 @@ package com.erp.ai.service;
 
 import com.erp.ai.client.LlmClient;
 import com.erp.ai.client.LlmResult;
+import com.erp.ai.client.LlmToolCall;
 import com.erp.ai.config.AiProperties;
 import com.erp.ai.model.AssistantReply;
 import com.erp.ai.model.ChatMessage;
@@ -10,20 +11,44 @@ import com.erp.ai.model.dto.ChatResponse;
 import com.erp.ai.observability.AiCallLog;
 import com.erp.ai.prompt.SystemPromptLoader;
 import com.erp.ai.tool.ChatToolOrchestrator;
+import com.erp.ai.tool.ToolDefinition;
+import com.erp.ai.tool.ToolExecutor;
+import com.erp.ai.tool.ToolHandler;
+import com.erp.ai.tool.ToolRegistry;
+import com.erp.ai.tool.ToolResult;
 import com.erp.ai.tool.ToolTrace;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
  * 聊天业务编排核心。
  * <p>
- * Day18：路径 B — 在调 LLM 前由 {@link ChatToolOrchestrator} 预查只读工具并注入结果。
+ * Day18：
+ * <ul>
+ *   <li>默认路径 A（{@code ai.tool.chat-path=tool-calls}）：真 tool_calls 循环</li>
+ *   <li>路径 B（{@code rule}）：规则预查注入</li>
+ *   <li>{@code off}：不调工具</li>
+ * </ul>
  */
 @Service
 public class ChatService {
+
+    private static final String PATH_A_HINT = """
+            
+            ## 只读工具（Day18 路径 A）
+            你可以使用系统提供的 function tools 查询学习假数据（queryItem / queryInventory / queryPeriodStatus）。
+            规则：
+            1. 查现存量必须带 itemCode + warehouse；缺参先问用户，不要编造数量。
+            2. 没有写库存/过账/删单/付款工具；用户要求改账时拒绝并 need_human=true。
+            3. 工具结果返回后，最终只输出业务 JSON（含 answer 与 need_human），不要编造未查询仓库的数量。
+            """;
 
     private final LlmClient llmClient;
     private final SessionStore sessionStore;
@@ -32,6 +57,9 @@ public class ChatService {
     private final AiProperties properties;
     private final AiCallLog aiCallLog;
     private final ChatToolOrchestrator chatToolOrchestrator;
+    private final ToolRegistry toolRegistry;
+    private final ToolExecutor toolExecutor;
+    private final ObjectMapper objectMapper;
 
     public ChatService(LlmClient llmClient,
                        SessionStore sessionStore,
@@ -39,7 +67,10 @@ public class ChatService {
                        ReplyParser replyParser,
                        AiProperties properties,
                        AiCallLog aiCallLog,
-                       ChatToolOrchestrator chatToolOrchestrator) {
+                       ChatToolOrchestrator chatToolOrchestrator,
+                       ToolRegistry toolRegistry,
+                       ToolExecutor toolExecutor,
+                       ObjectMapper objectMapper) {
         this.llmClient = llmClient;
         this.sessionStore = sessionStore;
         this.systemPromptLoader = systemPromptLoader;
@@ -47,6 +78,9 @@ public class ChatService {
         this.properties = properties;
         this.aiCallLog = aiCallLog;
         this.chatToolOrchestrator = chatToolOrchestrator;
+        this.toolRegistry = toolRegistry;
+        this.toolExecutor = toolExecutor;
+        this.objectMapper = objectMapper;
     }
 
     public ChatResponse chat(ChatRequest request) {
@@ -54,21 +88,35 @@ public class ChatService {
         String sessionId = sessionStore.resolveSessionId(request.getSessionId());
         long started = System.currentTimeMillis();
 
-        ChatToolOrchestrator.AugmentResult augment = properties.getTool().isRulePathEnabled()
+        String path = properties.getTool().normalizedChatPath();
+        ChatToolOrchestrator.AugmentResult augment = "rule".equals(path)
                 ? chatToolOrchestrator.augment(request.getMessage())
                 : ChatToolOrchestrator.AugmentResult.none();
 
-        List<ChatMessage> messages = buildMessages(sessionId, request.getMessage(), augment);
+        List<ChatMessage> messages = buildMessages(sessionId, request.getMessage(), augment, path);
+        List<ToolDefinition> tools = "tool-calls".equals(path) ? listReadonlyTools() : List.of();
+
         int maxAttempts = Math.max(1, properties.getMaxRetries() + 1);
         int attempts = 0;
         RuntimeException lastError = null;
+        List<ToolTrace> traces = new ArrayList<>(augment.traces());
+        int promptTokens = 0;
+        int completionTokens = 0;
+        String modelName = properties.getModel();
 
         while (attempts < maxAttempts) {
             attempts++;
             try {
-                LlmResult result = llmClient.chat(messages);
+                LlmResult result = runWithOptionalToolLoop(messages, tools, traces);
+                promptTokens += result.getPromptTokens();
+                completionTokens += result.getCompletionTokens();
+                modelName = result.getModel();
+
                 AssistantReply reply = replyParser.parse(result.getContent());
                 if (augment.forceNeedHuman() || augment.writeBlocked()) {
+                    reply.setNeedHuman(true);
+                }
+                if (ChatToolOrchestrator.isWriteIntent(request.getMessage())) {
                     reply.setNeedHuman(true);
                 }
 
@@ -78,17 +126,17 @@ public class ChatService {
                         new ChatMessage("assistant", result.getContent())
                 );
 
-                double cost = estimateCost(result.getPromptTokens(), result.getCompletionTokens());
+                double cost = estimateCost(promptTokens, completionTokens);
                 long latency = System.currentTimeMillis() - started;
                 aiCallLog.success(
                         traceId,
                         sessionId,
                         llmClient.providerName(),
-                        result.getModel(),
+                        modelName,
                         latency,
                         attempts,
-                        result.getPromptTokens(),
-                        result.getCompletionTokens(),
+                        promptTokens,
+                        completionTokens,
                         cost
                 );
 
@@ -96,16 +144,16 @@ public class ChatService {
                 response.setTraceId(traceId);
                 response.setSessionId(sessionId);
                 response.setProvider(llmClient.providerName());
-                response.setModel(result.getModel());
+                response.setModel(modelName);
                 response.setReply(reply);
                 response.setLatencyMs(latency);
                 response.setAttempts(attempts);
-                response.setToolTraces(List.copyOf(augment.traces()));
+                response.setToolTraces(List.copyOf(traces));
 
                 ChatResponse.Usage usage = new ChatResponse.Usage();
-                usage.setPromptTokens(result.getPromptTokens());
-                usage.setCompletionTokens(result.getCompletionTokens());
-                usage.setTotalTokens(result.getTotalTokens());
+                usage.setPromptTokens(promptTokens);
+                usage.setCompletionTokens(completionTokens);
+                usage.setTotalTokens(promptTokens + completionTokens);
                 usage.setEstimatedCostUsd(cost);
                 response.setUsage(usage);
                 return response;
@@ -121,11 +169,79 @@ public class ChatService {
         throw new IllegalStateException("AI 调用失败(traceId=" + traceId + "): " + reason, lastError);
     }
 
+    /**
+     * 路径 A：messages = [system, user] → LLM(tools) → tool_calls? → 执行 → 回填 → 直至最终 content。
+     */
+    private LlmResult runWithOptionalToolLoop(List<ChatMessage> messages,
+                                              List<ToolDefinition> tools,
+                                              List<ToolTrace> traces) {
+        int maxRounds = Math.max(1, properties.getTool().getMaxRounds());
+        int promptSum = 0;
+        int completionSum = 0;
+        String model = properties.getModel();
+
+        for (int round = 0; round < maxRounds; round++) {
+            LlmResult result = tools.isEmpty()
+                    ? llmClient.chat(messages)
+                    : llmClient.chat(messages, tools);
+            promptSum += result.getPromptTokens();
+            completionSum += result.getCompletionTokens();
+            model = result.getModel();
+
+            if (!result.hasToolCalls()) {
+                return new LlmResult(result.getContent(), model, promptSum, completionSum);
+            }
+
+            messages.add(ChatMessage.assistantToolCalls(result.getToolCalls()));
+            for (LlmToolCall call : result.getToolCalls()) {
+                Map<String, Object> args = parseArgs(call.argumentsJson());
+                ToolResult toolResult = toolExecutor.run(call.name(), args);
+                traces.add(ToolTrace.from(toolResult));
+                messages.add(ChatMessage.toolResult(call.id(), call.name(), toToolContent(toolResult)));
+            }
+        }
+        throw new IllegalStateException("tool_calls 轮次超过上限 maxRounds=" + maxRounds);
+    }
+
+    private List<ToolDefinition> listReadonlyTools() {
+        return toolRegistry.all().stream().map(ToolHandler::definition).toList();
+    }
+
+    private Map<String, Object> parseArgs(String argumentsJson) {
+        if (argumentsJson == null || argumentsJson.isBlank()) {
+            return Map.of();
+        }
+        try {
+            return objectMapper.readValue(argumentsJson, new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            throw new IllegalArgumentException("tool arguments JSON 非法: " + e.getMessage(), e);
+        }
+    }
+
+    private String toToolContent(ToolResult result) {
+        Map<String, Object> payload = new LinkedHashMap<>();
+        payload.put("ok", result.ok());
+        payload.put("toolName", result.toolName());
+        payload.put("data", result.data());
+        payload.put("error", result.error());
+        try {
+            return objectMapper.writeValueAsString(payload);
+        } catch (Exception e) {
+            return "{\"ok\":false,\"error\":\"serialize failed\"}";
+        }
+    }
+
     private List<ChatMessage> buildMessages(String sessionId,
                                             String userMessage,
-                                            ChatToolOrchestrator.AugmentResult augment) {
+                                            ChatToolOrchestrator.AugmentResult augment,
+                                            String path) {
         List<ChatMessage> messages = new ArrayList<>();
-        messages.add(new ChatMessage("system", systemPromptLoader.getSystemPrompt()));
+        String system = systemPromptLoader.getSystemPrompt();
+        if ("tool-calls".equals(path)) {
+            system = system + PATH_A_HINT;
+        }
+        messages.add(new ChatMessage("system", system));
         messages.addAll(sessionStore.getHistory(sessionId));
         messages.add(new ChatMessage("user", userMessage));
         if (augment != null && augment.hasInjections()) {

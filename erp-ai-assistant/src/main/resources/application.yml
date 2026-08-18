@@ -62,10 +62,11 @@ ai:
     embedding-model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
     embedding-base-url: ${AI_EMBEDDING_BASE_URL:} # 空则复用 ai.base-url
     embedding-dimensions: 256
-  # Day16/18：只读工具（白名单 + 超时 + 审计）；Chat 默认路径 B（rule）
+  # Day16/18：只读工具；Chat 默认路径 A（tool-calls）
   tool:
     timeout-ms: ${AI_TOOL_TIMEOUT_MS:3000}
-    chat-path: ${AI_TOOL_CHAT_PATH:rule} # rule | off
+    chat-path: ${AI_TOOL_CHAT_PATH:tool-calls} # tool-calls | rule | off
+    max-rounds: ${AI_TOOL_MAX_ROUNDS:4}
 
 logging:
   level:
