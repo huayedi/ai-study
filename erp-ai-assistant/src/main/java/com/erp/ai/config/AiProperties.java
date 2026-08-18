@@ -326,7 +326,7 @@ public class AiProperties {
     }
 
     /**
-     * Day16 只读工具配置。
+     * Day16/18 只读工具配置。
      * 对应 YAML：{@code ai.tool.*}
      */
     public static class Tool {
@@ -334,12 +334,31 @@ public class AiProperties {
         /** 单次工具执行超时（毫秒）；假数据也统一走超时习惯 */
         private long timeoutMs = 3000;
 
+        /**
+         * Chat 衔接路径：{@code rule}（Day18 路径 B）| {@code off}。
+         * 真 tool_calls（路径 A）后续再开。
+         */
+        private String chatPath = "rule";
+
         public long getTimeoutMs() {
             return timeoutMs;
         }
 
         public void setTimeoutMs(long timeoutMs) {
             this.timeoutMs = timeoutMs;
+        }
+
+        public String getChatPath() {
+            return chatPath;
+        }
+
+        public void setChatPath(String chatPath) {
+            this.chatPath = chatPath;
+        }
+
+        public boolean isRulePathEnabled() {
+            return chatPath == null || chatPath.isBlank()
+                    || "rule".equalsIgnoreCase(chatPath.trim());
         }
     }
 }

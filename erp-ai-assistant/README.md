@@ -120,6 +120,15 @@ mvn test
 | `POST /api/ai/rag/ask` | 学习版 RAG：关键词检索 + 带 sources 回答 |
 | `GET /api/ai/tool/list` | Day16：列出只读工具定义 |
 | `POST /api/ai/tool/invoke` | Day16：执行白名单工具（假数据；禁写） |
+| `POST /api/ai/chat` + `toolTraces` | Day18 路径 B：规则预查只读工具后回答 |
+
+Day18 手测：
+
+```bash
+curl -s http://localhost:8080/api/ai/chat \
+  -H 'Content-Type: application/json' \
+  -d '{"message":"A001 原料仓多少库存？"}' | jq '.reply.answer, .toolTraces'
+```
 
 手测库存示例：
 

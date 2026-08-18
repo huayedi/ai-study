@@ -2100,7 +2100,13 @@ ERP AI 默认姿态：**建议与查询可以，写入必须另一条受控链�
 
 
 
-> 自行编码日。助教不改你的代码。今天把 Day15～16 落成可运行最小闭环。
+> 自行编码日。今天把 Day15～16 落成可运行最小闭环。
+
+> **已落地（路径 B）：**  
+> - `ChatToolOrchestrator`：规则识别库存/期间/写意图 → 预查只读工具或拦截写  
+> - `ChatService`：调 LLM 前注入「系统只读查询结果」；响应带 `toolTraces`  
+> - 配置：`ai.tool.chat-path=rule`（设 `off` 可关闭）  
+> - 手测：`POST /api/ai/chat`，问「A001 原料仓多少库存？」应见 `toolTraces[0].data.qty=120`
 
 ### 推荐包结构
 

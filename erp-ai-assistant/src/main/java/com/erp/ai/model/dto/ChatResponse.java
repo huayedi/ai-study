@@ -1,6 +1,9 @@
 package com.erp.ai.model.dto;
 
 import com.erp.ai.model.AssistantReply;
+import com.erp.ai.tool.ToolTrace;
+
+import java.util.List;
 
 /**
  * 聊天接口出参 DTO。
@@ -33,6 +36,11 @@ public class ChatResponse {
 
     /** 实际尝试次数（首次 + 重试） */
     private int attempts;
+
+    /**
+     * Day18：本轮 Chat 预查工具轨迹（路径 B）；无工具时为空列表。
+     */
+    private List<ToolTrace> toolTraces = List.of();
 
     public String getTraceId() {
         return traceId;
@@ -96,6 +104,14 @@ public class ChatResponse {
 
     public void setAttempts(int attempts) {
         this.attempts = attempts;
+    }
+
+    public List<ToolTrace> getToolTraces() {
+        return toolTraces;
+    }
+
+    public void setToolTraces(List<ToolTrace> toolTraces) {
+        this.toolTraces = toolTraces == null ? List.of() : toolTraces;
     }
 
     /**
