@@ -30,7 +30,18 @@ export MYSQL_USER=root
 export MYSQL_PASSWORD=password
 ```
 
-对应 `erp-ai-assistant/src/main/resources/application.yml` 的 `spring.datasource.*`。
+对应 `erp-ai-assistant/src/main/resources/application.yml` 的 `spring.datasource.*`（**HikariCP** 连接池）。
+
+## 持久化栈（当前）
+
+| 层 | 技术 |
+|---|---|
+| 连接池 | HikariCP（`spring.datasource.type=com.zaxxer.hikari.HikariDataSource`） |
+| ORM | MyBatis-Plus 3.5.x（`mybatis-plus-spring-boot3-starter`） |
+| SQL | **只写在 XML**：`erp-ai-assistant/src/main/resources/mapper/{chat,tool,common}/*.xml` |
+| Mapper 扫描 | `com.erp.ai.common.mapper` / `chat.mapper` / `tool.mapper` |
+
+包分层：`chat` / `tool` / `rag` / `common` 域内各自带 `controller`，避免扁平 `controller` 大杂烩。
 
 ## 表一览
 
@@ -43,7 +54,8 @@ export MYSQL_PASSWORD=password
 | `ai_call_audit` | LLM 调用审计 |
 | `tool_call_audit` | 工具调用审计 |
 
-Schema / 种子：`erp-ai-assistant/src/main/resources/db/schema.sql`、`data.sql`（启动时 `spring.sql.init.mode=always`）。
+Schema / 种子：`erp-ai-assistant/src/main/resources/db/schema.sql`、`data.sql`（启动时 `spring.sql.init.mode=always`）。  
+业务 SQL：见 `mapper/**/*.xml`（例如 `ChatSessionMessageMapper.xml`、`LearningDataMapper.xml`、`AiCallAuditMapper.xml`）。
 
 ## 种子数据（Day16）
 

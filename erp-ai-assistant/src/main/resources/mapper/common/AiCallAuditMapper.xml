@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.ai.common.mapper.AiCallAuditMapper">
+
+    <insert id="insertAudit" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_call_audit(
+            trace_id, session_id, provider, model, success,
+            latency_ms, attempts, prompt_tokens, completion_tokens,
+            estimated_cost_usd, error_reason
+        ) VALUES (
+            #{traceId}, #{sessionId}, #{provider}, #{model}, #{success},
+            #{latencyMs}, #{attempts}, #{promptTokens}, #{completionTokens},
+            #{estimatedCostUsd}, #{errorReason}
+        )
+    </insert>
+
+</mapper>

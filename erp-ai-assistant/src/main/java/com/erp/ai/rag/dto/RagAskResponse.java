@@ -1,6 +1,6 @@
 package com.erp.ai.rag.dto;
 
-import com.erp.ai.model.AssistantReply;
+import com.erp.ai.common.model.AssistantReply;
 
 import java.util.ArrayList;
 import java.util.List;

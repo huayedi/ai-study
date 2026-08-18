@@ -1,5 +1,11 @@
 package com.erp.ai.tool;
 
+import com.erp.ai.tool.handler.QueryInventoryTool;
+import com.erp.ai.tool.handler.QueryItemTool;
+import com.erp.ai.tool.handler.QueryPeriodStatusTool;
+import com.erp.ai.tool.service.MemoryLearningDataRepository;
+import com.erp.ai.tool.service.ToolExecutor;
+import com.erp.ai.tool.service.ToolRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +21,11 @@ class ToolExecutorTest {
 
     @BeforeEach
     void setUp() {
-        var data = new com.erp.ai.store.MemoryLearningDataRepository();
+        var data = new MemoryLearningDataRepository();
         ToolRegistry registry = new ToolRegistry();
-        registry.register(new com.erp.ai.tool.tools.QueryItemTool(data));
-        registry.register(new com.erp.ai.tool.tools.QueryInventoryTool(data));
-        registry.register(new com.erp.ai.tool.tools.QueryPeriodStatusTool(data));
+        registry.register(new QueryItemTool(data));
+        registry.register(new QueryInventoryTool(data));
+        registry.register(new QueryPeriodStatusTool(data));
         executor = new ToolExecutor(registry, 3000);
     }
 

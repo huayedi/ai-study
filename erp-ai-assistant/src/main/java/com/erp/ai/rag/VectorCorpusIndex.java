@@ -1,6 +1,6 @@
 package com.erp.ai.rag;
 
-import com.erp.ai.client.EmbeddingClient;
+import com.erp.ai.common.client.EmbeddingClient;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

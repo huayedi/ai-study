@@ -1,6 +1,6 @@
 package com.erp.ai.rag;
 
-import com.erp.ai.client.EmbeddingClient;
+import com.erp.ai.common.client.EmbeddingClient;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

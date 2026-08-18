@@ -1,6 +1,6 @@
 package com.erp.ai.rag;
 
-import com.erp.ai.config.AiProperties;
+import com.erp.ai.common.config.AiProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package com.erp.ai.rag;
 
-import com.erp.ai.client.HashEmbeddingClient;
+import com.erp.ai.common.client.HashEmbeddingClient;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

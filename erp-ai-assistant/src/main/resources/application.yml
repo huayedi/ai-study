@@ -5,12 +5,20 @@ spring:
   application:
     name: erp-ai-assistant
   datasource:
+    type: com.zaxxer.hikari.HikariDataSource
     # 学习测试库（非公司生产）。可用环境变量覆盖。
-    # MYSQL_HOST / MYSQL_PORT / MYSQL_DATABASE / MYSQL_USER / MYSQL_PASSWORD
     url: jdbc:mysql://${MYSQL_HOST:154.8.183.10}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai}?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: erp-ai-hikari
+      maximum-pool-size: ${HIKARI_MAX_POOL:10}
+      minimum-idle: ${HIKARI_MIN_IDLE:2}
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
   sql:
     init:
       mode: always
@@ -18,6 +26,17 @@ spring:
       schema-locations: classpath:db/schema.sql
       data-locations: classpath:db/data.sql
       continue-on-error: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.erp.ai.common.entity,com.erp.ai.chat.entity,com.erp.ai.tool.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
 
 management:
   endpoints:
@@ -31,39 +50,27 @@ management:
 # =========================
 # AI 配置说明（学习重点）
 # =========================
-# provider = 接入协议，不是厂商名：
-#   mock                 → 本地假模型，无需 Key
-#   openai-compatible    → OpenAI 兼容 HTTP（DeepSeek/通义/OpenAI 都用这个）
-#   deepseek / openai    → 同上（别名）
+# 学习库 MySQL + HikariCP + MyBatis-Plus（SQL 在 mapper/**/*.xml）
+# 包分层：chat / tool / rag / common 各自隔离（controller 在域内）
 #
-# DeepSeek 推荐环境变量（IDEA Run Configuration → Environment variables）：
+# DeepSeek 推荐环境变量：
 #   AI_PROVIDER=openai-compatible
 #   AI_BASE_URL=https://api.deepseek.com
 #   AI_API_KEY=sk-你的真实Key
 #   AI_MODEL=deepseek-v4-pro
-# Day11/13 检索：
-#   AI_RAG_RETRIEVER=keyword|vector|hybrid
-#   AI_EMBEDDING_PROVIDER=hash
-#   AI_RAG_MIN_SCORE=0.02
-#
-# 学习库 MySQL（见 docs/MYSQL.md）：
-#   MYSQL_HOST=154.8.183.10 MYSQL_PORT=3306 MYSQL_DATABASE=ai
-#   MYSQL_USER=root MYSQL_PASSWORD=password
 #
 # 注意：
 # 1) 不要把真实 LLM Key 写进本文件并提交 Git
 # 2) 本 MySQL 仅为学习测试库，严禁当公司生产库使用
 # 3) 修改本文件后需重启应用
-# 4) DeepSeek 只保证 Chat；真语义向量需另配有 /embeddings 的兼容网关
 ai:
-  provider: ${AI_PROVIDER:openai-compatible} # mock | openai-compatible（DeepSeek 用这个）
+  provider: ${AI_PROVIDER:openai-compatible}
   base-url: ${AI_BASE_URL:https://api.deepseek.com}
   api-key: ${AI_API_KEY}
   model: ${AI_MODEL:deepseek-v4-pro}
   temperature: 0.2
   timeout-ms: 30000
   max-retries: 2
-  # 粗略成本估算（美元 / 1K tokens），可按实际模型调整
   price-input-per-1k: 0.00015
   price-output-per-1k: 0.0006
   session:
@@ -71,24 +78,23 @@ ai:
   rag:
     top-k: 3
     classpath-docs: rag-docs
-    # Day13：keyword | vector | hybrid
     retriever: ${AI_RAG_RETRIEVER:keyword}
     recall-k: ${AI_RAG_RECALL_K:10}
     rrf-k: ${AI_RAG_RRF_K:60}
-    # hybrid 的 RRF 分通常较小；keyword/vector 为 0～1，按模式自行标定
     min-score: ${AI_RAG_MIN_SCORE:0.02}
     skip-llm-on-empty: true
-    # DeepSeek 无 /embeddings → 默认 hash 学习替身；真向量需另配兼容网关
-    embedding-provider: ${AI_EMBEDDING_PROVIDER:hash} # hash | openai-compatible
+    embedding-provider: ${AI_EMBEDDING_PROVIDER:hash}
     embedding-model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
-    embedding-base-url: ${AI_EMBEDDING_BASE_URL:} # 空则复用 ai.base-url
+    embedding-base-url: ${AI_EMBEDDING_BASE_URL:}
     embedding-dimensions: 256
-  # Day16/18：只读工具；Chat 默认路径 A（tool-calls）
   tool:
     timeout-ms: ${AI_TOOL_TIMEOUT_MS:3000}
-    chat-path: ${AI_TOOL_CHAT_PATH:tool-calls} # tool-calls | rule | off
+    chat-path: ${AI_TOOL_CHAT_PATH:tool-calls}
     max-rounds: ${AI_TOOL_MAX_ROUNDS:4}
 
 logging:
   level:
     com.erp.ai: INFO
+    com.erp.ai.chat.mapper: DEBUG
+    com.erp.ai.tool.mapper: DEBUG
+    com.erp.ai.common.mapper: DEBUG

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.ai.tool.mapper.LearningDataMapper">
+
+    <select id="selectItem" resultType="com.erp.ai.tool.entity.LearningItem">
+        SELECT item_code AS itemCode, name, spec
+        FROM learning_item
+        WHERE item_code = #{itemCode}
+    </select>
+
+    <select id="selectInventory" resultType="com.erp.ai.tool.entity.LearningInventory">
+        SELECT item_code AS itemCode, warehouse, qty
+        FROM learning_inventory
+        WHERE item_code = #{itemCode}
+          AND warehouse = #{warehouse}
+    </select>
+
+    <select id="selectPeriod" resultType="com.erp.ai.tool.entity.LearningPeriod">
+        SELECT company, period, status
+        FROM learning_period
+        WHERE company = #{company}
+          AND period = #{period}
+    </select>
+
+</mapper>
