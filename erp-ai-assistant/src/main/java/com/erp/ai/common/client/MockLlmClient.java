@@ -7,6 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -41,6 +45,12 @@ public class MockLlmClient implements LlmClient {
         String userText = latestOriginalUserText(messages);
         String userLower = userText.toLowerCase(Locale.ROOT);
         boolean withTools = tools != null && !tools.isEmpty();
+
+        // Day20：草稿辅助专用 system → 输出 fields/missing schema（非 chat answer）
+        // 标记与 draft-purchase-order-prompt.txt / DraftPromptLoader.MARKER 保持一致
+        if (allText.contains("【草稿辅助·采购订单】")) {
+            return jsonResult(draftPurchaseOrderJson(userText));
+        }
 
         // 路径 A：已有 tool 回填 → 产出最终 JSON
         if (hasToolRole(messages)) {
@@ -162,6 +172,105 @@ public class MockLlmClient implements LlmClient {
         return root;
     }
 
+    /**
+     * Day20 mock：从口语抽采购订单字段；未知进 missing，不编造单价/仓库。
+     */
+    private ObjectNode draftPurchaseOrderJson(String userText) {
+        ObjectNode root = objectMapper.createObjectNode();
+        root.put("suggested_doc_type", "采购订单");
+        ObjectNode fields = root.putObject("fields");
+        ArrayNode missing = root.putArray("missing");
+        ArrayNode warnings = root.putArray("warnings");
+
+        String supplier = guessSupplier(userText);
+        if (supplier != null) {
+            fields.put("供应商", supplier);
+        } else {
+            fields.putNull("供应商");
+            missing.add("供应商");
+        }
+
+        String item = guessItem(userText).orElse(null);
+        if (item != null) {
+            fields.put("存货编码", item);
+        } else {
+            fields.putNull("存货编码");
+            missing.add("存货编码");
+        }
+
+        Long qty = guessQty(userText);
+        if (qty != null) {
+            fields.put("数量", qty);
+        } else {
+            fields.putNull("数量");
+            missing.add("数量");
+        }
+
+        String warehouse = guessWarehouse(userText).orElse(null);
+        if (warehouse != null) {
+            fields.put("仓库", warehouse);
+        } else {
+            fields.putNull("仓库");
+            missing.add("仓库");
+        }
+
+        // 禁止编造单价
+        fields.putNull("含税单价");
+        missing.add("含税单价");
+
+        if (userText != null && userText.contains("下周一")) {
+            String date = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                    .format(DateTimeFormatter.ISO_LOCAL_DATE);
+            fields.put("交货日期", date);
+            warnings.add("交货日期由 mock 规则换算「下周一」");
+        } else {
+            Matcher date = Pattern.compile("(20\\d{2}-\\d{2}-\\d{2})").matcher(userText == null ? "" : userText);
+            if (date.find()) {
+                fields.put("交货日期", date.group(1));
+            } else {
+                fields.putNull("交货日期");
+                missing.add("交货日期");
+            }
+        }
+
+        root.put("need_human", true);
+        root.put("confidence", missing.size() <= 2 ? 0.72 : 0.55);
+        return root;
+    }
+
+    private static String guessSupplier(String text) {
+        if (text == null || text.isBlank()) {
+            return null;
+        }
+        Matcher m = Pattern.compile("向([^买，,。\\s]{2,20})买").matcher(text);
+        if (m.find()) {
+            return m.group(1);
+        }
+        if (text.contains("华东供应")) {
+            return "华东供应";
+        }
+        return null;
+    }
+
+    private static Long guessQty(String text) {
+        if (text == null) {
+            return null;
+        }
+        Matcher m = Pattern.compile("(\\d+)\\s*个").matcher(text);
+        if (m.find()) {
+            return Long.parseLong(m.group(1));
+        }
+        m = Pattern.compile("买\\s*(\\d+)").matcher(text);
+        if (m.find()) {
+            return Long.parseLong(m.group(1));
+        }
+        m = Pattern.compile("数量\\s*[=:：]?\\s*(\\d+)").matcher(text);
+        if (m.find()) {
+            return Long.parseLong(m.group(1));
+        }
+        return null;
+    }
+
     private ObjectNode keywordJson(String userText) {
         ObjectNode root = objectMapper.createObjectNode();
         if (containsAny(userText, "【教材资料】", "教材资料")) {
@@ -237,6 +346,11 @@ public class MockLlmClient implements LlmClient {
 
     private static java.util.Optional<String> guessItem(String text) {
         Matcher m = ITEM_CODE.matcher(text);
+        if (m.find()) {
+            return java.util.Optional.of(m.group(1).toUpperCase(Locale.ROOT));
+        }
+        // 草稿场景：宽松匹配字母+数字编码（如 Z999），便于演示「主数据不存在」
+        m = Pattern.compile("(?i)\\b([A-Z]\\d{3,})\\b").matcher(text == null ? "" : text);
         if (m.find()) {
             return java.util.Optional.of(m.group(1).toUpperCase(Locale.ROOT));
         }

@@ -4,8 +4,9 @@
 
 - 默认 `mock` 模式，无需 API Key 即可运行
 - `/api/ai/chat`：多轮会话、强制 JSON、校验失败重试、trace/token/成本日志
+- `/api/ai/draft/purchase-order`：Day20 采购订单草稿辅助（只建议字段，不写业务库）
 - **学习库 MySQL + HikariCP + MyBatis-Plus**：SQL 在 `mapper/**/*.xml`；会话 / 假主数据 / 审计落库（见 [docs/MYSQL.md](../docs/MYSQL.md)）
-- **包分层隔离**：`chat` / `tool` / `rag` / `common` 各域自带 `controller`，不做扁平大 controller 包
+- **包分层隔离**：`chat` / `tool` / `rag` / `draft` / `common` 各域自带 `controller`，不做扁平大 controller 包
 - 可切换 OpenAI 兼容接口（含国产兼容网关）
 
 完整 20 周计划见：[docs/LEARNING_PLAN.md](../docs/LEARNING_PLAN.md)
@@ -18,13 +19,15 @@ erp-ai-assistant/
 │   ├── chat/             # 对话域：controller / service / dto / prompt / entity / mapper
 │   ├── tool/             # 工具域：controller / service / handler / config / entity / mapper
 │   ├── rag/              # RAG 域：controller / service / retriever
+│   ├── draft/            # Day20 草稿域：controller / service / dto / prompt（不写业务库）
 │   └── common/           # 共享：config / client / model / parse / exception / observability
 ├── src/main/resources/
 │   ├── application.yml   # HikariCP + MyBatis-Plus + AI
 │   ├── mapper/           # SQL XML（按域：chat / tool / common）
 │   ├── db/schema.sql     # 学习库表结构
 │   ├── db/data.sql       # Day16 假主数据种子
-│   └── prompts/erp-system-prompt.txt
+│   ├── prompts/erp-system-prompt.txt
+│   └── prompts/draft-purchase-order-prompt.txt
 └── src/test/java/        # 单元测试 + 接口测试（H2 + Hikari）
 ```
 
@@ -123,6 +126,17 @@ mvn test
 | `GET /api/ai/tool/list` | Day16：列出只读工具定义 |
 | `POST /api/ai/tool/invoke` | Day16：执行白名单工具（假数据；禁写） |
 | `POST /api/ai/chat` + `toolTraces` | Day18 路径 A：tool_calls 循环后回答（可切 rule/off） |
+| `POST /api/ai/draft/purchase-order` | Day20：采购订单草稿辅助（只建议，不写库） |
+
+Day20 草稿手测：
+
+```bash
+curl -s http://localhost:8080/api/ai/draft/purchase-order \
+  -H 'Content-Type: application/json' \
+  -d '{"utterance":"向华东供应买 100 个 A001，下周一交货"}' | jq
+```
+
+期望：抽出供应商/存货编码/数量/交货日期；`missing` 含仓库与含税单价；`needHuman=true`；无业务写库。
 
 Day18 手测（路径 A）：
 
