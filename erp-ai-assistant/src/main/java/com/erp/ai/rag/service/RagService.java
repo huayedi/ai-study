@@ -18,8 +18,8 @@ import com.erp.ai.common.config.AiProperties;
 import com.erp.ai.common.model.AssistantReply;
 import com.erp.ai.common.model.ChatMessage;
 import com.erp.ai.common.observability.AiCallLog;
+import com.erp.ai.common.observability.PromptVersions;
 import com.erp.ai.common.parse.ReplyParser;
-import com.erp.ai.meta.service.MetaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -99,7 +99,7 @@ public class RagService {
 
         GateDecision gate = retrievalGate.decide(retrieved, properties.getRag().getMinScore());
         List<RetrievedChunk> gatedHits = gate.getHits();
-        String promptVersion = MetaService.promptVersion("rag-system", promptBuilder.systemPrompt());
+        String promptVersion = PromptVersions.of("rag-system", promptBuilder.systemPrompt());
 
         // 空命中：默认不调模型，sources 必须为空（禁止伪造引用）
         if (gate.isEmpty() && properties.getRag().isSkipLlmOnEmpty()) {

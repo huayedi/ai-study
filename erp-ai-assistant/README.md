@@ -5,9 +5,9 @@
 - 默认 `mock` 模式，无需 API Key 即可运行
 - `/api/ai/chat`：多轮会话、强制 JSON、校验失败重试、trace/token/成本日志
 - `/api/ai/draft/purchase-order`：Day20 采购订单草稿辅助（只建议字段，不写业务库）
-- Day21～30：`/api/ai/meta/*`、`/api/ai/stats`、`/api/ai/security/probe`、`/api/ai/scenario/route`、`/api/ai/eval/run`
+- Day22～27 AI 能力：`/api/ai/stats`、`/api/ai/security/probe`、`/api/ai/scenario/route`、`/api/ai/eval/run`
 - **学习库 MySQL + HikariCP + MyBatis-Plus**：SQL 在 `mapper/**/*.xml`；会话 / 假主数据 / 审计落库（见 [docs/MYSQL.md](../docs/MYSQL.md)）
-- **包分层隔离**：`chat` / `tool` / `rag` / `draft` / `security` / `scenario` / `eval` / `meta` / `common` 各域自带 `controller`
+- **包分层隔离**：`chat` / `tool` / `rag` / `draft` / `security` / `scenario` / `eval` / `common` 各域自带 `controller`
 - 可切换 OpenAI 兼容接口（含国产兼容网关）
 
 完整 20 周计划见：[docs/LEARNING_PLAN.md](../docs/LEARNING_PLAN.md)
@@ -21,10 +21,9 @@ erp-ai-assistant/
 │   ├── tool/             # 工具域：controller / service / handler / config / entity / mapper
 │   ├── rag/              # RAG 域：controller / service / retriever
 │   ├── draft/            # Day20 草稿域：controller / service / dto / prompt（不写业务库）
-│   ├── security/         # Day23 安全域：controller / InjectionGuard
+│   ├── security/         # Day23 注入防线 + probe
 │   ├── scenario/         # Day27 场景路由：classify / assist
 │   ├── eval/             # Day25 轻量评测 runner
-│   ├── meta/             # Day21/22/26/28/29/30 元信息 / stats / 清单
 │   └── common/           # 共享：config / client / model / parse / exception / observability
 ├── src/main/resources/
 │   ├── application.yml   # HikariCP + MyBatis-Plus + AI
@@ -133,20 +132,14 @@ mvn test
 | `POST /api/ai/tool/invoke` | Day16：执行白名单工具（假数据；禁写） |
 | `POST /api/ai/chat` + `toolTraces` | Day18 路径 A：tool_calls 循环后回答（可切 rule/off） |
 | `POST /api/ai/draft/purchase-order` | Day20：采购订单草稿辅助（只建议，不写库） |
-| `GET /api/ai/meta/capabilities` | Day21：能力边界（无写工具） |
-| `GET /api/ai/stats` | Day22：调用统计 + 配置快照 |
+| `GET /api/ai/stats` | Day22：AI 调用统计 + 配置快照 |
 | `POST /api/ai/security/probe` | Day23：注入/越权话术抽测 |
 | `POST /api/ai/scenario/route` | Day27：场景分类 / assist 编排 |
 | `POST /api/ai/eval/run` | Day25：JSONL 轻量评测 |
-| `GET /api/ai/meta/architecture` | Day26：架构总复习 |
-| `GET /api/ai/meta/health-checklist` | Day28：可维护性清单 |
-| `GET /api/ai/meta/oral-quiz` | Day29：口述 15 题 |
-| `GET /api/ai/meta/month1-checklist` | Day30：第1月收官清单 |
 
-Day21～30 手测：
+Day22～27 手测：
 
 ```bash
-curl -s http://localhost:8080/api/ai/meta/capabilities | jq
 curl -s http://localhost:8080/api/ai/stats | jq
 curl -s http://localhost:8080/api/ai/security/probe \
   -H 'Content-Type: application/json' \

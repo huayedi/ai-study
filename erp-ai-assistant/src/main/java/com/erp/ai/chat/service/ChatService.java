@@ -8,10 +8,10 @@ import com.erp.ai.common.model.AssistantReply;
 import com.erp.ai.common.model.ChatMessage;
 import com.erp.ai.chat.dto.ChatRequest;
 import com.erp.ai.chat.dto.ChatResponse;
-import com.erp.ai.common.observability.AiCallLog;
-import com.erp.ai.common.parse.ReplyParser;
 import com.erp.ai.chat.prompt.SystemPromptLoader;
-import com.erp.ai.meta.service.MetaService;
+import com.erp.ai.common.observability.AiCallLog;
+import com.erp.ai.common.observability.PromptVersions;
+import com.erp.ai.common.parse.ReplyParser;
 import com.erp.ai.security.service.InjectionGuard;
 import com.erp.ai.tool.service.ChatToolOrchestrator;
 import com.erp.ai.tool.ToolDefinition;
@@ -93,7 +93,7 @@ public class ChatService {
         String traceId = UUID.randomUUID().toString().replace("-", "");
         String sessionId = sessionStore.resolveSessionId(request.getSessionId());
         long started = System.currentTimeMillis();
-        String promptVersion = MetaService.promptVersion("erp-system", systemPromptLoader.getSystemPrompt());
+        String promptVersion = PromptVersions.of("erp-system", systemPromptLoader.getSystemPrompt());
 
         // Day23：注入/越权话术早拦（硬防线仍是无写工具）
         InjectionGuard.Verdict security = injectionGuard.inspect(request.getMessage());

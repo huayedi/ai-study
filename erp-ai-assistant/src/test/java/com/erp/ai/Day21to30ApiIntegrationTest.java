@@ -8,14 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Day21～30：meta / security / scenario / eval / stats。
+ * Day22～27：观测 / 安全 / 场景路由 / 评测（不含口述清单类 meta 接口）。
  */
 @SpringBootTest(properties = {
         "ai.provider=mock",
@@ -28,26 +27,11 @@ class Day21to30ApiIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    void metaCapabilitiesShowsNoWriteTools() throws Exception {
-        mockMvc.perform(get("/api/ai/meta/capabilities"))
+    void statsReturnsAuditAndConfigSnapshot() throws Exception {
+        mockMvc.perform(get("/api/ai/stats"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.writeInventoryAllowed").value(false))
-                .andExpect(jsonPath("$.readonlyTools", hasItem("queryInventory")))
+                .andExpect(jsonPath("$.configSnapshot.retriever").isNotEmpty())
                 .andExpect(jsonPath("$.promptVersion").isNotEmpty());
-    }
-
-    @Test
-    void statsAndArchitectureAndChecklists() throws Exception {
-        mockMvc.perform(get("/api/ai/stats")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.configSnapshot.retriever").isNotEmpty());
-        mockMvc.perform(get("/api/ai/meta/architecture")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.packages", hasItem("draft")));
-        mockMvc.perform(get("/api/ai/meta/health-checklist")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.allPassed").value(true));
-        mockMvc.perform(get("/api/ai/meta/oral-quiz")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.questions.length()").value(15));
-        mockMvc.perform(get("/api/ai/meta/month1-checklist")).andExpect(status().isOk())
-                .andExpect(jsonPath("$.motto").isNotEmpty());
     }
 
     @Test
