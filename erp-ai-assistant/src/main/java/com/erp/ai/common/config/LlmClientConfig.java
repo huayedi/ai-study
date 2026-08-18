@@ -15,23 +15,34 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * LLM 客户端工厂。
- * <p>
- * 设计要点：
+ * LLM 客户端工厂配置类。
+ *
+ * <h2>职责</h2>
+ * 根据 {@code ai.provider} 创建并注册<strong>唯一</strong>的 {@link LlmClient} Bean。
+ *
+ * <h2>设计要点</h2>
  * <ol>
- *   <li>整个应用只注册一个 {@link LlmClient} Bean，供 {@code ChatService} 注入</li>
+ *   <li>整个应用只注册一个 {@link LlmClient}，供 ChatService 等注入</li>
  *   <li>{@code ai.provider} 决定用 mock 还是真实 OpenAI 兼容客户端</li>
  *   <li>厂商名（deepseek/qwen…）只是别名，协议仍是 openai-compatible</li>
  * </ol>
- * 学习提示：如果你把 provider 写成厂商展示名且不在别名列表里，启动会失败并给出明确错误。
+ *
+ * <h2>与 Spring / 配置的关系</h2>
+ * 读取 {@link AiProperties}；依赖 {@link ObjectMapper} 与 {@link RestTemplate}（见 {@link AppConfig}）。
+ * 未知 provider 时在<strong>启动期</strong>抛 {@link IllegalStateException}，快速失败。
+ *
+ * <h2>学习要点</h2>
+ * 若把 provider 写成厂商展示名且不在别名列表里，启动会失败并给出明确错误——这是刻意的。
  */
 @Configuration
 public class LlmClientConfig {
 
+    /** 启动期记录实际选用的 provider，便于核对 YAML / 环境变量是否生效 */
     private static final Logger log = LoggerFactory.getLogger(LlmClientConfig.class);
 
     /**
-     * 一律映射到 {@link OpenAiCompatibleLlmClient}。
+     * 一律映射到 {@link OpenAiCompatibleLlmClient} 的别名集合。
+     * <p>
      * 真正区分厂商的是 base-url 与 model，不是再写一套 Client。
      */
     private static final Set<String> OPENAI_ALIASES = Set.of(
@@ -50,10 +61,19 @@ public class LlmClientConfig {
 
     /**
      * 根据配置创建唯一的 {@link LlmClient}。
+     * <p>
+     * <b>分支：</b>
+     * <ol>
+     *   <li>空 / mock → {@link MockLlmClient}</li>
+     *   <li>别名集合内 → {@link OpenAiCompatibleLlmClient}</li>
+     *   <li>其它 → 启动失败</li>
+     * </ol>
      *
      * @param properties   ai.* 配置
      * @param objectMapper JSON 工具（mock 组装返回值时使用）
      * @param restTemplate 真实 HTTP 调用客户端
+     * @return 非 {@code null} 的 LlmClient 实现
+     * @throws IllegalStateException 不支持的 provider 时
      */
     @Bean
     public LlmClient llmClient(AiProperties properties,
@@ -84,7 +104,11 @@ public class LlmClientConfig {
 
     /**
      * 规范化 provider 字符串：去空格、小写、下划线转横杠。
+     * <p>
      * 这样 {@code DeepSeek}、{@code deep_seek}、{@code deepseek} 都能识别。
+     *
+     * @param raw 原始配置值；可为 {@code null}
+     * @return 规范化串；{@code null} 时返回空串
      */
     private static String normalize(String raw) {
         if (raw == null) {
