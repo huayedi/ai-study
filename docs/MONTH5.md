@@ -4,6 +4,8 @@
 
 → [MONTH5_DAY1-30_COMBINED.md](./lessons/MONTH5_DAY1-30_COMBINED.md)
 
+**学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库非生产）；假账本仍可内存，落库可扩表，不接公司库
+
 **口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（合订本口述节亦有就地答案）
 
 **技术节点：** T9 受控写入 / WriteGateway / 假账本  

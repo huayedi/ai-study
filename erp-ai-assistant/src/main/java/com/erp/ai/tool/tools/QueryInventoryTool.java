@@ -1,6 +1,6 @@
 package com.erp.ai.tool.tools;
 
-import com.erp.ai.tool.LearningFakeData;
+import com.erp.ai.store.LearningDataRepository;
 import com.erp.ai.tool.ToolDefinition;
 import com.erp.ai.tool.ToolHandler;
 
@@ -8,9 +8,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Day16：按存货+仓库查现存量（只读 · 学习假数据）。
+ * Day16：按存货+仓库查现存量（只读 · 学习库 MySQL）。
  */
 public class QueryInventoryTool implements ToolHandler {
+
+    private final LearningDataRepository dataRepository;
+
+    public QueryInventoryTool(LearningDataRepository dataRepository) {
+        this.dataRepository = dataRepository;
+    }
 
     @Override
     public String name() {
@@ -28,7 +34,7 @@ public class QueryInventoryTool implements ToolHandler {
         ));
         return new ToolDefinition(
                 name(),
-                "只读查询现存量（学习假数据，禁止改库存）。需 itemCode + warehouse。",
+                "只读查询现存量（学习库假数据，禁止改库存）。需 itemCode + warehouse。",
                 schema
         );
     }
@@ -37,12 +43,12 @@ public class QueryInventoryTool implements ToolHandler {
     public Object execute(Map<String, Object> args) {
         String itemCode = QueryItemTool.requiredString(args, "itemCode");
         String warehouse = QueryItemTool.requiredString(args, "warehouse");
-        return LearningFakeData.findInventory(itemCode, warehouse)
+        return dataRepository.findInventory(itemCode, warehouse)
                 .map(inv -> Map.of(
                         "itemCode", inv.itemCode(),
                         "warehouse", inv.warehouse(),
                         "qty", inv.qty(),
-                        "source", "learning-fake-data"
+                        "source", "learning-mysql"
                 ))
                 .orElseThrow(() -> new IllegalArgumentException(
                         "inventory not found: itemCode=" + itemCode + ", warehouse=" + warehouse));

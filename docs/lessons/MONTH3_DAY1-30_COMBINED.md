@@ -6,6 +6,7 @@
 > **每天结构（固定五段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH3.md`  
 > **技术节点：** 本月对齐 **T4 运维 + T5/T6 加深** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **学习库 MySQL：** [MYSQL.md](../MYSQL.md)（`154.8.183.10:3306/ai`）  
 > **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH3 优先：企业 RAG 痛点、pgvector 搜索、Camunda 对照 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **编码策略：** 主线 A/B/C/D 选一条深挖；其它主线读懂 + 口述即可。  
@@ -15,7 +16,7 @@
 
 ## 第 3 月总目标（学完应能对外讲 5～8 分钟）
 
-1. **检索可运维：** `ChunkVectorStore` 可切换 memory/pg；dims/model 启动校验；content_hash 增量；`POST /reindex`；分段耗时与命中质量日志。  
+1. **检索可运维：** `ChunkVectorStore` 可切换 memory/pg（**本学习仓默认 MySQL 测试库**，见 [MYSQL.md](../MYSQL.md)；pgvector 为选修对照）；dims/model 启动校验；content_hash 增量；`POST /reindex`；分段耗时与命中质量日志。  
 2. **工作流可回放：** 多节点状态机；合法迁移表；审计流水；节点超时降级；EDIT/APPROVE/REJECT。  
 3. **评测可门禁：** suite 题集；Run 落盘；Markdown/HTTP 报告；baseline；本地一键脚本（CI 概念）。  
 4. **（可选）OCR：** FakeOcr → 草稿 → 强制人工；真 OCR 只作扩展阅读。  

@@ -4,6 +4,8 @@
 
 → [MONTH3_DAY1-30_COMBINED.md](./lessons/MONTH3_DAY1-30_COMBINED.md)
 
+**学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库非生产）；pgvector 为选修对照，默认不强制 Postgres
+
 **口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（本月合订本已有「参考要点」，总库交叉引用）
 
 **技术节点：** T4 运维（pg/reindex）+ T5/T6 加深  

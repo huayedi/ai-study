@@ -1,6 +1,6 @@
 package com.erp.ai.tool.tools;
 
-import com.erp.ai.tool.LearningFakeData;
+import com.erp.ai.store.LearningDataRepository;
 import com.erp.ai.tool.ToolDefinition;
 import com.erp.ai.tool.ToolHandler;
 
@@ -8,9 +8,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Day16：按存货编码查名称/规格（只读 · 学习假数据）。
+ * Day16：按存货编码查名称/规格（只读 · 学习库 MySQL / 假数据）。
  */
 public class QueryItemTool implements ToolHandler {
+
+    private final LearningDataRepository dataRepository;
+
+    public QueryItemTool(LearningDataRepository dataRepository) {
+        this.dataRepository = dataRepository;
+    }
 
     @Override
     public String name() {
@@ -27,7 +33,7 @@ public class QueryItemTool implements ToolHandler {
         ));
         return new ToolDefinition(
                 name(),
-                "只读查询存货主数据（学习假数据，不接公司库）。按 itemCode 返回名称与规格。",
+                "只读查询存货主数据（学习库/假数据，不接公司生产库）。按 itemCode 返回名称与规格。",
                 schema
         );
     }
@@ -35,12 +41,12 @@ public class QueryItemTool implements ToolHandler {
     @Override
     public Object execute(Map<String, Object> args) {
         String itemCode = requiredString(args, "itemCode");
-        return LearningFakeData.findItem(itemCode)
+        return dataRepository.findItem(itemCode)
                 .map(item -> Map.of(
                         "itemCode", item.itemCode(),
                         "name", item.name(),
                         "spec", item.spec(),
-                        "source", "learning-fake-data"
+                        "source", "learning-mysql"
                 ))
                 .orElseThrow(() -> new IllegalArgumentException("item not found: " + itemCode));
     }

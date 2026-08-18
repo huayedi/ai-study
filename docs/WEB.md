@@ -4,6 +4,8 @@
 
 → [WEB_VUE_COMPLETE.md](./lessons/WEB_VUE_COMPLETE.md)
 
+**学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库非生产）
+
 **口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md#web第19章-口述提纲标准答法)（第19章自述/自检亦有就地答法）
 
 **技术栈：** Vue 3 + Vite + `<script setup>`；推荐 Vue Router + Pinia；CSS 变量设计令牌。  

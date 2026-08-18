@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Day16：学习假数据（内存常量）。不接公司库 / SSO / 真实账套。
+ * Day16：学习假数据常量（单测 / 内存回退）。
+ * <p>
+ * 运行时默认从学习库 MySQL 表 {@code learning_*} 读取（见 {@code docs/MYSQL.md}）。
  * <pre>
  * ITEM-A001 @ 原料仓 → 120
  * ITEM-A001 @ 成品仓 → 0

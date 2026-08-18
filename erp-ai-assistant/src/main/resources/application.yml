@@ -4,12 +4,29 @@ server:
 spring:
   application:
     name: erp-ai-assistant
+  datasource:
+    # 学习测试库（非公司生产）。可用环境变量覆盖。
+    # MYSQL_HOST / MYSQL_PORT / MYSQL_DATABASE / MYSQL_USER / MYSQL_PASSWORD
+    url: jdbc:mysql://${MYSQL_HOST:154.8.183.10}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ai}?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+      continue-on-error: true
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+  health:
+    db:
+      enabled: true
 
 # =========================
 # AI 配置说明（学习重点）
@@ -29,9 +46,13 @@ management:
 #   AI_EMBEDDING_PROVIDER=hash
 #   AI_RAG_MIN_SCORE=0.02
 #
+# 学习库 MySQL（见 docs/MYSQL.md）：
+#   MYSQL_HOST=154.8.183.10 MYSQL_PORT=3306 MYSQL_DATABASE=ai
+#   MYSQL_USER=root MYSQL_PASSWORD=password
+#
 # 注意：
-# 1) 不要把真实 Key 写进本文件并提交 Git
-# 2) 401 通常是 Key 错/过期/带空格引号，不是代码没加载到 Bean
+# 1) 不要把真实 LLM Key 写进本文件并提交 Git
+# 2) 本 MySQL 仅为学习测试库，严禁当公司生产库使用
 # 3) 修改本文件后需重启应用
 # 4) DeepSeek 只保证 Chat；真语义向量需另配有 /embeddings 的兼容网关
 ai:

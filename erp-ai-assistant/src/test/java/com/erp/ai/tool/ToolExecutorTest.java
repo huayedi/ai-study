@@ -15,10 +15,11 @@ class ToolExecutorTest {
 
     @BeforeEach
     void setUp() {
+        var data = new com.erp.ai.store.MemoryLearningDataRepository();
         ToolRegistry registry = new ToolRegistry();
-        registry.register(new com.erp.ai.tool.tools.QueryItemTool());
-        registry.register(new com.erp.ai.tool.tools.QueryInventoryTool());
-        registry.register(new com.erp.ai.tool.tools.QueryPeriodStatusTool());
+        registry.register(new com.erp.ai.tool.tools.QueryItemTool(data));
+        registry.register(new com.erp.ai.tool.tools.QueryInventoryTool(data));
+        registry.register(new com.erp.ai.tool.tools.QueryPeriodStatusTool(data));
         executor = new ToolExecutor(registry, 3000);
     }
 

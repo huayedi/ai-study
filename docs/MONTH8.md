@@ -4,6 +4,8 @@
 
 → [MONTH8_WORKFLOW_VIZ_COMPLETE.md](./lessons/MONTH8_WORKFLOW_VIZ_COMPLETE.md)
 
+**学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库非生产）
+
 **口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（第19章参考答法已展开为完整口述句）
 
 **技术节点：** T12 Flow 可视化（需 T7 Vue）  

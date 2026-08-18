@@ -4,6 +4,7 @@
 
 - 默认 `mock` 模式，无需 API Key 即可运行
 - `/api/ai/chat`：多轮会话、强制 JSON、校验失败重试、trace/token/成本日志
+- **学习库 MySQL**：会话 / 工具假主数据 / 审计落库（见 [docs/MYSQL.md](../docs/MYSQL.md)）
 - 可切换 OpenAI 兼容接口（含国产兼容网关）
 
 完整 20 周计划见：[docs/LEARNING_PLAN.md](../docs/LEARNING_PLAN.md)
@@ -20,15 +21,18 @@ erp-ai-assistant/
 │   ├── observability/    # 调用日志
 │   ├── prompt/           # 系统提示词加载
 │   ├── rag/              # 学习版 RAG（keyword / vector / hybrid）
-│   ├── tool/             # Day16 只读工具白名单 + 执行器（假数据）
+│   ├── store/            # JDBC：学习主数据 / 会话 / 审计（MySQL）
+│   ├── tool/             # Day16 只读工具白名单 + 执行器
 │   └── service/          # 会话、解析、编排
 ├── src/main/resources/
-│   ├── application.yml
+│   ├── application.yml   # AI + MySQL 数据源
+│   ├── db/schema.sql     # 学习库表结构
+│   ├── db/data.sql       # Day16 假主数据种子
 │   └── prompts/erp-system-prompt.txt
-└── src/test/java/        # 单元测试 + 接口测试
+└── src/test/java/        # 单元测试 + 接口测试（H2）
 ```
 
-`tool/` 白名单：`queryItem` / `queryInventory` / `queryPeriodStatus`；**无写库存工具**。
+`tool/` 白名单：`queryItem` / `queryInventory` / `queryPeriodStatus`；**无写库存工具**。主数据默认读 MySQL `learning_*` 表。
 
 ## IDEA 导入
 
@@ -42,11 +46,13 @@ erp-ai-assistant/
 
 - JDK 21+
 - Maven 3.8+
+- 学习库 MySQL：`154.8.183.10:3306/ai`（详见 [docs/MYSQL.md](../docs/MYSQL.md)）
 
 ### 2. 启动（mock，推荐先跑通）
 
 ```bash
 cd erp-ai-assistant
+# 可选：export MYSQL_HOST=154.8.183.10 MYSQL_DATABASE=ai MYSQL_USER=root MYSQL_PASSWORD=password
 mvn spring-boot:run
 ```
 

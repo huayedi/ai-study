@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。
 > **入口：** `docs/MONTH6.md`
 > **技术节点：** 本月对齐 **T10（Port/Adapter）；可选 WireMock/Testcontainers** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **学习库 MySQL：** [MYSQL.md](../MYSQL.md)（`154.8.183.10:3306/ai`）  
 > **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH6：多搜「六边形/Port Adapter/WireMock」；链接触发少 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **真适配器接口稳定化（Port/Adapter 契约 + Fake/Sandbox + 契约测试）**

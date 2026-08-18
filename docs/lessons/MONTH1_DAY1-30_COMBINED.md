@@ -5,6 +5,7 @@
 > **每天结构：** 为什么 → 概念/对照 → 怎么做（含代码或实验）→ 坑与排障 → 读完应掌握 / 当天验收。  
 > **入口：** `docs/MONTH1.md`  
 > **技术节点：** 本月对齐 **T0～T3（主）+ T5/T6 概念** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **学习库 MySQL：** [MYSQL.md](../MYSQL.md)（`154.8.183.10:3306/ai`）  
 > **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)（各口述节亦有就地答案）  
 > **建议视频（本月）：** MONTH1 优先：黑马 DeepSeek、吴恩达 RAG、Embedding；Spring AI 全集先收藏 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **约定：** 代码骨架在讲义中；由你自行落到 `erp-ai-assistant`；助教不擅自改你本地未提交实现。  
@@ -2010,7 +2011,9 @@ curl -s http://localhost:8080/api/ai/tool/invoke \
   -d '{"toolName":"queryInventory","args":{"itemCode":"ITEM-A001","warehouse":"原料仓"}}'
 ```
 
-### 假数据示例（写进配置或代码常量）
+### 假数据示例（学习库 MySQL · 表 learning_*）
+
+> 连接与表结构见 [MYSQL.md](../MYSQL.md)。种子在 `erp-ai-assistant/src/main/resources/db/data.sql`。
 
 ```text
 ITEM-A001 @ 原料仓 → 数量 120

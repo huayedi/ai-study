@@ -4,6 +4,8 @@
 
 → [MONTH4_DAY1-30_COMBINED.md](./lessons/MONTH4_DAY1-30_COMBINED.md)
 
+**学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库非生产）
+
 **口述标准答案：** [ORAL_ANSWERS.md](./ORAL_ANSWERS.md)（合订本口述节亦有就地答案）
 
 **技术节点：** T8 ACL/多租户 + T6 反馈飞轮 + T7 控制台  

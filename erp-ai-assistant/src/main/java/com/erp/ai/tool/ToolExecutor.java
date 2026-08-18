@@ -1,5 +1,6 @@
 package com.erp.ai.tool;
 
+import com.erp.ai.store.JdbcToolCallAuditRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,15 +16,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Day16：工具执行器 — 白名单 → 禁写硬拦 → 参数校验 → 超时 → 审计日志。
- * <p>
- * 学习纪律：即使将来有人误注册写工具，名字命中禁令也会被拒绝。
+ * Day16：工具执行器 — 白名单 → 禁写硬拦 → 参数校验 → 超时 → 审计（日志 + MySQL）。
  */
 public class ToolExecutor {
 
     private static final Logger log = LoggerFactory.getLogger(ToolExecutor.class);
 
-    /** 本月明确禁区：名称命中即拒，不查注册表（防误注册）。 */
     private static final Set<String> FORBIDDEN_NAMES = Set.of(
             "writeinventory",
             "updateinventory",
@@ -37,6 +35,7 @@ public class ToolExecutor {
 
     private final ToolRegistry registry;
     private final long timeoutMs;
+    private final JdbcToolCallAuditRepository auditRepository;
     private final ExecutorService pool = Executors.newCachedThreadPool(r -> {
         Thread t = new Thread(r, "tool-exec");
         t.setDaemon(true);
@@ -44,8 +43,13 @@ public class ToolExecutor {
     });
 
     public ToolExecutor(ToolRegistry registry, long timeoutMs) {
+        this(registry, timeoutMs, null);
+    }
+
+    public ToolExecutor(ToolRegistry registry, long timeoutMs, JdbcToolCallAuditRepository auditRepository) {
         this.registry = registry;
         this.timeoutMs = Math.max(1L, timeoutMs);
+        this.auditRepository = auditRepository;
     }
 
     public ToolResult run(String name, Map<String, Object> args) {
@@ -54,7 +58,7 @@ public class ToolExecutor {
         try {
             rejectForbidden(name);
             ToolHandler handler = registry.require(name);
-            handler.definition(); // touch definition for honesty path
+            handler.definition();
             Object data = callWithTimeout(() -> handler.execute(safeArgs), timeoutMs);
             long cost = System.currentTimeMillis() - t0;
             audit(name, safeArgs, true, cost, null);
@@ -94,13 +98,19 @@ public class ToolExecutor {
     }
 
     private void audit(String name, Map<String, Object> args, boolean ok, long latencyMs, String error) {
-        // 参数摘要脱敏：只打 key 集合与短字符串，避免日志里堆业务长文
         String argSummary = args.keySet().toString();
         if (ok) {
             log.info("tool audit name={} ok=true latencyMs={} argsKeys={}", name, latencyMs, argSummary);
         } else {
             log.warn("tool audit name={} ok=false latencyMs={} argsKeys={} error={}",
                     name, latencyMs, argSummary, error);
+        }
+        if (auditRepository != null) {
+            try {
+                auditRepository.insert(name, ok, argSummary, error, latencyMs);
+            } catch (Exception e) {
+                log.warn("tool_call_audit insert failed: {}", e.getMessage());
+            }
         }
     }
 

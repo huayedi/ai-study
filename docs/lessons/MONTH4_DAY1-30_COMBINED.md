@@ -6,6 +6,7 @@
 > **每天结构（固定六段）：** 为什么 → 概念加深 → 怎么做 → 代码骨架 → 坑与排障 → 当天验收。  
 > **入口：** `docs/MONTH4.md`  
 > **技术节点：** 本月对齐 **T8（+ T6 飞轮 / T7 控制台）** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **学习库 MySQL：** [MYSQL.md](../MYSQL.md)（`154.8.183.10:3306/ai`）  
 > **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH4 优先：Vue3 Vite、多租户/ACL 搜索；完整前端见 WEB · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **本月主题：** **「可隔离、可反馈、可演示」的学习版 ERP AI 助手** — 模拟 ACL、反馈飞轮、多租户 RAG、学习控制台正式化。  

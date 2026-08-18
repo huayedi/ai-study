@@ -1,5 +1,7 @@
 # 技术主导学习路线图（节点制）
 
+
+> **学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库；MONTH3 pgvector 为选修对照）
 > **这是什么：** 以**技术 / 框架**为主线的学习节点图——回答「什么时候学 Spring AI？什么时候开 Python？什么时候碰某项技术？」  
 > **这不是什么：** 不是再按 Day1～30 拆课；也不是替代第1～8月业务教材。业务能力仍读 `MONTH*.md` / `WEB.md`。  
 > **适用：** 5 年 Java ERP；每天 2～3 小时；先作品与本职能力，不急转岗。  
@@ -101,7 +103,7 @@ T16 进阶选修 ──► Redis / ES / Docker Compose / OpenTelemetry / 本地�
 | 项 | 内容 |
 |---|---|
 | **学什么** | Hybrid/RRF、Gate、简易 Rerank、`ChunkVectorStore` 抽象 |
-| **技术 / 框架** | **PostgreSQL + pgvector**（有环境再上；无则 memory） |
+| **技术 / 框架** | **学习库优先 MySQL**（见 [MYSQL.md](./MYSQL.md)）；**PostgreSQL + pgvector** 为选修对照（无则 memory） |
 | **前置** | T3 |
 | **产出** | retriever 可切换；质量日志字段 |
 | **教材** | MONTH2、MONTH3（Store/reindex） |

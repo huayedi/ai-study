@@ -1,5 +1,7 @@
 # 技术路线图
 
+
+> **学习库 MySQL：** [MYSQL.md](./MYSQL.md)（`154.8.183.10:3306/ai`，测试库；MONTH3 pgvector 为选修对照）
 以**技术 / 框架节点**为主线（Spring AI、Python、pgvector、Vue…何时学）：
 
 → [TECH_ROADMAP.md](./TECH_ROADMAP.md)

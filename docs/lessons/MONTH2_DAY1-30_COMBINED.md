@@ -5,6 +5,7 @@
 > **前置：** 第1月 Chat / Prompt / RAG（切分·关键词·向量）/ Tool·草稿概念。  
 > **入口：** `docs/MONTH2.md`  
 > **技术节点：** 本月对齐 **T4～T6** · 逐日前置见各 Day 开头 · 总图 [TECH_ROADMAP](../TECH_ROADMAP.md)  
+> **学习库 MySQL：** [MYSQL.md](../MYSQL.md)（`154.8.183.10:3306/ai`）  
 > **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH2 优先：吴恩达/RAG Hybrid、Camunda 仅概念；勿上 BPM 依赖 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 > **约定：** 骨架在讲义中；由你自行落到 `erp-ai-assistant`；助教不擅自改你本地未提交实现。

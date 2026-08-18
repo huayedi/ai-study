@@ -17,6 +17,7 @@
 >
 > **入口：** [docs/MONTH8.md](../MONTH8.md)
 > **技术节点：** 本月对齐 **T12（工作流可视化）**；需 **T7 Vue** + **T5 Flow** · [TECH_ROADMAP](../TECH_ROADMAP.md)
+> **学习库 MySQL：** [MYSQL.md](../MYSQL.md)（`154.8.183.10:3306/ai`）  
 > **口述标准答案：** [ORAL_ANSWERS.md](../ORAL_ANSWERS.md)  
 > **建议视频（本月）：** MONTH8：Vue + SVG；Camunda 只对照，不接设计器 · 逐日见各 Day/章「建议视频」· 总表 [BILIBILI.md](../BILIBILI.md)
 
