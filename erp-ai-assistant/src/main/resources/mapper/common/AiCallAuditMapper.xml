@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.ai.common.mapper.AiCallAuditMapper">
+
+    <insert id="insertAudit" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_call_audit(
+            trace_id, session_id, provider, model, success,
+            latency_ms, attempts, prompt_tokens, completion_tokens,
+            estimated_cost_usd, error_reason
+        ) VALUES (
+            #{traceId}, #{sessionId}, #{provider}, #{model}, #{success},
+            #{latencyMs}, #{attempts}, #{promptTokens}, #{completionTokens},
+            #{estimatedCostUsd}, #{errorReason}
+        )
+    </insert>
+
+    <select id="selectStats" resultType="map">
+        SELECT
+            COUNT(*) AS totalCalls,
+            COALESCE(SUM(success), 0) AS successCalls,
+            COALESCE(AVG(latency_ms), 0) AS avgLatencyMs,
+            COALESCE(SUM(prompt_tokens), 0) AS sumPromptTokens,
+            COALESCE(SUM(completion_tokens), 0) AS sumCompletionTokens,
+            COALESCE(SUM(estimated_cost_usd), 0) AS sumEstimatedCostUsd
+        FROM ai_call_audit
+    </select>
+
+</mapper>
