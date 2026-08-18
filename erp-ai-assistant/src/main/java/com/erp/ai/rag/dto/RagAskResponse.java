@@ -21,6 +21,14 @@ public class RagAskResponse {
     private long latencyMs;
     private int attempts;
     private Usage usage;
+    /** Day22 */
+    private String promptVersion;
+    private int topK;
+    /** Day24：检索分段耗时 */
+    private long searchMs;
+    private long llmMs;
+    /** Day24：例如 vector→keyword */
+    private String degradedFrom;
 
     public String getTraceId() {
         return traceId;
@@ -116,6 +124,46 @@ public class RagAskResponse {
 
     public void setUsage(Usage usage) {
         this.usage = usage;
+    }
+
+    public String getPromptVersion() {
+        return promptVersion;
+    }
+
+    public void setPromptVersion(String promptVersion) {
+        this.promptVersion = promptVersion;
+    }
+
+    public int getTopK() {
+        return topK;
+    }
+
+    public void setTopK(int topK) {
+        this.topK = topK;
+    }
+
+    public long getSearchMs() {
+        return searchMs;
+    }
+
+    public void setSearchMs(long searchMs) {
+        this.searchMs = searchMs;
+    }
+
+    public long getLlmMs() {
+        return llmMs;
+    }
+
+    public void setLlmMs(long llmMs) {
+        this.llmMs = llmMs;
+    }
+
+    public String getDegradedFrom() {
+        return degradedFrom;
+    }
+
+    public void setDegradedFrom(String degradedFrom) {
+        this.degradedFrom = degradedFrom;
     }
 
     public static class Source {

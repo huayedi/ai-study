@@ -15,4 +15,15 @@
         )
     </insert>
 
+    <select id="selectStats" resultType="map">
+        SELECT
+            COUNT(*) AS totalCalls,
+            COALESCE(SUM(success), 0) AS successCalls,
+            COALESCE(AVG(latency_ms), 0) AS avgLatencyMs,
+            COALESCE(SUM(prompt_tokens), 0) AS sumPromptTokens,
+            COALESCE(SUM(completion_tokens), 0) AS sumCompletionTokens,
+            COALESCE(SUM(estimated_cost_usd), 0) AS sumEstimatedCostUsd
+        FROM ai_call_audit
+    </select>
+
 </mapper>

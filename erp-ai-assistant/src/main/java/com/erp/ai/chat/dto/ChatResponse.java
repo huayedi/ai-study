@@ -42,6 +42,9 @@ public class ChatResponse {
      */
     private List<ToolTrace> toolTraces = List.of();
 
+    /** Day22：提示词版本（文件 hash） */
+    private String promptVersion;
+
     public String getTraceId() {
         return traceId;
     }
@@ -112,6 +115,14 @@ public class ChatResponse {
 
     public void setToolTraces(List<ToolTrace> toolTraces) {
         this.toolTraces = toolTraces == null ? List.of() : toolTraces;
+    }
+
+    public String getPromptVersion() {
+        return promptVersion;
+    }
+
+    public void setPromptVersion(String promptVersion) {
+        this.promptVersion = promptVersion;
     }
 
     /**

@@ -8,6 +8,7 @@ import com.erp.ai.common.observability.AiCallLog;
 import com.erp.ai.draft.dto.DraftRequest;
 import com.erp.ai.draft.dto.DraftResponse;
 import com.erp.ai.draft.prompt.DraftPromptLoader;
+import com.erp.ai.meta.service.MetaService;
 import com.erp.ai.tool.ToolResult;
 import com.erp.ai.tool.ToolTrace;
 import com.erp.ai.tool.service.ToolExecutor;
@@ -112,6 +113,7 @@ public class DraftService {
                 draft.setLatencyMs(latency);
                 draft.setAttempts(attempts);
                 draft.setToolTraces(traces);
+                draft.setPromptVersion(MetaService.promptVersion("draft-po", draftPromptLoader.load()));
 
                 DraftResponse.Usage usage = new DraftResponse.Usage();
                 usage.setPromptTokens(promptTokens);

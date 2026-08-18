@@ -11,6 +11,8 @@ import com.erp.ai.chat.dto.ChatResponse;
 import com.erp.ai.common.observability.AiCallLog;
 import com.erp.ai.common.parse.ReplyParser;
 import com.erp.ai.chat.prompt.SystemPromptLoader;
+import com.erp.ai.meta.service.MetaService;
+import com.erp.ai.security.service.InjectionGuard;
 import com.erp.ai.tool.service.ChatToolOrchestrator;
 import com.erp.ai.tool.ToolDefinition;
 import com.erp.ai.tool.service.ToolExecutor;
@@ -61,6 +63,7 @@ public class ChatService {
     private final ToolRegistry toolRegistry;
     private final ToolExecutor toolExecutor;
     private final ObjectMapper objectMapper;
+    private final InjectionGuard injectionGuard;
 
     public ChatService(LlmClient llmClient,
                        SessionStore sessionStore,
@@ -71,7 +74,8 @@ public class ChatService {
                        ChatToolOrchestrator chatToolOrchestrator,
                        ToolRegistry toolRegistry,
                        ToolExecutor toolExecutor,
-                       ObjectMapper objectMapper) {
+                       ObjectMapper objectMapper,
+                       InjectionGuard injectionGuard) {
         this.llmClient = llmClient;
         this.sessionStore = sessionStore;
         this.systemPromptLoader = systemPromptLoader;
@@ -82,12 +86,39 @@ public class ChatService {
         this.toolRegistry = toolRegistry;
         this.toolExecutor = toolExecutor;
         this.objectMapper = objectMapper;
+        this.injectionGuard = injectionGuard;
     }
 
     public ChatResponse chat(ChatRequest request) {
         String traceId = UUID.randomUUID().toString().replace("-", "");
         String sessionId = sessionStore.resolveSessionId(request.getSessionId());
         long started = System.currentTimeMillis();
+        String promptVersion = MetaService.promptVersion("erp-system", systemPromptLoader.getSystemPrompt());
+
+        // Day23：注入/越权话术早拦（硬防线仍是无写工具）
+        InjectionGuard.Verdict security = injectionGuard.inspect(request.getMessage());
+        if (security.blocked()) {
+            AssistantReply reply = new AssistantReply();
+            reply.setAnswer(security.reason());
+            reply.setNeedHuman(true);
+            reply.setConfidence(0.95);
+            long latency = System.currentTimeMillis() - started;
+            aiCallLog.success(traceId, sessionId, llmClient.providerName(), "security-guard",
+                    latency, 0, 0, 0, 0);
+            ChatResponse response = new ChatResponse();
+            response.setTraceId(traceId);
+            response.setSessionId(sessionId);
+            response.setProvider(llmClient.providerName());
+            response.setModel("security-guard");
+            response.setReply(reply);
+            response.setLatencyMs(latency);
+            response.setAttempts(0);
+            response.setToolTraces(List.of());
+            response.setPromptVersion(promptVersion);
+            ChatResponse.Usage usage = new ChatResponse.Usage();
+            response.setUsage(usage);
+            return response;
+        }
 
         String path = properties.getTool().normalizedChatPath();
         ChatToolOrchestrator.AugmentResult augment = "rule".equals(path)
@@ -150,6 +181,7 @@ public class ChatService {
                 response.setLatencyMs(latency);
                 response.setAttempts(attempts);
                 response.setToolTraces(List.copyOf(traces));
+                response.setPromptVersion(promptVersion);
 
                 ChatResponse.Usage usage = new ChatResponse.Usage();
                 usage.setPromptTokens(promptTokens);

@@ -26,6 +26,8 @@ public class DraftResponse {
     private Usage usage;
     /** 可选：后置 queryItem 校验轨迹 */
     private List<ToolTrace> toolTraces = List.of();
+    /** Day22 */
+    private String promptVersion;
 
     public String getTraceId() {
         return traceId;
@@ -129,6 +131,14 @@ public class DraftResponse {
 
     public void setToolTraces(List<ToolTrace> toolTraces) {
         this.toolTraces = toolTraces == null ? List.of() : List.copyOf(toolTraces);
+    }
+
+    public String getPromptVersion() {
+        return promptVersion;
+    }
+
+    public void setPromptVersion(String promptVersion) {
+        this.promptVersion = promptVersion;
     }
 
     public static class Usage {

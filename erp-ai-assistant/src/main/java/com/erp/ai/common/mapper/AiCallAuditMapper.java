@@ -8,4 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AiCallAuditMapper extends BaseMapper<AiCallAudit> {
 
     int insertAudit(AiCallAudit row);
+
+    /** Day22：聚合统计 */
+    java.util.Map<String, Object> selectStats();
 }

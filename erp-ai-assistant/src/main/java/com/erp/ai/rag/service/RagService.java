@@ -1,8 +1,6 @@
 package com.erp.ai.rag.service;
 
-import com.erp.ai.rag.DocumentCorpusLoader;
 import com.erp.ai.rag.GateDecision;
-import com.erp.ai.rag.GateStrength;
 import com.erp.ai.rag.HybridRetriever;
 import com.erp.ai.rag.KeywordRetriever;
 import com.erp.ai.rag.RagCorpusIndex;
@@ -20,9 +18,10 @@ import com.erp.ai.common.config.AiProperties;
 import com.erp.ai.common.model.AssistantReply;
 import com.erp.ai.common.model.ChatMessage;
 import com.erp.ai.common.observability.AiCallLog;
-import com.erp.ai.rag.dto.RagAskRequest;
-import com.erp.ai.rag.dto.RagAskResponse;
 import com.erp.ai.common.parse.ReplyParser;
+import com.erp.ai.meta.service.MetaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,6 +36,8 @@ import java.util.UUID;
  */
 @Service
 public class RagService {
+
+    private static final Logger log = LoggerFactory.getLogger(RagService.class);
 
     private final RagCorpusIndex corpusIndex;
     private final KeywordRetriever keywordRetriever;
@@ -77,14 +78,28 @@ public class RagService {
 
         RagRetriever retriever = selectRetriever();
         int topK = Math.max(1, properties.getRag().getTopK());
-        List<RetrievedChunk> retrieved = retriever.retrieve(
-                request.getQuestion(),
-                corpusIndex.allChunks(),
-                topK
-        );
+        String degradedFrom = null;
+
+        long searchStarted = System.currentTimeMillis();
+        List<RetrievedChunk> retrieved;
+        try {
+            retrieved = retriever.retrieve(request.getQuestion(), corpusIndex.allChunks(), topK);
+        } catch (Exception e) {
+            // Day24：向量/混合失败 → 关键词降级（可日志、可预期）
+            if (!"keyword".equals(retriever.name())) {
+                log.warn("retriever {} failed, fallback keyword: {}", retriever.name(), e.toString());
+                degradedFrom = retriever.name();
+                retriever = keywordRetriever;
+                retrieved = keywordRetriever.retrieve(request.getQuestion(), corpusIndex.allChunks(), topK);
+            } else {
+                throw e;
+            }
+        }
+        long searchMs = System.currentTimeMillis() - searchStarted;
 
         GateDecision gate = retrievalGate.decide(retrieved, properties.getRag().getMinScore());
         List<RetrievedChunk> gatedHits = gate.getHits();
+        String promptVersion = MetaService.promptVersion("rag-system", promptBuilder.systemPrompt());
 
         // 空命中：默认不调模型，sources 必须为空（禁止伪造引用）
         if (gate.isEmpty() && properties.getRag().isSkipLlmOnEmpty()) {
@@ -111,7 +126,12 @@ public class RagService {
                     "n/a",
                     0,
                     0,
-                    0
+                    0,
+                    promptVersion,
+                    topK,
+                    searchMs,
+                    0,
+                    degradedFrom
             );
         }
 
@@ -129,7 +149,9 @@ public class RagService {
         while (attempts < maxAttempts) {
             attempts++;
             try {
+                long llmStarted = System.currentTimeMillis();
                 LlmResult result = llmClient.chat(working);
+                long llmMs = System.currentTimeMillis() - llmStarted;
                 AssistantReply reply = replyParser.parse(result.getContent());
                 if (gate.isWeak() || gate.isEmpty()) {
                     reply.setNeedHuman(true);
@@ -164,7 +186,12 @@ public class RagService {
                         result.getModel(),
                         result.getPromptTokens(),
                         result.getCompletionTokens(),
-                        cost
+                        cost,
+                        promptVersion,
+                        topK,
+                        searchMs,
+                        llmMs,
+                        degradedFrom
                 );
             } catch (RuntimeException ex) {
                 lastError = ex;
@@ -199,7 +226,12 @@ public class RagService {
                                          String model,
                                          int promptTokens,
                                          int completionTokens,
-                                         double cost) {
+                                         double cost,
+                                         String promptVersion,
+                                         int topK,
+                                         long searchMs,
+                                         long llmMs,
+                                         String degradedFrom) {
         RagAskResponse response = new RagAskResponse();
         response.setTraceId(traceId);
         response.setProvider(llmClient.providerName());
@@ -212,6 +244,11 @@ public class RagService {
         response.setSources(toSources(retrieved));
         response.setLatencyMs(latency);
         response.setAttempts(attempts);
+        response.setPromptVersion(promptVersion);
+        response.setTopK(topK);
+        response.setSearchMs(searchMs);
+        response.setLlmMs(llmMs);
+        response.setDegradedFrom(degradedFrom);
 
         RagAskResponse.Usage usage = new RagAskResponse.Usage();
         usage.setPromptTokens(promptTokens);
