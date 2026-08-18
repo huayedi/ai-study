@@ -19,6 +19,8 @@ erp-ai-assistant/
 │   ├── model/            # 领域模型与 DTO
 │   ├── observability/    # 调用日志
 │   ├── prompt/           # 系统提示词加载
+│   ├── rag/              # 学习版 RAG（keyword / vector / hybrid）
+│   ├── tool/             # Day16 只读工具白名单 + 执行器（假数据）
 │   └── service/          # 会话、解析、编排
 ├── src/main/resources/
 │   ├── application.yml
@@ -26,7 +28,7 @@ erp-ai-assistant/
 └── src/test/java/        # 单元测试 + 接口测试
 ```
 
-后续阶段预留扩展：`rag/`、`document-assist/`、`tool/`、`eval/`。
+`tool/` 白名单：`queryItem` / `queryInventory` / `queryPeriodStatus`；**无写库存工具**。
 
 ## IDEA 导入
 
@@ -116,6 +118,16 @@ mvn test
 | `src/main/resources/prompts/erp-few-shot.txt` | 少样本示范（启动时追加到 system；Day6+） |
 | `src/main/resources/rag-docs/` | 通用 ERP 教材（RAG 索引来源） |
 | `POST /api/ai/rag/ask` | 学习版 RAG：关键词检索 + 带 sources 回答 |
+| `GET /api/ai/tool/list` | Day16：列出只读工具定义 |
+| `POST /api/ai/tool/invoke` | Day16：执行白名单工具（假数据；禁写） |
+
+手测库存示例：
+
+```bash
+curl -s http://localhost:8080/api/ai/tool/invoke \
+  -H 'Content-Type: application/json' \
+  -d '{"toolName":"queryInventory","args":{"itemCode":"ITEM-A001","warehouse":"原料仓"}}' | jq
+```
 
 ## 第 1 周建议练习
 

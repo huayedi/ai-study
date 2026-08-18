@@ -1973,6 +1973,12 @@ loop:
 
 ### 工具定义骨架
 
+> **已落地代码：** `erp-ai-assistant/src/main/java/com/erp/ai/tool/`  
+> - 白名单：`queryItem` / `queryInventory` / `queryPeriodStatus`  
+> - 执行器：`ToolExecutor`（禁写硬拦 + 校验 + 超时 + 审计日志）  
+> - 手测 API：`GET /api/ai/tool/list` · `POST /api/ai/tool/invoke`  
+> Day18 再接到 Chat（路径 A tool_calls / 路径 B 规则预查）。
+
 ```java
 public class ToolDefinition {
     private String name;
@@ -1994,6 +2000,14 @@ public class ToolRegistry {
         return h;
     }
 }
+```
+
+手测（原料仓应返回 120）：
+
+```bash
+curl -s http://localhost:8080/api/ai/tool/invoke \
+  -H 'Content-Type: application/json' \
+  -d '{"toolName":"queryInventory","args":{"itemCode":"ITEM-A001","warehouse":"原料仓"}}'
 ```
 
 ### 假数据示例（写进配置或代码常量）

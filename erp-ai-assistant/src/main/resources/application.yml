@@ -62,6 +62,9 @@ ai:
     embedding-model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
     embedding-base-url: ${AI_EMBEDDING_BASE_URL:} # 空则复用 ai.base-url
     embedding-dimensions: 256
+  # Day16：只读工具（白名单 + 超时 + 审计）；无写库存工具
+  tool:
+    timeout-ms: ${AI_TOOL_TIMEOUT_MS:3000}
 
 logging:
   level:

@@ -56,6 +56,9 @@ public class AiProperties {
     /** RAG 学习版子配置 */
     private Rag rag = new Rag();
 
+    /** Day16 只读工具子配置 */
+    private Tool tool = new Tool();
+
     public String getProvider() {
         return provider;
     }
@@ -142,6 +145,14 @@ public class AiProperties {
 
     public void setRag(Rag rag) {
         this.rag = rag;
+    }
+
+    public Tool getTool() {
+        return tool;
+    }
+
+    public void setTool(Tool tool) {
+        this.tool = tool;
     }
 
     /**
@@ -311,6 +322,24 @@ public class AiProperties {
 
         public void setSkipLlmOnEmpty(boolean skipLlmOnEmpty) {
             this.skipLlmOnEmpty = skipLlmOnEmpty;
+        }
+    }
+
+    /**
+     * Day16 只读工具配置。
+     * 对应 YAML：{@code ai.tool.*}
+     */
+    public static class Tool {
+
+        /** 单次工具执行超时（毫秒）；假数据也统一走超时习惯 */
+        private long timeoutMs = 3000;
+
+        public long getTimeoutMs() {
+            return timeoutMs;
+        }
+
+        public void setTimeoutMs(long timeoutMs) {
+            this.timeoutMs = timeoutMs;
         }
     }
 }
